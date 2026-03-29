@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>江原予備校 GAMBA｜方程式文章題 ME シリーズ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f2ed;--sf:#fff;--sf2:#eeeae2;--bd:#d6d2c8;--bd2:#bcb8ae;
+  --pink:#d93652;--teal:#0d9478;--blue:#2055b0;--amber:#a86000;--navy:#1a2a5e;
+  --tl:#e6f5f1;--bl:#eaf0fb;--al:#fdf2dd;--pl:#fde8eb;
+  --text:#1a1814;--text2:#58544c;--text3:#98948c;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+
+/* ══ ヘッダー ══ */
+.site-header{
+  background:linear-gradient(135deg,#1a2a5e 0%,#2c3e7a 60%,#1a4a7a 100%);
+  padding:0;position:sticky;top:0;z-index:100;
+  box-shadow:0 3px 16px rgba(0,0,0,.25);
+}
+.header-inner{max-width:900px;margin:0 auto;padding:1.1rem 1.5rem;display:flex;align-items:center;gap:16px;}
+.brand-badge{
+  background:var(--pink);color:#fff;font-family:'Shippori Mincho',serif;
+  font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:20px;
+  letter-spacing:.08em;white-space:nowrap;
+}
+.brand-name{
+  font-family:'Shippori Mincho',serif;font-size:1.55rem;font-weight:800;
+  color:#fff;letter-spacing:.05em;
+}
+.brand-name span{color:#f0c040;}
+.brand-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px;letter-spacing:.04em;}
+.header-right{margin-left:auto;text-align:right;}
+.header-series{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.1em;}
+.header-title{font-size:13px;color:#fff;font-weight:700;margin-top:2px;}
+
+/* ══ ヒーロー ══ */
+.hero{
+  background:linear-gradient(160deg,#1a2a5e 0%,#2c3e7a 50%,#14607a 100%);
+  padding:3rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 60%,rgba(240,192,64,.12) 0%,transparent 60%),
+             radial-gradient(ellipse at 75% 30%,rgba(13,148,120,.15) 0%,transparent 50%);
+}
+.hero-inner{position:relative;max-width:700px;margin:0 auto;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+  border-radius:20px;padding:5px 16px;font-size:12px;color:rgba(255,255,255,.8);
+  letter-spacing:.08em;margin-bottom:1.2rem;
+}
+.hero-eyebrow::before{content:'◆';color:#f0c040;font-size:9px;}
+.hero-h1{
+  font-family:'Shippori Mincho',serif;font-size:2.4rem;font-weight:800;
+  color:#fff;line-height:1.25;margin-bottom:.7rem;
+}
+.hero-h1 em{color:#f0c040;font-style:normal;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.72);line-height:1.85;margin-bottom:1.6rem;}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.htag{
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:20px;padding:4px 13px;font-size:12px;color:rgba(255,255,255,.85);
+}
+
+/* ══ メインコンテンツ ══ */
+main{max-width:900px;margin:0 auto;padding:2rem 1rem 5rem;}
+
+/* ══ セクション区切り ══ */
+.section-label{
+  display:flex;align-items:center;gap:10px;margin:2rem 0 1rem;
+}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:var(--bd);}
+.section-label span{
+  font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.12em;
+  background:var(--bg);padding:0 12px;white-space:nowrap;
+}
+
+/* ══ ユニットカード ══ */
+.unit-group{margin-bottom:1.8rem;}
+.unit-group-title{
+  font-size:13px;font-weight:700;color:var(--navy);
+  border-left:4px solid var(--navy);padding-left:10px;margin-bottom:.85rem;letter-spacing:.04em;
+}
+
+.unit-card{
+  background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  margin-bottom:.65rem;overflow:hidden;
+  transition:box-shadow .15s,transform .15s;
+}
+.unit-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.1);transform:translateY(-1px);}
+
+.unit-card-inner{display:flex;align-items:stretch;text-decoration:none;color:inherit;}
+
+/* 左のカラーバー */
+.unit-num{
+  width:72px;flex-shrink:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:4px;padding:.9rem .5rem;
+  font-family:'DM Mono',monospace;
+}
+.unit-num .num{font-size:1.1rem;font-weight:700;color:#fff;line-height:1;}
+.unit-num .sub{font-size:9px;color:rgba(255,255,255,.7);letter-spacing:.04em;}
+
+/* 色テーマ */
+.col-pink  {background:linear-gradient(160deg,#d93652,#f05570);}
+.col-rose  {background:linear-gradient(160deg,#c0392b,#e74c3c);}
+.col-blue  {background:linear-gradient(160deg,#2055b0,#3a72d0);}
+.col-cyan  {background:linear-gradient(160deg,#0a7abf,#1ab8e8);}
+.col-teal  {background:linear-gradient(160deg,#0d9478,#1abc9c);}
+.col-green {background:linear-gradient(160deg,#1e8449,#27ae60);}
+.col-amber {background:linear-gradient(160deg,#a86000,#f39c12);}
+.col-orange{background:linear-gradient(160deg,#c0392b,#e67e22);}
+.col-purple{background:linear-gradient(160deg,#6c3483,#9b59b6);}
+.col-navy  {background:linear-gradient(160deg,#1a2a5e,#2c3e7a);}
+.col-indigo{background:linear-gradient(160deg,#1a3070,#2980b9);}
+.col-brown {background:linear-gradient(160deg,#6d4c41,#a0522d);}
+
+/* カード本文 */
+.unit-body{flex:1;padding:.85rem 1.1rem .85rem 1rem;}
+.unit-head{display:flex;align-items:center;gap:8px;margin-bottom:.3rem;}
+.unit-code{
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  background:var(--sf2);border:1px solid var(--bd);
+  border-radius:4px;padding:2px 7px;color:var(--text3);
+}
+.unit-badge{
+  font-size:10px;font-weight:700;border-radius:4px;
+  padding:2px 8px;white-space:nowrap;
+}
+.badge-adv{background:#fde8eb;color:var(--pink);}
+.badge-std{background:var(--bl);color:var(--blue);}
+.badge-bas{background:var(--tl);color:var(--teal);}
+.unit-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:.2rem;}
+.unit-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+.unit-sub-links{display:flex;gap:6px;margin-top:.55rem;flex-wrap:wrap;}
+.sub-link{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--sf2);border:1px solid var(--bd);border-radius:20px;
+  padding:3px 11px;font-size:11px;color:var(--text2);text-decoration:none;
+  transition:all .12s;
+}
+.sub-link:hover{border-color:var(--blue);color:var(--blue);background:var(--bl);}
+.sub-link::before{content:'→';font-size:10px;color:var(--text3);}
+
+/* 右の矢印 */
+.unit-arrow{
+  width:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;color:var(--bd2);transition:color .15s,transform .15s;
+}
+.unit-card:hover .unit-arrow{color:var(--text2);transform:translateX(3px);}
+
+/* ══ 進捗バー（デコ） ══ */
+.progress-section{
+  background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  padding:1.2rem 1.5rem;margin-bottom:1.8rem;display:flex;gap:16px;align-items:center;
+}
+.prog-icon{font-size:1.6rem;}
+.prog-body{flex:1;}
+.prog-label{font-size:13px;font-weight:700;color:var(--text);margin-bottom:.5rem;}
+.prog-tracks{display:flex;gap:6px;}
+.prog-dot{
+  width:28px;height:28px;border-radius:50%;border:2px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:var(--text3);cursor:default;
+  background:var(--sf2);transition:all .2s;
+}
+.prog-dot.done{background:var(--teal);border-color:var(--teal);color:#fff;}
+.prog-tip{font-size:11px;color:var(--text3);margin-top:.4rem;}
+
+/* ══ フッター ══ */
+.site-footer{
+  background:var(--navy);padding:1.8rem 1.5rem;text-align:center;margin-top:2rem;
+}
+.footer-brand{
+  font-family:'Shippori Mincho',serif;font-size:1rem;font-weight:800;
+  color:#fff;margin-bottom:.3rem;letter-spacing:.06em;
+}
+.footer-brand span{color:#f0c040;}
+.footer-sub{font-size:11px;color:rgba(255,255,255,.5);}
+
+/* ══ レスポンシブ ══ */
+@media(max-width:480px){
+  .hero-h1{font-size:1.7rem;}
+  .unit-num{width:58px;}
+  .unit-name{font-size:14px;}
+  .brand-name{font-size:1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-badge">江原予備校</div>
+    <div>
+      <div class="brand-name">G<span>A</span>MB<span>A</span></div>
+      <div class="brand-sub">数学 デジタル学習システム</div>
+    </div>
+    <div class="header-right">
+      <div class="header-series">SERIES</div>
+      <div class="header-title">方程式 文章題 ME1〜ME10</div>
+    </div>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">中学1年生 ／ 一次方程式 文章題</div>
+    <h1 class="hero-h1">方程式で<em>解く</em><br>文章題マスター</h1>
+    <p class="hero-desc">
+      各単元は「例題 → 演習 → 確認問題」の3ステップ。<br>
+      タイマー・ヒント・段階解説・理解度マークで着実に力がつく。
+    </p>
+    <div class="hero-tags">
+      <span class="htag">🎯 タイマー付き</span>
+      <span class="htag">💡 ヒント機能</span>
+      <span class="htag">📊 STEP解説</span>
+      <span class="htag">🎉 花吹雪判定</span>
+      <span class="htag">📝 理解度マーク</span>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- 進捗トラッカー -->
+  <div class="progress-section">
+    <div class="prog-icon">📈</div>
+    <div class="prog-body">
+      <div class="prog-label">学習進捗（自分でチェック！）</div>
+      <div class="prog-tracks">
+        <div class="prog-dot" id="pd1" onclick="toggleDot(1)" title="ME1">1</div>
+        <div class="prog-dot" id="pd2" onclick="toggleDot(2)" title="ME2">2</div>
+        <div class="prog-dot" id="pd3" onclick="toggleDot(3)" title="ME2-0〜3">速さ</div>
+        <div class="prog-dot" id="pd4" onclick="toggleDot(4)" title="ME3">3</div>
+        <div class="prog-dot" id="pd5" onclick="toggleDot(5)" title="ME4">4</div>
+        <div class="prog-dot" id="pd6" onclick="toggleDot(6)" title="ME5">5</div>
+        <div class="prog-dot" id="pd7" onclick="toggleDot(7)" title="ME6〜6-2">6</div>
+        <div class="prog-dot" id="pd8" onclick="toggleDot(8)" title="ME7">7</div>
+        <div class="prog-dot" id="pd9" onclick="toggleDot(9)" title="ME8">8</div>
+        <div class="prog-dot" id="pd10" onclick="toggleDot(10)" title="ME9">9</div>
+        <div class="prog-dot" id="pd11" onclick="toggleDot(11)" title="ME10">10</div>
+      </div>
+      <div class="prog-tip">タップすると完了マーク（緑）になります。</div>
+    </div>
+  </div>
+
+  <!-- ══ 基礎 ══ -->
+  <div class="section-label"><span>📗 基礎 BASIC</span></div>
+
+  <div class="unit-group">
+    <div class="unit-group-title">個数・代金の問題</div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME1.html">
+        <div class="unit-num col-pink"><span class="num">ME1</span><span class="sub">基礎</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME1</span>
+            <span class="unit-badge badge-bas">📗 基礎</span>
+          </div>
+          <div class="unit-name">個数と代金①</div>
+          <div class="unit-desc">2種類の商品の個数・合計金額から方程式をつくる基本問題。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME2.html">
+        <div class="unit-num col-rose"><span class="num">ME2</span><span class="sub">基礎</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME2</span>
+            <span class="unit-badge badge-bas">📗 基礎</span>
+          </div>
+          <div class="unit-name">個数と代金②</div>
+          <div class="unit-desc">切手・チケットなど，種類ごとの枚数と代金の問題。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ 速さ ══ -->
+  <div class="section-label"><span>🚀 速さ・時間・距離</span></div>
+
+  <div class="unit-group">
+    <div class="unit-group-title">速さの問題シリーズ</div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME2-0.html">
+        <div class="unit-num col-cyan"><span class="num">ME2</span><span class="sub">-0　基本</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME2-0</span>
+            <span class="unit-badge badge-bas">📗 基礎</span>
+          </div>
+          <div class="unit-name">速さの基本（き・じ・は）</div>
+          <div class="unit-desc">距離・時間・速さの公式と，分を時間に直す単位変換の練習。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <div class="unit-card-inner" style="cursor:default;">
+        <div class="unit-num col-blue"><span class="num">ME2</span><span class="sub">-1〜3</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME2-1〜3</span>
+            <span class="unit-badge badge-std">📘 標準</span>
+          </div>
+          <div class="unit-name">速さ① 往復　② 出会い　③ 追いつき</div>
+          <div class="unit-desc">各パターンに線分図付きで丁寧に解説。</div>
+          <div class="unit-sub-links">
+            <a class="sub-link" href="ME2-1.html">① 往復の問題</a>
+            <a class="sub-link" href="ME2-2.html">② 出会いの問題</a>
+            <a class="sub-link" href="ME2-3.html">③ 追いつきの問題</a>
+          </div>
+        </div>
+        <div class="unit-arrow" style="opacity:0;">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 標準 ══ -->
+  <div class="section-label"><span>📘 標準 STANDARD</span></div>
+
+  <div class="unit-group">
+    <div class="unit-group-title">文章題の基本パターン</div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME3.html">
+        <div class="unit-num col-teal"><span class="num">ME3</span><span class="sub">標準</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME3</span>
+            <span class="unit-badge badge-std">📘 標準</span>
+          </div>
+          <div class="unit-name">過不足の問題</div>
+          <div class="unit-desc">「○個ずつ配ると余る / 足りない」2通りの分け方から方程式をつくる。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME4.html">
+        <div class="unit-num col-green"><span class="num">ME4</span><span class="sub">標準</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME4</span>
+            <span class="unit-badge badge-std">📘 標準</span>
+          </div>
+          <div class="unit-name">年齢の問題</div>
+          <div class="unit-desc">「○年後に○倍になる」現在と未来の年齢を表で整理して解く。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME5.html">
+        <div class="unit-num col-amber"><span class="num">ME5</span><span class="sub">標準</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME5</span>
+            <span class="unit-badge badge-std">📘 標準</span>
+          </div>
+          <div class="unit-name">解と定数 a の問題</div>
+          <div class="unit-desc">「解が○○のとき a の値を求める」x に値を代入して a を求める。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="unit-group">
+    <div class="unit-group-title">比例式の利用</div>
+
+    <div class="unit-card">
+      <div class="unit-card-inner" style="cursor:default;">
+        <div class="unit-num col-orange"><span class="num">ME6</span><span class="sub">①②③</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME6〜ME6-2</span>
+            <span class="unit-badge badge-std">📘 標準</span>
+          </div>
+          <div class="unit-name">比例式の利用 ①②③</div>
+          <div class="unit-desc">ad＝bc の基本から，合計・差・変化後の比まで3段階で学ぶ。</div>
+          <div class="unit-sub-links">
+            <a class="sub-link" href="ME6.html">① 比例式の基本</a>
+            <a class="sub-link" href="ME6-1.html">② 合計・差から求める</a>
+            <a class="sub-link" href="ME6-2.html">③ 応用【入試】</a>
+          </div>
+        </div>
+        <div class="unit-arrow" style="opacity:0;">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 応用 ══ -->
+  <div class="section-label"><span>📕 応用 ADVANCED</span></div>
+
+  <div class="unit-group">
+    <div class="unit-group-title">応用問題【入試対策】</div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME7.html">
+        <div class="unit-num col-purple"><span class="num">ME7</span><span class="sub">応用</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME7</span>
+            <span class="unit-badge badge-adv">📕 応用</span>
+          </div>
+          <div class="unit-name">桁の問題【応用】</div>
+          <div class="unit-desc">2桁の数の「入れ替え」「桁の和」をテーマにした入試頻出問題。ビジュアル桁図解付き。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME8.html">
+        <div class="unit-num col-navy"><span class="num">ME8</span><span class="sub">応用</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME8</span>
+            <span class="unit-badge badge-adv">📕 応用</span>
+          </div>
+          <div class="unit-name">列車の問題【応用】</div>
+          <div class="unit-desc">「橋の長さ＋列車の長さ＝走る距離」を2段SVG図解で丁寧に解説。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME9.html">
+        <div class="unit-num col-indigo"><span class="num">ME9</span><span class="sub">応用</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME9</span>
+            <span class="unit-badge badge-adv">📕 応用</span>
+          </div>
+          <div class="unit-name">食塩水・濃度の問題【応用】</div>
+          <div class="unit-desc">濃度の公式と「食塩の量」に注目した方程式。混合・加水・加塩の3パターン。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+
+    <div class="unit-card">
+      <a class="unit-card-inner" href="ME10.html">
+        <div class="unit-num col-brown"><span class="num">ME10</span><span class="sub">応用</span></div>
+        <div class="unit-body">
+          <div class="unit-head">
+            <span class="unit-code">ME10</span>
+            <span class="unit-badge badge-adv">📕 応用</span>
+          </div>
+          <div class="unit-name">時計の問題【応用】</div>
+          <div class="unit-desc">長針・短針の速さ（5.5度/分の差）を使った入試頻出の応用問題。重なり・一直線の2パターン。</div>
+        </div>
+        <div class="unit-arrow">›</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 凡例 -->
+  <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1rem 1.4rem;margin-top:1rem;">
+    <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:.6rem;letter-spacing:.05em;">難易度の目安</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <span style="font-size:12px;"><span style="background:#eafaf1;border:1px solid var(--teal);border-radius:4px;padding:2px 8px;font-weight:700;color:var(--teal);">📗 基礎</span>　方程式の立て方を学ぶ基本問題</span>
+      <span style="font-size:12px;"><span style="background:var(--bl);border:1px solid var(--blue);border-radius:4px;padding:2px 8px;font-weight:700;color:var(--blue);">📘 標準</span>　公立高校入試レベル</span>
+      <span style="font-size:12px;"><span style="background:var(--pl);border:1px solid var(--pink);border-radius:4px;padding:2px 8px;font-weight:700;color:var(--pink);">📕 応用</span>　入試頻出・やや難</span>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-brand">江原予備校　<span>GAMBA</span>　数学 デジタル学習システム</div>
+  <div class="footer-sub">中学1年生 一次方程式 文章題シリーズ　ME1〜ME10</div>
+</footer>
+
+<script>
+// 進捗ドット
+function toggleDot(n) {
+  const el = document.getElementById('pd'+n);
+  el.classList.toggle('done');
+  saveProg();
+}
+function saveProg() {
+  try {
+    const state = {};
+    for(let i=1;i<=11;i++) state[i] = document.getElementById('pd'+i).classList.contains('done');
+    sessionStorage.setItem('me_prog', JSON.stringify(state));
+  } catch(e) {}
+}
+function loadProg() {
+  try {
+    const state = JSON.parse(sessionStorage.getItem('me_prog')||'{}');
+    for(let i=1;i<=11;i++) if(state[i]) document.getElementById('pd'+i).classList.add('done');
+  } catch(e) {}
+}
+loadProg();
+</script>
+</body>
+</html>
