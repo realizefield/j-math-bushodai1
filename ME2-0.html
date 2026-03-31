@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMBA｜速さ・時間・距離の基本</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--sf:#fff;--sf2:#f0ede6;--bd:#d6d2c8;--bd2:#bcb8ae;--pink:#d93652;--teal:#0d9478;--blue:#2055b0;--amber:#a86000;--tl:#e6f5f1;--bl:#eaf0fb;--al:#fdf2dd;--pl:#fde8eb;--text:#1a1814;--text2:#58544c;--text3:#98948c;--r:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+.site-header{background:var(--sf);border-bottom:1px solid var(--bd);padding:.65rem 1.5rem;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--pink);}
+.logo-sep{color:var(--bd2);}
+.logo-sub{font-size:12px;color:var(--text2);}
+main{max-width:720px;margin:0 auto;padding:1.5rem 1rem 6rem;}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem 1.5rem;margin-bottom:1.2rem;}
+.sec-title{font-size:15px;font-weight:700;color:var(--blue);border-left:5px solid var(--blue);padding-left:10px;margin-bottom:1.2rem;}
+.point-box{background:var(--al);border:1px solid #e0c888;border-radius:9px;padding:.8rem 1.1rem;margin-bottom:1rem;font-size:13px;color:var(--amber);line-height:1.8;}
+.point-box strong{display:block;font-size:10px;letter-spacing:.08em;margin-bottom:3px;}
+
+/* き・じ・は 円図 */
+.kiji-wrap{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;margin-bottom:1.2rem;}
+.kiji-circle-wrap{flex-shrink:0;}
+.kiji-ankibox{background:#fff8f0;border:1.5px solid #f39c12;border-radius:10px;padding:.8rem 1.1rem;font-size:13px;color:#a86000;line-height:1.9;flex:1;min-width:180px;}
+.kiji-ankibox .anki-title{font-weight:700;font-size:12px;letter-spacing:.06em;color:#e67e22;margin-bottom:.3rem;}
+.kiji-ankibox .anki-kana{font-size:19px;font-weight:900;color:#e67e22;letter-spacing:.15em;}
+
+/* 公式カード3つ */
+.formula-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.2rem;}
+@media(max-width:480px){.formula-grid{grid-template-columns:1fr;}}
+.formula-card{background:var(--sf2);border:1.5px solid var(--bd);border-radius:10px;padding:.9rem .8rem;text-align:center;}
+.formula-card .fc-title{font-size:11px;color:var(--text3);margin-bottom:.4rem;font-weight:700;}
+.formula-card .fc-eq{font-size:14px;font-weight:700;color:var(--text);line-height:1.7;}
+.formula-card.dist{border-color:#2980b9;background:#eaf4fb;}
+.formula-card.time{border-color:#27ae60;background:#eafaf1;}
+.formula-card.speed{border-color:#e67e22;background:#fef5ec;}
+.formula-card.dist .fc-title{color:#2980b9;}
+.formula-card.time .fc-title{color:#27ae60;}
+.formula-card.speed .fc-title{color:#e67e22;}
+
+/* 穴埋め練習 */
+.drill-box{background:var(--sf2);border-radius:9px;padding:1rem 1.2rem;margin-bottom:.8rem;}
+.drill-row{display:flex;align-items:center;gap:8px;margin-bottom:.6rem;flex-wrap:wrap;font-size:14.5px;}
+.drill-label{min-width:30px;font-weight:700;color:var(--text3);}
+input[type="text"].ans-input{width:72px;height:32px;border:2px solid var(--bd);border-radius:6px;text-align:center;font-size:14px;font-family:'Noto Sans JP',sans-serif;outline:none;transition:border-color .15s;}
+input[type="text"].ans-input:focus{border-color:var(--blue);}
+input[type="text"].ans-input.ok{border-color:var(--teal);background:#eafaf1;color:var(--teal);}
+input[type="text"].ans-input.ng{border-color:var(--pink);background:#fde8eb;color:var(--pink);}
+.check-btn{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-top:.5rem;transition:background .15s;}
+.check-btn:hover{background:#0b7560;}
+.drill-result{font-size:13px;margin-top:.4rem;font-weight:700;}
+.drill-result.ok{color:var(--teal);}
+.drill-result.ng{color:var(--pink);}
+
+/* 時間変換表 */
+.conv-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:1rem;}
+.conv-table th{background:var(--bl);color:var(--blue);font-weight:700;padding:8px 10px;border:1.5px solid #aed6f1;text-align:center;font-size:12px;}
+.conv-table td{padding:8px 10px;border:1.5px solid #aed6f1;text-align:center;background:#fff;}
+.conv-table .hi{background:#fff8e1;font-weight:700;color:var(--amber);}
+
+/* 変換練習 */
+.conv-drill{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+@media(max-width:480px){.conv-drill{grid-template-columns:1fr;}}
+.conv-item{background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:.8rem 1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;}
+.conv-item .ci-from{font-weight:700;color:var(--text);min-width:90px;}
+.conv-arrow{color:var(--teal);font-weight:700;}
+.conv-ans{display:flex;align-items:center;gap:4px;}
+.frac-input-wrap{display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;vertical-align:middle;}
+.frac-input-wrap input{width:44px;height:26px;border:2px solid var(--bd);border-radius:4px;text-align:center;font-size:13px;outline:none;}
+.frac-input-wrap input:focus{border-color:var(--blue);}
+.frac-input-wrap input.ok{border-color:var(--teal);background:#eafaf1;color:var(--teal);}
+.frac-input-wrap input.ng{border-color:var(--pink);background:#fde8eb;color:var(--pink);}
+.frac-line{width:44px;height:2px;background:var(--text);margin:1px 0;}
+
+.section-divider{border:none;border-top:2px dashed var(--bd);margin:1.8rem 0;}
+.next-link{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--bl);border:1.5px solid var(--blue);border-radius:var(--r);font-size:14px;font-weight:700;color:var(--blue);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .15s;text-decoration:none;margin-top:1rem;}
+.next-link:hover{background:#c5d8f5;}
+
+/* ── フィードバックバナー ── */
+.fb-ok{display:none;align-items:center;gap:12px;background:#e6faf3;border:2px solid #0d9478;border-radius:12px;padding:12px 16px;margin:8px 0 4px;animation:fbPop .3s ease;}
+.fb-ng{display:none;align-items:center;gap:12px;background:#fde8eb;border:2px solid #d93652;border-radius:12px;padding:12px 16px;margin:8px 0 4px;animation:fbPop .3s ease;}
+@keyframes fbPop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+/* ── リセットボタン ── */
+.reset-btn{background:none;border:1.5px solid #d93652;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;color:#d93652;cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-left:auto;flex-shrink:0;transition:all .15s;white-space:nowrap;}
+.reset-btn:hover{background:#d93652;color:#fff;}
+.fb-icon{font-size:1.7rem;flex-shrink:0;}
+.fb-text{font-size:13px;font-weight:700;line-height:1.5;}
+.fb-ok .fb-text{color:#0d9478;}
+.fb-ng .fb-text{color:#d93652;}
+.fb-sub{font-size:11px;font-weight:400;display:block;margin-top:1px;opacity:.8;}
+/* ── 単元ナビ ── */
+.unit-nav{display:none;flex-direction:column;gap:10px;margin:1.8rem 0 0;padding-top:1.4rem;border-top:2px dashed #d6d2c8;}
+.unit-nav-row{display:flex;gap:8px;flex-wrap:wrap;}
+.unav-btn{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;border:2px solid;font-family:'Noto Sans JP',sans-serif;transition:all .15s;text-align:center;}
+.unav-index{background:#fff;border-color:#d6d2c8;color:#58544c;}
+.unav-index:hover{border-color:#2055b0;color:#2055b0;background:#eaf0fb;}
+.unav-prev{background:#f0ede6;border-color:#bcb8ae;color:#58544c;}
+.unav-prev:hover{border-color:#0d9478;color:#0d9478;}
+.unav-next{background:#2055b0;border-color:#2055b0;color:#fff;}
+.unav-next:hover{background:#153a80;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="logo">GAMBA</span><span class="logo-sep">|</span>
+  <span class="logo-sub">中1 方程式文章題 ／ 速さ・時間・距離の基本</span>
+</header>
+
+<main>
+
+<!-- ══ セクション1: き・じ・は ══ -->
+<div class="card">
+  <div class="sec-title">📐 速さ・時間・距離の公式</div>
+
+  <div class="kiji-wrap">
+    <!-- SVG 円図 -->
+    <div class="kiji-circle-wrap">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <!-- 外円 -->
+        <circle cx="80" cy="80" r="70" fill="#eaf4fb" stroke="#2980b9" stroke-width="2.5"/>
+        <!-- 横の仕切り線 -->
+        <line x1="10" y1="80" x2="150" y2="80" stroke="#2980b9" stroke-width="2"/>
+        <!-- 縦の仕切り線（下半分） -->
+        <line x1="80" y1="80" x2="80" y2="150" stroke="#2980b9" stroke-width="2"/>
+        <!-- ÷ 記号（上→左下） -->
+        <text x="36" y="115" font-size="18" font-weight="900" fill="#e67e22" text-anchor="middle">÷</text>
+        <!-- × 記号（左下→右下） -->
+        <text x="80" y="130" font-size="16" font-weight="900" fill="#e67e22" text-anchor="middle">×</text>
+        <!-- ÷ 記号（上→右下） -->
+        <text x="124" y="115" font-size="18" font-weight="900" fill="#e67e22" text-anchor="middle">÷</text>
+        <!-- き（距離） -->
+        <text x="80" y="56" font-size="22" font-weight="900" fill="#1a5276" text-anchor="middle">き</text>
+        <!-- じ（時間） -->
+        <text x="40" y="108" font-size="20" font-weight="900" fill="#27ae60" text-anchor="middle">じ</text>
+        <!-- は（速さ） -->
+        <text x="120" y="108" font-size="20" font-weight="900" fill="#d93652" text-anchor="middle">は</text>
+        <!-- ラベル小文字 -->
+        <text x="80" y="72" font-size="9" fill="#888" text-anchor="middle">距離</text>
+        <text x="40" y="120" font-size="9" fill="#888" text-anchor="middle">時間</text>
+        <text x="120" y="120" font-size="9" fill="#888" text-anchor="middle">速さ</text>
+      </svg>
+    </div>
+
+    <!-- 暗記法ボックス -->
+    <div class="kiji-ankibox">
+      <div class="anki-title">【暗記法】</div>
+      <div class="anki-kana">「木 の 下 に じいさん ばあさん」</div>
+      <div style="margin-top:.5rem;font-size:13px;line-height:2;">
+        <span style="font-weight:700;color:#1a5276;">き</span> = 距離（キョリ）<br>
+        <span style="font-weight:700;color:#27ae60;">じ</span> = 時間（ジカン）<br>
+        <span style="font-weight:700;color:#d93652;">は</span> = 速さ（ハヤさ）
+      </div>
+      <div style="margin-top:.6rem;font-size:12px;color:#888;">
+        求めたい文字を隠すと，残りの計算がわかる！
+      </div>
+    </div>
+  </div>
+
+  <!-- 公式3つ -->
+  <div class="formula-grid">
+    <div class="formula-card dist">
+      <div class="fc-title">📏 距離を求める</div>
+      <div class="fc-eq">距離<br>= 速さ × 時間</div>
+    </div>
+    <div class="formula-card time">
+      <div class="fc-title">⏱ 時間を求める</div>
+      <div class="fc-eq">時間<br>= 距離 ÷ 速さ</div>
+    </div>
+    <div class="formula-card speed">
+      <div class="fc-title">💨 速さを求める</div>
+      <div class="fc-eq">速さ<br>= 距離 ÷ 時間</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ セクション2: 公式の確認練習 ══ -->
+<div class="card">
+  <div class="sec-title">✏️ 練習①　公式の確認</div>
+  <p style="font-size:13.5px;color:var(--text2);margin-bottom:1rem;">□に「距離」「時間」「速さ」を入れなさい。</p>
+
+  <!-- (1) 距離 -->
+  <div class="drill-box">
+    <div class="drill-row">
+      <span class="drill-label">（1）</span>
+      <span>距離 ＝</span>
+      <input type="text" class="ans-input" id="d1" placeholder="？">
+      <span>×</span>
+      <input type="text" class="ans-input" id="d2" placeholder="？">
+    </div>
+    <div id="r1" class="drill-result"></div>
+  </div>
+
+  <!-- (2) 時間 -->
+  <div class="drill-box">
+    <div class="drill-row">
+      <span class="drill-label">（2）</span>
+      <span>時間 ＝</span>
+      <input type="text" class="ans-input" id="d3" placeholder="？">
+      <span>÷</span>
+      <input type="text" class="ans-input" id="d4" placeholder="？">
+    </div>
+    <div id="r2" class="drill-result"></div>
+  </div>
+
+  <!-- (3) 速さ -->
+  <div class="drill-box">
+    <div class="drill-row">
+      <span class="drill-label">（3）</span>
+      <span>速さ ＝</span>
+      <input type="text" class="ans-input" id="d5" placeholder="？">
+      <span>÷</span>
+      <input type="text" class="ans-input" id="d6" placeholder="？">
+    </div>
+    <div id="r3" class="drill-result"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkFormula()">答え合わせ</button>
+  <div id="formula-overall" style="margin-top:.6rem;font-size:13px;"></div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ══ セクション3: 計算練習 ══ -->
+<div class="card">
+  <div class="sec-title">✏️ 練習②　数値で求めよう</div>
+  <p style="font-size:13.5px;color:var(--text2);margin-bottom:1rem;">公式を使って答えを求めなさい。</p>
+
+  <div class="drill-box" style="margin-bottom:10px;">
+    <div class="drill-row">
+      <span class="drill-label">（1）</span>
+      <span>時速4 km で3時間進んだときの距離</span>
+    </div>
+    <div class="drill-row" style="margin-left:30px;">
+      <span>距離 = 4 × 3 =</span>
+      <input type="text" class="ans-input" id="c1" placeholder="？">
+      <span>km</span>
+    </div>
+    <div id="rc1" class="drill-result"></div>
+  </div>
+
+  <div class="drill-box" style="margin-bottom:10px;">
+    <div class="drill-row">
+      <span class="drill-label">（2）</span>
+      <span>12 km を時速4 km で進んだときの時間</span>
+    </div>
+    <div class="drill-row" style="margin-left:30px;">
+      <span>時間 = 12 ÷ 4 =</span>
+      <input type="text" class="ans-input" id="c2" placeholder="？">
+      <span>時間</span>
+    </div>
+    <div id="rc2" class="drill-result"></div>
+  </div>
+
+  <div class="drill-box" style="margin-bottom:10px;">
+    <div class="drill-row">
+      <span class="drill-label">（3）</span>
+      <span>30 km を6時間で進んだときの速さ</span>
+    </div>
+    <div class="drill-row" style="margin-left:30px;">
+      <span>速さ = 30 ÷ 6 =</span>
+      <input type="text" class="ans-input" id="c3" placeholder="？">
+      <span>km/h</span>
+    </div>
+    <div id="rc3" class="drill-result"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkCalc()">答え合わせ</button>
+</div>
+
+<hr class="section-divider">
+
+<!-- ══ セクション4: 時間の単位変換 ══ -->
+<div class="card">
+  <div class="sec-title">⏱ 練習③　時間の単位変換（分 → 時間）</div>
+
+  <div class="point-box">
+    <strong>ポイント：分を時間になおすには 60 で割る</strong>
+    例）30分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">30</span><span style="padding:0 3px;font-weight:bold;">60</span></span> = <strong><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">1</span><span style="padding:0 3px;font-weight:bold;">2</span></span> 時間</strong>　　　90分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">90</span><span style="padding:0 3px;font-weight:bold;">60</span></span> = <strong><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">3</span><span style="padding:0 3px;font-weight:bold;">2</span></span> 時間</strong><br>
+    例）2時間15分 = （2×60＋15）分 = 135分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">135</span><span style="padding:0 3px;font-weight:bold;">60</span></span> = <strong><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">9</span><span style="padding:0 3px;font-weight:bold;">4</span></span> 時間</strong>
+  </div>
+
+  <!-- 変換の手順 -->
+  <div style="background:#e8f8f5;border:1.5px solid #1abc9c;border-radius:9px;padding:.9rem 1.2rem;margin-bottom:1.2rem;font-size:14px;line-height:2.2;">
+    <span style="font-weight:700;color:#1abc9c;">2時間15分 を時間になおす手順：</span><br>
+    ① 全部を分になおす：2×60＋15 = <strong>135分</strong><br>
+    ② 60で割る：135 ÷ 60 = <strong><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">135</span><span style="padding:0 3px;font-weight:bold;">60</span></span> = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">9</span><span style="padding:0 3px;font-weight:bold;">4</span></span> 時間</strong>
+  </div>
+
+  <!-- 変換表 -->
+  <table class="conv-table">
+    <tr><th>もとの時間</th><th>分になおす</th><th>÷ 60</th><th>仮分数（時間）</th></tr>
+    <tr><td>30分</td><td>30分</td><td><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">30</span><span style="padding:0 3px;font-weight:bold;">60</span></span></td><td class="hi"><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">1</span><span style="padding:0 3px;font-weight:bold;">2</span></span> 時間</td></tr>
+    <tr><td>45分</td><td>45分</td><td><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">45</span><span style="padding:0 3px;font-weight:bold;">60</span></span></td><td class="hi"><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">3</span><span style="padding:0 3px;font-weight:bold;">4</span></span> 時間</td></tr>
+    <tr><td>1時間30分</td><td>90分</td><td><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">90</span><span style="padding:0 3px;font-weight:bold;">60</span></span></td><td class="hi"><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">3</span><span style="padding:0 3px;font-weight:bold;">2</span></span> 時間</td></tr>
+    <tr><td>2時間15分</td><td>135分</td><td><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">135</span><span style="padding:0 3px;font-weight:bold;">60</span></span></td><td class="hi"><span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">9</span><span style="padding:0 3px;font-weight:bold;">4</span></span> 時間</td></tr>
+  </table>
+
+  <!-- 変換練習 -->
+  <p style="font-size:13.5px;color:var(--text2);margin-bottom:.8rem;">□に数を入れて，時間を仮分数で表しなさい。</p>
+  <div class="conv-drill">
+
+    <div class="conv-item">
+      <span class="ci-from">1時間20分</span>
+      <span class="conv-arrow">＝</span>
+      <span class="conv-ans">
+        <div class="frac-input-wrap">
+          <input type="text" id="t1n" placeholder="?">
+          <div class="frac-line"></div>
+          <input type="text" id="t1d" placeholder="?">
+        </div>
+        <span style="margin-left:4px;">時間</span>
+      </span>
+    </div>
+
+    <div class="conv-item">
+      <span class="ci-from">1時間12分</span>
+      <span class="conv-arrow">＝</span>
+      <span class="conv-ans">
+        <div class="frac-input-wrap">
+          <input type="text" id="t2n" placeholder="?">
+          <div class="frac-line"></div>
+          <input type="text" id="t2d" placeholder="?">
+        </div>
+        <span style="margin-left:4px;">時間</span>
+      </span>
+    </div>
+
+    <div class="conv-item">
+      <span class="ci-from">3時間40分</span>
+      <span class="conv-arrow">＝</span>
+      <span class="conv-ans">
+        <div class="frac-input-wrap">
+          <input type="text" id="t3n" placeholder="?">
+          <div class="frac-line"></div>
+          <input type="text" id="t3d" placeholder="?">
+        </div>
+        <span style="margin-left:4px;">時間</span>
+      </span>
+    </div>
+
+    <div class="conv-item">
+      <span class="ci-from">2時間15分</span>
+      <span class="conv-arrow">＝</span>
+      <span class="conv-ans">
+        <div class="frac-input-wrap">
+          <input type="text" id="t4n" placeholder="?">
+          <div class="frac-line"></div>
+          <input type="text" id="t4d" placeholder="?">
+        </div>
+        <span style="margin-left:4px;">時間</span>
+      </span>
+    </div>
+
+  </div>
+
+  <button class="check-btn" onclick="checkConv()">答え合わせ</button>
+  <div id="conv-result" style="margin-top:.6rem;font-size:13px;font-weight:700;"></div>
+</div>
+
+<hr class="section-divider">
+
+<a href="ME2-1.html" class="next-link">次へ：速さ① 往復の問題 →</a>
+
+<div class="unit-nav" id="unit-nav">
+  <div class="unit-nav-row"><a href="index_ME.html" class="unav-btn unav-index">📋 目次に戻る</a></div>
+  <div class="unit-nav-row"><a href="ME2.html" class="unav-btn unav-prev">← 個数と代金②</a><a href="ME2-1.html" class="unav-btn unav-next">次へ：往復の問題 →</a></div>
+</div>
+</main>
+
+<script>
+// 練習① 公式確認
+function checkFormula(){
+  const ans=[['速さ','時間'],['距離','速さ'],['距離','時間']];
+  const ids=[['d1','d2'],['d3','d4'],['d5','d6']];
+  const rids=['r1','r2','r3'];
+  let allOk=true;
+  ids.forEach((pair,i)=>{
+    const v1=document.getElementById(pair[0]).value.trim();
+    const v2=document.getElementById(pair[1]).value.trim();
+    const ok1=v1===ans[i][0]; const ok2=v2===ans[i][1];
+    document.getElementById(pair[0]).className='ans-input '+(ok1?'ok':'ng');
+    document.getElementById(pair[1]).className='ans-input '+(ok2?'ok':'ng');
+    const r=document.getElementById(rids[i]);
+    if(ok1&&ok2){r.className='drill-result ok';r.textContent='✅ 正解！';}
+    else{r.className='drill-result ng';r.textContent='❌ 答え：'+ans[i][0]+'・'+ans[i][1];allOk=false;}
+  });
+  const ov=document.getElementById('formula-overall');
+  ov.textContent=allOk?'🎉 全問正解！':'もう一度確認してみよう。';
+  ov.style.color=allOk?'var(--teal)':'var(--pink)';
+}
+
+// 練習② 数値計算
+function checkCalc(){
+  const ans=[{id:'c1',ans:'12',rid:'rc1'},{id:'c2',ans:'3',rid:'rc2'},{id:'c3',ans:'5',rid:'rc3'}];
+  ans.forEach(a=>{
+    const v=document.getElementById(a.id).value.trim();
+    const ok=v===a.ans;
+    document.getElementById(a.id).className='ans-input '+(ok?'ok':'ng');
+    const r=document.getElementById(a.rid);
+    r.className='drill-result '+(ok?'ok':'ng');
+    r.textContent=ok?'✅ 正解！':'❌ 答え：'+a.ans;
+  });
+}
+
+// 練習③ 時間変換
+// 答え: 1時間20分=4/3, 1時間12分=6/5, 3時間40分=11/3, 2時間15分=9/4
+const convAns=[
+  {n:'4',d:'3',label:'1時間20分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">4</span><span style="padding:0 3px;font-weight:bold;">3</span></span> 時間'},
+  {n:'6',d:'5',label:'1時間12分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">6</span><span style="padding:0 3px;font-weight:bold;">5</span></span> 時間'},
+  {n:'11',d:'3',label:'3時間40分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">11</span><span style="padding:0 3px;font-weight:bold;">3</span></span> 時間'},
+  {n:'9',d:'4',label:'2時間15分 = <span style="display:inline-flex;flex-direction:column;align-items:center;font-size:.85em;line-height:1.1;vertical-align:middle;"><span style="border-bottom:1.5px solid currentColor;padding:0 3px;font-weight:bold;">9</span><span style="padding:0 3px;font-weight:bold;">4</span></span> 時間'},
+];
+function checkConv(){
+  let allOk=true;
+  convAns.forEach((a,i)=>{
+    const ni=document.getElementById('t'+(i+1)+'n');
+    const di=document.getElementById('t'+(i+1)+'d');
+    const nOk=ni.value.trim()===a.n;
+    const dOk=di.value.trim()===a.d;
+    ni.className=nOk?'ok':'ng';
+    di.className=dOk?'ok':'ng';
+    if(!nOk||!dOk)allOk=false;
+  });
+  const r=document.getElementById('conv-result');
+  if(allOk){
+    r.style.color='var(--teal)';
+    r.textContent='🎉 全問正解！速さの問題の準備ができました！';
+  } else {
+    r.style.color='var(--pink)';
+    r.textContent='❌ 答え：4/3　6/5　11/3　9/4 （分に直してから60で割ろう）';
+  }
+}
+
+
+function resetQ(qid){
+  // 状態リセット
+  delete answered[qid];
+  stopTimer(qid);
+  delete timers[qid];
+  // プログレス減算（演習）
+  var n=parseInt(qid.slice(1));
+  if(qid==='q1'||qid==='q2'){if(pracDone>0)pracDone--;document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';document.getElementById('done-pr').style.display='none';}
+  if(qid==='q3'&&document.getElementById('pb-cf')){cfDone=0;document.getElementById('pb-cf').style.width='0%';document.getElementById('pb-cf-txt').textContent='0 / 1 完了';document.getElementById('done-cf').style.display='none';}
+  // バナー・解説を隠す
+  var fbOk=document.getElementById('fb-ok-'+qid);if(fbOk)fbOk.style.display='none';
+  var fbNg=document.getElementById('fb-ng-'+qid);if(fbNg)fbNg.style.display='none';
+  var res=document.getElementById(qid+'-res');if(res)res.style.display='none';
+  var cn=document.getElementById('cn-'+qid);if(cn)cn.style.display='none';
+  var kc=document.getElementById('kai-'+qid);if(kc)kc.style.display='none';
+  // タイマー表示を戻す
+  var tw=document.getElementById('t'+n);if(tw)tw.style.display='flex';
+  // 選択肢を全部リセット
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b){
+    b.disabled=false;
+    b.className='ch';
+    var cn2=b.querySelector('.cnum');if(cn2)cn2.style.cssText='';
+  });
+  // STEPリセット
+  var steps=document.querySelectorAll('[id^="'+qid+'-s"]');steps.forEach(function(el){el.style.display='none';});
+  stepRev[qid]=0;
+  var rb=document.getElementById('rb-'+qid);if(rb){rb.style.display='';rb.textContent='STEP 1 を見る ▼';}
+  var fin=document.getElementById(qid+'-fin');if(fin)fin.style.display='none';
+  // タイマー再スタート
+  startTimer(qid);
+}
+function _launchConfetti(){
+  var cv=document.getElementById('_gamba_cf');
+  if(!cv){
+    cv=document.createElement('canvas');cv.id='_gamba_cf';
+    cv.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(cv);
+  }
+  var ctx=cv.getContext('2d');
+  cv.width=window.innerWidth; cv.height=window.innerHeight;
+  var pts=[],run=true;
+  for(var i=0;i<200;i++) pts.push({
+    x:Math.random()*cv.width, y:-Math.random()*cv.height*0.5,
+    s:Math.random()*8+4, c:'hsl('+Math.floor(Math.random()*360)+',80%,60%)',
+    sp:Math.random()*4+2, r:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.15
+  });
+  (function step(){
+    if(!run)return;
+    requestAnimationFrame(step);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(function(p){
+      p.y+=p.sp; p.r+=p.rv;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
+      ctx.restore();
+    });
+  })();
+  setTimeout(function(){run=false;ctx.clearRect(0,0,cv.width,cv.height);},3500);
+}
+
+</script>
+</body>
+</html>

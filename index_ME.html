@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学　方程式の応用　目次</title>
+    <style>
+        :root { --bg-color: #f6f4ef; --line-green: #06C755; --pink:#d93652; --teal:#0d9478; --blue:#2055b0; --amber:#a86000; }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0 16px 80px; box-sizing: border-box; }
+        .top-header { background: var(--pink); color: white; padding: 18px 24px; text-align: center; margin: 0 -16px 20px; }
+        .top-header h1 { margin: 0; font-size: 1.3em; letter-spacing: 2px; }
+        .top-header p { margin: 6px 0 0; font-size: 0.82em; opacity: 0.85; }
+        .container { max-width: 860px; margin: 0 auto; }
+
+        /* 復習リスト */
+        #reviewSection { display: none; background: #fff8f0; border: 2px solid #f39c12; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; }
+        #reviewSection h2 { margin: 0 0 12px; font-size: 1em; color: #e67e22; }
+        #reviewList { display: flex; flex-wrap: wrap; gap: 10px; }
+        .review-card { background: white; border: 2px solid #f39c12; border-radius: 8px; padding: 8px 14px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .review-card a { text-decoration: none; color: var(--blue); font-weight: bold; }
+        .review-card a:hover { text-decoration: underline; }
+        .review-remove { background: none; border: none; cursor: pointer; color: #aaa; font-size: 16px; padding: 0 2px; }
+        .review-remove:hover { color: #e74c3c; }
+
+        /* 統計バー */
+        #statsBar { background: white; border: 1.5px solid #ddd; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+        .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
+        .stat-num { font-size: 1.8em; font-weight: 900; color: var(--blue); line-height: 1.1; }
+        .stat-label { font-size: 11px; color: #888; margin-top: 2px; }
+        .stat-item.green .stat-num { color: var(--teal); }
+        .stat-item.orange .stat-num { color: var(--amber); }
+        .progress-wrap { flex: 1; min-width: 160px; }
+        .progress-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+        .progress-bar { height: 14px; background: #eee; border-radius: 7px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal), #1ec89a); border-radius: 7px; transition: width 0.5s; }
+
+        /* ユニットヘッダー */
+        .unit-title { font-size: 1.05em; font-weight: 900; padding: 10px 16px; border-radius: 8px 8px 0 0; margin-top: 24px; display: flex; align-items: center; gap: 10px; }
+        .unit-title.pink  { background: var(--pink);  color: white; }
+        .unit-title.blue  { background: var(--blue);  color: white; }
+        .unit-title.teal  { background: var(--teal);  color: white; }
+        .unit-title.amber { background: var(--amber); color: white; }
+
+        /* リスト */
+        .page-list { background: white; border: 2px solid #ddd; border-top: none; border-radius: 0 0 10px 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 4px; }
+        .page-item { display: flex; align-items: center; border-bottom: 1px solid #eee; transition: background 0.15s; }
+        .page-item:last-child { border-bottom: none; }
+        .page-item:hover { background: #f8f9fa; }
+        .page-item.s1  { background: #eafaf1; }
+        .page-item.s1:hover { background: #d5f5e3; }
+        .page-item.s3  { background: #d6eaf8; }
+        .page-item.s3:hover { background: #aed6f1; }
+        .page-item.sr  { background: #fef9e7; border-left: 4px solid #f39c12; }
+        .page-item.coming { opacity: 0.4; pointer-events: none; }
+
+        /* 番号 */
+        .page-num { font-weight: 900; font-size: 13px; padding: 14px 12px; min-width: 46px; text-align: center; align-self: stretch; display: flex; align-items: center; justify-content: center; border-right: 1px solid #eee; color: var(--blue); background: #f4f6f8; flex-shrink: 0; }
+
+        /* 情報 */
+        .page-info { flex: 1; padding: 10px 14px; }
+        .page-name { font-weight: bold; font-size: 14px; color: var(--blue); margin-bottom: 2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .page-desc { font-size: 12px; color: #777; }
+
+        /* バッジ */
+        .bk { font-size: 11px; font-weight: 900; padding: 2px 7px; border-radius: 10px; }
+        .bk-y { background: #f1c40f; color: #333; }
+        .bk-r { background: #e74c3c; color: white; }
+        .bk-b { background: #2980b9; color: white; }
+        .bk-g { background: var(--teal); color: white; }
+
+        /* 難易度 */
+        .lv { font-size: 11px; font-weight: 900; padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
+        .lv-ki  { background: #d5f5e3; color: #1e8449; }
+        .lv-hyo { background: #d6eaf8; color: var(--blue); }
+        .lv-ou  { background: #fdebd0; color: #d35400; }
+        .lv-hat { background: #f9ebea; color: #c0392b; }
+
+        /* 学習状況 */
+        .sb { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
+        .sb-none { background: #eee; color: #aaa; }
+        .sb-done { background: var(--teal); color: white; }
+        .sb-many { background: var(--blue); color: white; }
+        .sb-date { font-size: 11px; color: #aaa; }
+        .rev-star { color: #f39c12; font-size: 13px; }
+
+        /* アクション */
+        .page-actions { display: flex; align-items: center; padding: 0 10px; flex-shrink: 0; }
+        .open-btn { text-decoration: none; background: var(--blue); color: white; padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; transition: 0.2s; white-space: nowrap; }
+        .open-btn:hover { background: #153a80; }
+        .open-btn.done { background: var(--teal); }
+        .open-btn.many { background: #1a5276; }
+
+        /* 凡例 */
+        .legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; margin-bottom: 16px; padding: 10px 14px; background: white; border-radius: 8px; border: 1px solid #eee; }
+        .leg-item { display: flex; align-items: center; gap: 5px; }
+        .leg-box { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+        .reset-btn { background: none; border: 1px solid #ddd; color: #aaa; padding: 7px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-top: 20px; }
+        .reset-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+        .footer { text-align: center; margin-top: 24px; font-size: 12px; color: #aaa; }
+
+        /* LINE フロートボタン */
+        .line-float-btn { position: fixed; bottom: 24px; right: 24px; background: var(--line-green); color: white; width: 70px; height: 70px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; font-weight: bold; font-size: 11px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 2000; transition: 0.2s; }
+        .line-float-btn:hover { transform: scale(1.1); }
+    
+/* ── フィードバックバナー ── */
+.fb-ok{display:none;align-items:center;gap:12px;background:#e6faf3;border:2px solid #0d9478;border-radius:12px;padding:12px 16px;margin:8px 0 4px;animation:fbPop .3s ease;}
+.fb-ng{display:none;align-items:center;gap:12px;background:#fde8eb;border:2px solid #d93652;border-radius:12px;padding:12px 16px;margin:8px 0 4px;animation:fbPop .3s ease;}
+@keyframes fbPop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.fb-icon{font-size:1.7rem;flex-shrink:0;}
+.fb-text{font-size:13px;font-weight:700;line-height:1.5;}
+.fb-ok .fb-text{color:#0d9478;}
+.fb-ng .fb-text{color:#d93652;}
+.fb-sub{font-size:11px;font-weight:400;display:block;margin-top:1px;opacity:.8;}
+/* ── 単元ナビ ── */
+.unit-nav{display:none;flex-direction:column;gap:10px;margin:1.8rem 0 0;padding-top:1.4rem;border-top:2px dashed #d6d2c8;}
+.unit-nav-row{display:flex;gap:8px;flex-wrap:wrap;}
+.unav-btn{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;border:2px solid;font-family:'Noto Sans JP',sans-serif;transition:all .15s;text-align:center;}
+.unav-index{background:#fff;border-color:#d6d2c8;color:#58544c;}
+.unav-index:hover{border-color:#2055b0;color:#2055b0;background:#eaf0fb;}
+.unav-prev{background:#f0ede6;border-color:#bcb8ae;color:#58544c;}
+.unav-prev:hover{border-color:#0d9478;color:#0d9478;}
+.unav-next{background:#2055b0;border-color:#2055b0;color:#fff;}
+.unav-next:hover{background:#153a80;}
+</style>
+</head>
+<body>
+
+<a href="https://line.me/R/ti/p/@自分のID" target="_blank" class="line-float-btn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" width="28" height="28" style="margin-bottom:2px;">
+    質問する
+</a>
+
+<div class="top-header">
+    <h1>📐 数学　方程式の応用</h1>
+    <p>学習したいページを選んでください</p>
+</div>
+
+<div class="container">
+
+    <!-- 復習リスト -->
+    <div id="reviewSection">
+        <h2>⭐ 復習リスト</h2>
+        <div id="reviewList"></div>
+    </div>
+
+    <!-- 統計バー -->
+    <div id="statsBar">
+        <div class="stat-item"><div class="stat-num" id="totalN">10</div><div class="stat-label">総ページ数</div></div>
+        <div class="stat-item green"><div class="stat-num" id="studiedN">0</div><div class="stat-label">学習済み</div></div>
+        <div class="stat-item orange"><div class="stat-num" id="reviewN">0</div><div class="stat-label">復習リスト</div></div>
+        <div class="progress-wrap">
+            <div class="progress-label">学習進捗</div>
+            <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+            <div style="font-size:11px;color:#888;margin-top:3px;"><span id="progPct">0</span>% 完了</div>
+        </div>
+    </div>
+
+    <!-- 凡例 -->
+    <div class="legend">
+        <span style="font-weight:bold;color:#555;">色の意味：</span>
+        <span class="leg-item"><span class="leg-box" style="background:#fff;border:1px solid #ddd;"></span>未学習</span>
+        <span class="leg-item"><span class="leg-box" style="background:#eafaf1;"></span>学習済み（1〜2回）</span>
+        <span class="leg-item"><span class="leg-box" style="background:#d6eaf8;"></span>しっかり学習（3回以上）</span>
+        <span class="leg-item"><span class="leg-box" style="background:#fef9e7;border-left:3px solid #f39c12;"></span>⭐ 復習リスト</span>
+        <span style="font-weight:bold;color:#555;margin-left:12px;">難易度：</span>
+        <span class="leg-item"><span class="lv lv-ki">📗 基礎</span></span>
+        <span class="leg-item"><span class="lv lv-hyo">📘 標準</span></span>
+        <span class="leg-item"><span class="lv lv-ou">📙 応用</span></span>
+    </div>
+
+    <!-- ────────────────────────────
+         Unit 1: ME1〜ME8
+    ──────────────────────────── -->
+    <div class="unit-title blue">📝 方程式の基礎応用　ME1〜ME8</div>
+    <div class="page-list">
+
+        <div class="page-item" id="item-ME1">
+            <div class="page-num">ME1</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用① <span class="lv lv-ki">📗 基礎</span></div>
+                <div class="page-desc">ME1 ─ 準備中</div>
+                <div id="info-ME1" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME1.html" class="open-btn" id="btn-ME1">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME2">
+            <div class="page-num">ME2</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用② <span class="lv lv-ki">📗 基礎</span></div>
+                <div class="page-desc">ME2 ─ 準備中</div>
+                <div id="info-ME2" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME2.html" class="open-btn" id="btn-ME2">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME3">
+            <div class="page-num">ME3</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用③ <span class="lv lv-ki">📗 基礎</span></div>
+                <div class="page-desc">ME3 ─ 準備中</div>
+                <div id="info-ME3" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME3.html" class="open-btn" id="btn-ME3">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME4">
+            <div class="page-num">ME4</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用④ <span class="lv lv-ki">📗 基礎</span></div>
+                <div class="page-desc">ME4 ─ 準備中</div>
+                <div id="info-ME4" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME4.html" class="open-btn" id="btn-ME4">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME5">
+            <div class="page-num">ME5</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用⑤ <span class="lv lv-hyo">📘 標準</span></div>
+                <div class="page-desc">ME5 ─ 準備中</div>
+                <div id="info-ME5" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME5.html" class="open-btn" id="btn-ME5">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME6">
+            <div class="page-num">ME6</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用⑥ <span class="lv lv-hyo">📘 標準</span></div>
+                <div class="page-desc">ME6 ─ 準備中</div>
+                <div id="info-ME6" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME6.html" class="open-btn" id="btn-ME6">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME7">
+            <div class="page-num">ME7</div>
+            <div class="page-info">
+                <div class="page-name">方程式の応用⑦ <span class="lv lv-hyo">📘 標準</span></div>
+                <div class="page-desc">ME7 ─ 準備中</div>
+                <div id="info-ME7" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME7.html" class="open-btn" id="btn-ME7">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME8">
+            <div class="page-num">ME8</div>
+            <div class="page-info">
+                <div class="page-name">列車の通過・追いつき問題 <span class="bk bk-r">演習</span> <span class="lv lv-ou">📙 応用</span></div>
+                <div class="page-desc">ME8 ─ 列車問題（すれ違い・追いつき）　例題＋演習＋確認</div>
+                <div id="info-ME8" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME8.html" class="open-btn" id="btn-ME8">開く →</a></div>
+        </div>
+
+    </div>
+
+    <!-- ────────────────────────────
+         Unit 2: ME9 食塩水の濃度
+    ──────────────────────────── -->
+    <div class="unit-title pink">🧪 ME9　食塩水の濃度　〜一次方程式の応用〜</div>
+    <div class="page-list">
+
+        <div class="page-item" id="item-ME9-1">
+            <div class="page-num">ME9-1</div>
+            <div class="page-info">
+                <div class="page-name">濃度とは何か <span class="bk bk-b">説明</span> <span class="lv lv-ki">📗 基礎</span></div>
+                <div class="page-desc">濃度の求め方・食塩の量を求める公式　例題 2題＋演習 2問＋確認 1問</div>
+                <div id="info-ME9-1" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME9-1.html" class="open-btn" id="btn-ME9-1">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME9-2">
+            <div class="page-num">ME9-2</div>
+            <div class="page-info">
+                <div class="page-name">食塩水を加える <span class="bk bk-r">演習</span> <span class="lv lv-hyo">📘 標準</span></div>
+                <div class="page-desc">〔2〕濃度の異なる食塩水を混ぜる　例題 1題＋演習 2問＋確認 1問</div>
+                <div id="info-ME9-2" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME9-2.html" class="open-btn" id="btn-ME9-2">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME9-3">
+            <div class="page-num">ME9-3</div>
+            <div class="page-info">
+                <div class="page-name">食塩を加える <span class="bk bk-r">演習</span> <span class="lv lv-hyo">📘 標準</span></div>
+                <div class="page-desc">〔3〕固体の食塩を加えて濃度を上げる　例題 1題＋演習 2問＋確認 1問</div>
+                <div id="info-ME9-3" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME9-3.html" class="open-btn" id="btn-ME9-3">開く →</a></div>
+        </div>
+
+        <div class="page-item" id="item-ME9-4">
+            <div class="page-num">ME9-4</div>
+            <div class="page-info">
+                <div class="page-name">水を加える・蒸発させる <span class="bk bk-r">演習</span> <span class="lv lv-ou">📙 応用</span></div>
+                <div class="page-desc">〔4〕水を加えてうすめる・〔5〕水分を蒸発させる　例題 2題＋演習 2問＋確認 1問</div>
+                <div id="info-ME9-4" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME9-4.html" class="open-btn" id="btn-ME9-4">開く →</a></div>
+        </div>
+
+    </div>
+
+    <!-- ────────────────────────────
+         Unit 3: ME10 時計の問題
+    ──────────────────────────── -->
+    <div class="unit-title teal">🕐 ME10　時計の針の追いつき問題</div>
+    <div class="page-list">
+
+        <div class="page-item" id="item-ME10">
+            <div class="page-num">ME10</div>
+            <div class="page-info">
+                <div class="page-name">長針・短針が重なる／一直線になる <span class="bk bk-r">演習</span> <span class="lv lv-ou">📙 応用</span></div>
+                <div class="page-desc">長針6°・短針0.5°の速さを使い方程式を立てる　例題 1題＋演習 2問＋確認 1問</div>
+                <div id="info-ME10" style="margin-top:4px;"></div>
+            </div>
+            <div class="page-actions"><a href="ME10.html" class="open-btn" id="btn-ME10">開く →</a></div>
+        </div>
+
+    </div>
+
+    <button class="reset-btn" onclick="resetAll()">🗑 学習記録をすべてリセット</button>
+    <div class="footer">方程式の応用　学習教材　GAMBA</div>
+
+</div><!-- /container -->
+
+<script>
+var PAGES = [
+    {key:'ME1',   name:'ME1 方程式の応用①',          file:'ME1.html'},
+    {key:'ME2',   name:'ME2 方程式の応用②',          file:'ME2.html'},
+    {key:'ME3',   name:'ME3 方程式の応用③',          file:'ME3.html'},
+    {key:'ME4',   name:'ME4 方程式の応用④',          file:'ME4.html'},
+    {key:'ME5',   name:'ME5 方程式の応用⑤',          file:'ME5.html'},
+    {key:'ME6',   name:'ME6 方程式の応用⑥',          file:'ME6.html'},
+    {key:'ME7',   name:'ME7 方程式の応用⑦',          file:'ME7.html'},
+    {key:'ME8',   name:'ME8 列車の通過・追いつき',    file:'ME8.html'},
+    {key:'ME9-1', name:'ME9-1 濃度とは何か',          file:'ME9-1.html'},
+    {key:'ME9-2', name:'ME9-2 食塩水を加える',        file:'ME9-2.html'},
+    {key:'ME9-3', name:'ME9-3 食塩を加える',          file:'ME9-3.html'},
+    {key:'ME9-4', name:'ME9-4 水を加える・蒸発させる',file:'ME9-4.html'},
+    {key:'ME10',  name:'ME10 時計の針の追いつき問題', file:'ME10.html'},
+];
+
+function getData(key) {
+    try { return JSON.parse(localStorage.getItem('study_me_'+key)||'{"count":0,"review":false}'); }
+    catch(e) { return {count:0, review:false}; }
+}
+function setData(key, data) {
+    try { localStorage.setItem('study_me_'+key, JSON.stringify(data)); } catch(e) {}
+}
+function removeReview(key) {
+    var d=getData(key); d.review=false; setData(key,d); render();
+}
+function render() {
+    var studied=0, revItems=[];
+    PAGES.forEach(function(p) {
+        var d=getData(p.key);
+        var item=document.getElementById('item-'+p.key);
+        var info=document.getElementById('info-'+p.key);
+        var btn =document.getElementById('btn-'+p.key);
+        if (!item) return;
+        item.className='page-item';
+        if (d.review)       item.classList.add('sr');
+        else if (d.count>=3) item.classList.add('s3');
+        else if (d.count>=1) item.classList.add('s1');
+        var ih='';
+        if (d.count===0) {
+            ih='<span class="sb sb-none">未学習</span>';
+        } else {
+            if (d.count<3) ih='<span class="sb sb-done">✓ 学習済み '+d.count+'回</span>';
+            else           ih='<span class="sb sb-many">★ '+d.count+'回学習</span>';
+            if (d.lastDate) ih+=' <span class="sb-date">最終：'+d.lastDate+'</span>';
+            studied++;
+        }
+        if (d.review) ih+=' <span class="rev-star">⭐ 復習リスト</span>';
+        if (info) info.innerHTML=ih;
+        if (btn) {
+            btn.className='open-btn';
+            if (d.count>=3)      btn.classList.add('many');
+            else if (d.count>=1) btn.classList.add('done');
+        }
+        if (d.review) revItems.push(p);
+    });
+    document.getElementById('studiedN').innerText=studied;
+    document.getElementById('reviewN').innerText=revItems.length;
+    var pct=Math.round(studied/PAGES.length*100);
+    document.getElementById('progFill').style.width=pct+'%';
+    document.getElementById('progPct').innerText=pct;
+    var revSec =document.getElementById('reviewSection');
+    var revList=document.getElementById('reviewList');
+    if (revItems.length>0) {
+        revSec.style.display='block';
+        var h='';
+        revItems.forEach(function(p) {
+            h+='<div class="review-card"><a href="'+p.file+'">⭐ '+p.name+'</a>'
+              +'<button class="review-remove" onclick="removeReview(\''+p.key+'\')" title="外す">✕</button></div>';
+        });
+        revList.innerHTML=h;
+    } else { revSec.style.display='none'; }
+}
+function resetAll() {
+    if (!confirm('学習記録をすべてリセットしますか？')) return;
+    PAGES.forEach(function(p) { try { localStorage.removeItem('study_me_'+p.key); } catch(e) {} });
+    render();
+}
+render();
+
+
+function resetQ(qid){
+  // 状態リセット
+  delete answered[qid];
+  stopTimer(qid);
+  delete timers[qid];
+  // プログレス減算（演習）
+  var n=parseInt(qid.slice(1));
+  if(qid==='q1'||qid==='q2'){if(pracDone>0)pracDone--;document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';document.getElementById('done-pr').style.display='none';}
+  if(qid==='q3'&&document.getElementById('pb-cf')){cfDone=0;document.getElementById('pb-cf').style.width='0%';document.getElementById('pb-cf-txt').textContent='0 / 1 完了';document.getElementById('done-cf').style.display='none';}
+  // バナー・解説を隠す
+  var fbOk=document.getElementById('fb-ok-'+qid);if(fbOk)fbOk.style.display='none';
+  var fbNg=document.getElementById('fb-ng-'+qid);if(fbNg)fbNg.style.display='none';
+  var res=document.getElementById(qid+'-res');if(res)res.style.display='none';
+  var cn=document.getElementById('cn-'+qid);if(cn)cn.style.display='none';
+  var kc=document.getElementById('kai-'+qid);if(kc)kc.style.display='none';
+  // タイマー表示を戻す
+  var tw=document.getElementById('t'+n);if(tw)tw.style.display='flex';
+  // 選択肢を全部リセット
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b){
+    b.disabled=false;
+    b.className='ch';
+    var cn2=b.querySelector('.cnum');if(cn2)cn2.style.cssText='';
+  });
+  // STEPリセット
+  var steps=document.querySelectorAll('[id^="'+qid+'-s"]');steps.forEach(function(el){el.style.display='none';});
+  stepRev[qid]=0;
+  var rb=document.getElementById('rb-'+qid);if(rb){rb.style.display='';rb.textContent='STEP 1 を見る ▼';}
+  var fin=document.getElementById(qid+'-fin');if(fin)fin.style.display='none';
+  // タイマー再スタート
+  startTimer(qid);
+}
+function _launchConfetti(){
+  var cv=document.getElementById('_gamba_cf');
+  if(!cv){
+    cv=document.createElement('canvas');cv.id='_gamba_cf';
+    cv.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(cv);
+  }
+  var ctx=cv.getContext('2d');
+  cv.width=window.innerWidth; cv.height=window.innerHeight;
+  var pts=[],run=true;
+  for(var i=0;i<200;i++) pts.push({
+    x:Math.random()*cv.width, y:-Math.random()*cv.height*0.5,
+    s:Math.random()*8+4, c:'hsl('+Math.floor(Math.random()*360)+',80%,60%)',
+    sp:Math.random()*4+2, r:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.15
+  });
+  (function step(){
+    if(!run)return;
+    requestAnimationFrame(step);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(function(p){
+      p.y+=p.sp; p.r+=p.rv;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
+      ctx.restore();
+    });
+  })();
+  setTimeout(function(){run=false;ctx.clearRect(0,0,cv.width,cv.height);},3500);
+}
+
+</script>
+</body>
+</html>

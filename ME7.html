@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMBA｜方程式文章題・桁の問題【応用】</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--sf:#fff;--sf2:#f0ede6;--bd:#d6d2c8;--bd2:#bcb8ae;--pink:#d93652;--teal:#0d9478;--blue:#2055b0;--amber:#a86000;--tl:#e6f5f1;--bl:#eaf0fb;--al:#fdf2dd;--pl:#fde8eb;--text:#1a1814;--text2:#58544c;--text3:#98948c;--r:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+.site-header{background:var(--sf);border-bottom:1px solid var(--bd);padding:.65rem 1.5rem;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--pink);}
+.logo-sep{color:var(--bd2);}
+.logo-sub{font-size:12px;color:var(--text2);}
+.tab-nav{background:var(--sf);border-bottom:2px solid var(--bd);position:sticky;top:46px;z-index:99;display:flex;padding:0 1rem;}
+.tab-btn{padding:.7rem 1.4rem;font-size:13px;font-weight:500;color:var(--text2);background:none;border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:7px;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active-ex{color:var(--pink);border-bottom-color:var(--pink);}
+.tab-btn.active-pr{color:var(--blue);border-bottom-color:var(--blue);}
+.tab-btn.active-cf{color:var(--amber);border-bottom-color:var(--amber);}
+.tab-pip{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.pip-ex{background:#fde8eb;color:var(--pink);}
+.pip-pr{background:var(--bl);color:var(--blue);}
+.pip-cf{background:var(--al);color:var(--amber);}
+.tab-done{width:16px;height:16px;border-radius:50%;background:var(--teal);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;}
+.page{display:none;animation:fadeTab .2s ease;}
+.page.active{display:block;}
+@keyframes fadeTab{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+main{max-width:720px;margin:0 auto;padding:1.5rem 1rem 6rem;}
+.page-hdr{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1rem 1.4rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:12px;}
+.page-hdr-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;flex-shrink:0;}
+.icon-ex{background:var(--pink);color:#fff;}.icon-pr{background:var(--blue);color:#fff;}.icon-cf{background:var(--amber);color:#fff;}
+.page-hdr-body{flex:1;}
+.page-hdr-title{font-size:15px;font-weight:700;margin-bottom:2px;}
+.page-hdr-desc{font-size:12px;color:var(--text2);}
+.prog-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:.8rem 1.2rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:12px;}
+.pb-w{flex:1;height:6px;background:var(--bd);border-radius:3px;overflow:hidden;}
+.pb{height:100%;border-radius:3px;transition:width .4s;}
+.pb-pr{background:var(--blue);}.pb-cf{background:var(--amber);}
+.pb-txt{font-size:12px;color:var(--text2);white-space:nowrap;}
+.next-page-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--sf);border:1.5px solid var(--bd);border-radius:var(--r);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .15s;margin-top:.5rem;}
+.next-page-btn.pr{border-color:var(--blue);color:var(--blue);background:var(--bl);}
+.next-page-btn.cf{border-color:var(--amber);color:var(--amber);background:var(--al);}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem 1.5rem;margin-bottom:1rem;}
+.clabel{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:.85rem;display:flex;align-items:center;gap:6px;}
+.clabel::before{content:'';width:3px;height:14px;border-radius:2px;display:inline-block;}
+.clabel.ex{color:var(--pink);}.clabel.ex::before{background:var(--pink);}
+.clabel.pr{color:var(--blue);}.clabel.pr::before{background:var(--blue);}
+.clabel.cf{color:var(--amber);}.clabel.cf::before{background:var(--amber);}
+.clabel.kai{color:var(--teal);}.clabel.kai::before{background:var(--teal);}
+.q-text{font-size:15px;line-height:1.95;color:var(--text);margin-bottom:1rem;}
+.prob-src{display:inline-block;font-size:11px;color:var(--text3);background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:3px 10px;margin-bottom:.8rem;}
+.point-box{background:var(--al);border:1px solid #e0c888;border-radius:9px;padding:.8rem 1.1rem;margin-bottom:.9rem;font-size:13px;color:var(--amber);line-height:1.8;}
+.point-box strong{display:block;font-size:10px;letter-spacing:.08em;margin-bottom:3px;}
+
+/* 桁の図解 */
+.digit-box{display:flex;gap:4px;align-items:stretch;margin:.8rem 0;font-size:18px;font-weight:900;}
+.digit-cell{width:52px;height:52px;border:2.5px solid var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--bl);color:var(--blue);font-size:20px;}
+.digit-cell.x{background:#fde8eb;border-color:var(--pink);color:var(--pink);}
+.digit-cell.fixed{background:#eafaf1;border-color:var(--teal);color:var(--teal);}
+.digit-label{font-size:10px;color:var(--text3);text-align:center;margin-top:4px;}
+.digit-wrap{display:flex;flex-direction:column;align-items:center;}
+.digit-arrow{font-size:24px;color:var(--amber);align-self:center;margin:0 8px;}
+.digit-eq{font-size:14px;color:var(--text2);align-self:center;margin:0 8px;font-weight:700;}
+
+/* 式の展開 */
+.eq-block{background:var(--sf2);border-radius:9px;padding:.9rem 1.2rem;margin:.8rem 0;font-size:14.5px;line-height:2.2;font-family:'DM Mono',monospace;}
+.eq-block .comment{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text3);}
+
+.exp-box{background:var(--sf2);border-radius:9px;padding:.9rem 1.15rem;margin-bottom:.75rem;border-left:3px solid var(--teal);animation:fadeIn .25s ease;}
+.exp-box h4{font-size:11px;color:var(--teal);font-weight:700;letter-spacing:.06em;margin-bottom:.35rem;}
+.exp-box p{font-size:14px;line-height:1.9;color:var(--text);white-space:pre-wrap;}
+.exp-box.blue{border-color:var(--blue);}.exp-box.blue h4{color:var(--blue);}
+.exp-box.amber{border-color:var(--amber);}.exp-box.amber h4{color:var(--amber);}
+.exp-box.pink{border-color:var(--pink);}.exp-box.pink h4{color:var(--pink);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.reveal-btn{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-top:.2rem;transition:background .15s;}
+.reveal-btn:hover{background:#0b7560;}
+.kai-card{display:none;border-top:3px solid var(--teal);}
+.connector{display:none;flex-direction:column;align-items:center;margin:-.5rem 0;position:relative;z-index:2;}
+.connector-line{width:2px;height:20px;background:var(--teal);}
+.connector-arrow{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid var(--teal);}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:1rem;}
+.ch{background:var(--sf2);border:1.5px solid var(--bd);border-radius:9px;padding:10px 8px;font-size:14px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s;font-family:'Noto Sans JP',sans-serif;width:100%;}
+.ch:hover:not(:disabled){border-color:var(--blue);background:var(--bl);}
+.ch:disabled{cursor:default;}
+.ch.ok{border-color:var(--teal);background:var(--tl);color:var(--teal);}
+.ch.ng{border-color:var(--pink);background:var(--pl);color:var(--pink);}
+.ch.selected{border-color:var(--blue);background:var(--bl);color:var(--blue);}
+.cnum{width:24px;height:24px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.ch.ok .cnum{background:var(--teal);color:#fff;}
+.ch.ng .cnum{background:var(--pink);color:#fff;}
+.timer-wrap{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.timer-ring{position:relative;width:48px;height:48px;flex-shrink:0;}
+.timer-ring svg{width:48px;height:48px;transform:rotate(-90deg);}
+circle{fill:none;stroke-width:3;stroke-linecap:round;}
+.tbg{stroke:var(--bd2);}
+.tfg{stroke:var(--teal);transition:stroke-dashoffset .9s linear;stroke-dasharray:126;stroke-dashoffset:0;}
+.tfg.warn{stroke:var(--amber);}
+.tcenter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);font-family:'DM Mono',monospace;}
+.timer-msg{font-size:13px;color:var(--text2);line-height:1.5;}
+.timer-msg .goal{color:var(--teal);font-weight:500;}
+.hint-toggle{background:none;border:1px dashed var(--bd);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:.75rem;font-family:'Noto Sans JP',sans-serif;transition:all .15s;}
+.hint-toggle:hover{border-color:var(--blue);color:var(--blue);}
+.hint-box{background:var(--bl);border:1px solid #a8c0e8;border-radius:9px;padding:.75rem 1rem;margin-bottom:.85rem;font-size:13px;color:var(--blue);line-height:1.8;display:none;}
+.abc-wrap{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--bd);}
+.abc-lbl{font-size:12px;color:var(--text2);margin-bottom:.7rem;}
+.abc-row{display:flex;gap:7px;}
+.abc-btn{flex:1;padding:9px 5px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid;transition:all .15s;font-family:'Noto Sans JP',sans-serif;text-align:center;line-height:1.3;}
+.abc-btn span{display:block;font-size:10px;font-weight:400;margin-top:2px;opacity:.85;}
+.abc-A{border-color:var(--teal);color:var(--teal);background:var(--tl);}
+.abc-A:hover,.abc-A.on{background:var(--teal);color:#fff;}
+.abc-B{border-color:var(--blue);color:var(--blue);background:var(--bl);}
+.abc-B:hover,.abc-B.on{background:var(--blue);color:#fff;}
+.abc-C{border-color:var(--amber);color:var(--amber);background:var(--al);}
+.abc-C:hover,.abc-C.on{background:var(--amber);color:#fff;}
+.prob-n{display:inline-flex;align-items:center;gap:8px;margin-bottom:.9rem;}
+.prob-n .n{width:28px;height:28px;border-radius:6px;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.n-pr{background:var(--blue);color:#fff;}
+.n-cf{background:var(--amber);color:#fff;}
+.prob-n span{font-size:12px;color:var(--text3);}
+.prob-divider{border:none;border-top:1px dashed var(--bd);margin:1.8rem 0 1.5rem;}
+.hl-x{color:var(--pink);font-weight:700;}
+/* 確認問題 */
+.cf-judge-btn{width:100%;padding:13px;background:var(--amber);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-bottom:1rem;transition:background .15s;display:none;}
+.cf-judge-btn:hover{background:#8a5000;}
+.cf-judge-btn.active{display:block;}
+.cf-result-ok{background:var(--tl);border:2px solid var(--teal);border-radius:10px;padding:1.2rem;text-align:center;font-size:20px;font-weight:900;color:var(--teal);margin-bottom:1rem;display:none;animation:popIn .4s ease;}
+.cf-result-ng{background:var(--pl);border:2px solid var(--pink);border-radius:10px;padding:1rem;text-align:center;font-size:18px;font-weight:900;color:var(--pink);margin-bottom:1rem;display:none;animation:popIn .4s ease;}
+@keyframes popIn{0%{transform:scale(.7);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+
+/* ── フィードバックバナー ── */
+.fb-ok{display:none;align-items:center;gap:12px;background:#e6faf3;border:2px solid #0d9478;border-radius:12px;padding:12px 16px;margin:8px 0 4px;animation:fbPop .3s ease;}
+.fb-ng{display:none;align-items:center;gap:12px;background:#fde8eb;border:2px solid #d93652;border-radius:12px;padding:12px 16px;margin:8px 0 4px;animation:fbPop .3s ease;}
+@keyframes fbPop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+/* ── リセットボタン ── */
+.reset-btn{background:none;border:1.5px solid #d93652;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;color:#d93652;cursor:pointer;font-family:'Noto Sans JP',sans-serif;margin-left:auto;flex-shrink:0;transition:all .15s;white-space:nowrap;}
+.reset-btn:hover{background:#d93652;color:#fff;}
+.fb-icon{font-size:1.7rem;flex-shrink:0;}
+.fb-text{font-size:13px;font-weight:700;line-height:1.5;}
+.fb-ok .fb-text{color:#0d9478;}
+.fb-ng .fb-text{color:#d93652;}
+.fb-sub{font-size:11px;font-weight:400;display:block;margin-top:1px;opacity:.8;}
+/* ── 単元ナビ ── */
+.unit-nav{display:none;flex-direction:column;gap:10px;margin:1.8rem 0 0;padding-top:1.4rem;border-top:2px dashed #d6d2c8;}
+.unit-nav-row{display:flex;gap:8px;flex-wrap:wrap;}
+.unav-btn{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;border:2px solid;font-family:'Noto Sans JP',sans-serif;transition:all .15s;text-align:center;}
+.unav-index{background:#fff;border-color:#d6d2c8;color:#58544c;}
+.unav-index:hover{border-color:#2055b0;color:#2055b0;background:#eaf0fb;}
+.unav-prev{background:#f0ede6;border-color:#bcb8ae;color:#58544c;}
+.unav-prev:hover{border-color:#0d9478;color:#0d9478;}
+.unav-next{background:#2055b0;border-color:#2055b0;color:#fff;}
+.unav-next:hover{background:#153a80;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <span class="logo">GAMBA</span><span class="logo-sep">|</span>
+  <span class="logo-sub">中1 方程式【応用】／ 桁の問題</span>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active-ex" id="tab-ex" onclick="switchTab('ex')"><span class="tab-pip pip-ex">例</span>例題</button>
+  <button class="tab-btn" id="tab-pr" onclick="switchTab('pr')"><span class="tab-pip pip-pr">演</span>演習問題<span class="tab-done" id="done-pr">✓</span></button>
+  <button class="tab-btn" id="tab-cf" onclick="switchTab('cf')"><span class="tab-pip pip-cf">確</span>確認問題<span class="tab-done" id="done-cf">✓</span></button>
+</nav>
+<main>
+
+<!-- ══ 例題 ══ -->
+<div class="page active" id="page-ex">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-ex">例</div>
+    <div class="page-hdr-body">
+      <div class="page-hdr-title">例題 ─ 桁の入れ替え問題</div>
+      <div class="page-hdr-desc">方程式【応用】 ／ 中学1年</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="clabel ex">例題</div>
+    <div class="q-text">一の位が <strong>7</strong> である 2 桁の自然数があります。十の位の数字と一の位の数字を入れ替えた数は，もとの数より <strong>27 大きい</strong> 数になります。もとの自然数を求めなさい。</div>
+
+    <div class="point-box">
+      <strong>桁の問題のポイント</strong>
+      2桁の数 = 十の位 × 10 + 一の位<br>
+      例）十の位が x，一の位が 7 → <strong>10x + 7</strong><br>
+      入れ替えた数：十の位が 7，一の位が x → <strong>70 + x</strong>
+    </div>
+
+    <!-- 図解 -->
+    <div style="background:var(--sf2);border-radius:10px;padding:1rem 1.2rem;margin:.8rem 0;">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:.6rem;font-weight:700;">📐 桁の図解</div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:11px;color:var(--text3);text-align:center;margin-bottom:4px;">もとの数</div>
+          <div class="digit-box">
+            <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">十の位</div></div>
+            <div class="digit-wrap"><div class="digit-cell fixed">7</div><div class="digit-label">一の位</div></div>
+          </div>
+          <div style="text-align:center;font-size:13px;color:var(--blue);font-weight:700;">= 10x + 7</div>
+        </div>
+        <div class="digit-arrow">⇄</div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);text-align:center;margin-bottom:4px;">入れ替えた数</div>
+          <div class="digit-box">
+            <div class="digit-wrap"><div class="digit-cell fixed">7</div><div class="digit-label">十の位</div></div>
+            <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">一の位</div></div>
+          </div>
+          <div style="text-align:center;font-size:13px;color:var(--pink);font-weight:700;">= 70 + x</div>
+        </div>
+        <div class="digit-eq">差 = 27</div>
+      </div>
+    </div>
+
+    <div id="q0-s0" class="exp-box" style="display:none">
+      <h4>STEP 1　x をおいて式を作る</h4>
+      <p>十の位を <span class="hl-x">x</span> とおく。
+もとの数　：10<span class="hl-x">x</span> + 7
+入れ替えた数：70 + <span class="hl-x">x</span></p>
+    </div>
+    <div id="q0-s1" class="exp-box blue" style="display:none">
+      <h4>STEP 2　方程式をつくる（入替 − もと = 27）</h4>
+      <p>（70 + x）−（10x + 7）= 27
+<strong>70 + x − 10x − 7 = 27</strong></p>
+    </div>
+    <div id="q0-s2" class="exp-box" style="display:none">
+      <h4>STEP 3　解く</h4>
+      <p>63 − 9x = 27
+−9x = −36
+<strong>x = 4</strong></p>
+    </div>
+    <div id="q0-s3" class="exp-box amber" style="display:none">
+      <h4>STEP 4　答えと確かめ</h4>
+      <p>もとの数 = 10 × 4 + 7 = <strong>47</strong>
+入れ替えた数 = 74
+【確かめ】74 − 47 = 27 ✓</p>
+    </div>
+    <button class="reveal-btn" id="rb-q0" onclick="reveal('q0',4)">STEP 1 を見る ▼</button>
+    <div id="q0-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q0-kA" onclick="setMark('q0k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q0-kB" onclick="setMark('q0k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q0-kC" onclick="setMark('q0k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+      <button class="next-page-btn pr" onclick="switchTab('pr')" style="margin-top:1.4rem;">演習問題へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 演習 ══ -->
+<div class="page" id="page-pr">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-pr">演</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">演習問題</div><div class="page-hdr-desc">桁の問題を解いてみよう。</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-pr" id="pb-pr" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-pr-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 演習1 -->
+  <div class="prob-n"><span class="n n-pr">1</span><span>演習 第1問</span></div>
+  <div class="card" id="q1-card">
+    <div class="clabel pr">演習 第1問</div>
+    <div class="q-text">一の位が <strong>8</strong> である 2 桁の自然数がある。この数の十の位と一の位を入れ替えてできる数は，もとの自然数より <strong>45 大きい</strong> という。もとの自然数を求めよ。</div>
+    <!-- 図解 -->
+    <div style="background:var(--sf2);border-radius:10px;padding:.8rem 1.2rem;margin:.6rem 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-bottom:3px;">もとの数</div>
+        <div class="digit-box">
+          <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">十</div></div>
+          <div class="digit-wrap"><div class="digit-cell fixed">8</div><div class="digit-label">一</div></div>
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--blue);font-weight:700;">10x + 8</div>
+      </div>
+      <div class="digit-arrow">⇄</div>
+      <div>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-bottom:3px;">入れ替えた数</div>
+        <div class="digit-box">
+          <div class="digit-wrap"><div class="digit-cell fixed">8</div><div class="digit-label">十</div></div>
+          <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">一</div></div>
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--pink);font-weight:700;">80 + x</div>
+      </div>
+      <div class="digit-eq">差 = 45</div>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint('h1')">💡 ヒントを見る</button>
+    <div class="hint-box" id="h1">十の位を x とおく。<br>（80 + x）−（10x + 8）= 45<br>72 − 9x = 45 → x = 3</div>
+    <div id="t1" class="timer-wrap"><div class="timer-ring" id="ring-q1"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 4分以内</span></div></div>
+    <div class="choices" id="ch-q1">
+      <button class="ch" onclick="ans('q1',0,1)"><span class="cnum">1</span>28</button>
+      <button class="ch" onclick="ans('q1',1,1)"><span class="cnum">2</span>38</button>
+      <button class="ch" onclick="ans('q1',2,1)"><span class="cnum">3</span>48</button>
+      <button class="ch" onclick="ans('q1',3,1)"><span class="cnum">4</span>58</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q1"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q1"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q1')">🔄 もう一度</button></div>
+    <div id="q1-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>(80+x)−(10x+8)=45 → 72−9x=45 → x=3 → もとの数=38。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q1-mA" onclick="setMark('q1m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q1-mB" onclick="setMark('q1m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q1-mC" onclick="setMark('q1m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q1"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q1">
+    <div class="clabel kai">段階解説</div>
+    <div id="q1-s0" class="exp-box" style="display:none"><h4>STEP 1　x をおく</h4><p>十の位を <span class="hl-x">x</span> とおく。
+もとの数：10<span class="hl-x">x</span> + 8
+入れ替えた数：80 + <span class="hl-x">x</span></p></div>
+    <div id="q1-s1" class="exp-box blue" style="display:none"><h4>STEP 2　方程式をつくる</h4><p>（80 + x）−（10x + 8）= 45
+80 + x − 10x − 8 = 45
+<strong>72 − 9x = 45</strong></p></div>
+    <div id="q1-s2" class="exp-box" style="display:none"><h4>STEP 3　解く</h4><p>−9x = 45 − 72 = −27
+<strong>x = 3</strong></p></div>
+    <div id="q1-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>もとの数 = 10 × 3 + 8 = <strong>38</strong>
+入れ替えた数 = 83
+【確かめ】83 − 38 = 45 ✓</p></div>
+    <button class="reveal-btn" id="rb-q1" onclick="reveal('q1',4)">STEP 1 を見る ▼</button>
+    <div id="q1-fin" style="display:none"><div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+      <button class="abc-btn abc-A" id="q1-kA" onclick="setMark('q1k','A')">✅ A<span>わかった</span></button>
+      <button class="abc-btn abc-B" id="q1-kB" onclick="setMark('q1k','B')">📖 B<span>解説でわかった</span></button>
+      <button class="abc-btn abc-C" id="q1-kC" onclick="setMark('q1k','C')">❓ C<span>わからなかった</span></button>
+    </div></div></div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- 演習2 -->
+  <div class="prob-n"><span class="n n-pr">2</span><span>演習 第2問</span></div>
+  <div class="card" id="q2-card">
+    <div class="clabel pr">演習 第2問</div>
+    <div class="q-text">2 桁の自然数がある。各桁の数字の和が <strong>12</strong> で，十の位と一の位を入れ替えた数はもとの数より <strong>36 大きく</strong>なる。もとの自然数を求めよ。</div>
+    <!-- 図解 -->
+    <div style="background:var(--sf2);border-radius:10px;padding:.8rem 1.2rem;margin:.6rem 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-bottom:3px;">もとの数</div>
+        <div class="digit-box">
+          <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">十</div></div>
+          <div class="digit-wrap"><div class="digit-cell x" style="color:#7d3c98;border-color:#7d3c98;background:#f5eef8;">12−x</div><div class="digit-label">一</div></div>
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--blue);font-weight:700;">9x + 12</div>
+      </div>
+      <div class="digit-arrow">⇄</div>
+      <div>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-bottom:3px;">入れ替えた数</div>
+        <div class="digit-box">
+          <div class="digit-wrap"><div class="digit-cell x" style="color:#7d3c98;border-color:#7d3c98;background:#f5eef8;">12−x</div><div class="digit-label">十</div></div>
+          <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">一</div></div>
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--pink);font-weight:700;">120 − 9x</div>
+      </div>
+      <div class="digit-eq">差 = 36</div>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint('h2')">💡 ヒントを見る</button>
+    <div class="hint-box" id="h2">十の位を x，一の位を（12−x）とおく。<br>もとの数 = 10x + (12−x) = 9x + 12<br>入れ替えた数 = 10(12−x) + x = 120 − 9x<br>（120−9x）−（9x+12）= 36 → 108−18x = 36 → x = 4</div>
+    <div id="t2" class="timer-wrap"><div class="timer-ring" id="ring-q2"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices" id="ch-q2">
+      <button class="ch" onclick="ans('q2',0,1)"><span class="cnum">1</span>39</button>
+      <button class="ch" onclick="ans('q2',1,1)"><span class="cnum">2</span>48</button>
+      <button class="ch" onclick="ans('q2',2,1)"><span class="cnum">3</span>57</button>
+      <button class="ch" onclick="ans('q2',3,1)"><span class="cnum">4</span>66</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q2"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q2"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q2')">🔄 もう一度</button></div>
+    <div id="q2-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>十の位x，一の位(12−x)。(120−9x)−(9x+12)=36 → x=4 → もとの数=48。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q2-mA" onclick="setMark('q2m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q2-mB" onclick="setMark('q2m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q2-mC" onclick="setMark('q2m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q2"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q2">
+    <div class="clabel kai">段階解説</div>
+    <div id="q2-s0" class="exp-box" style="display:none"><h4>STEP 1　x をおく</h4><p>十の位を <span class="hl-x">x</span> とおく。各桁の和が 12 より，一の位 = 12 − <span class="hl-x">x</span>。
+もとの数 = 10x + (12−x) = <strong>9x + 12</strong>
+入れ替えた数 = 10(12−x) + x = <strong>120 − 9x</strong></p></div>
+    <div id="q2-s1" class="exp-box blue" style="display:none"><h4>STEP 2　方程式をつくる</h4><p>（120 − 9x）−（9x + 12）= 36
+120 − 9x − 9x − 12 = 36
+<strong>108 − 18x = 36</strong></p></div>
+    <div id="q2-s2" class="exp-box" style="display:none"><h4>STEP 3　解く</h4><p>−18x = 36 − 108 = −72
+<strong>x = 4</strong>　一の位 = 12 − 4 = 8</p></div>
+    <div id="q2-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>もとの数 = <strong>48</strong>　入れ替えた数 = 84
+【確かめ】4+8=12 ✓　84−48=36 ✓</p></div>
+    <button class="reveal-btn" id="rb-q2" onclick="reveal('q2',4)">STEP 1 を見る ▼</button>
+    <div id="q2-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q2-kA" onclick="setMark('q2k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q2-kB" onclick="setMark('q2k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q2-kC" onclick="setMark('q2k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+      <button class="next-page-btn cf" onclick="switchTab('cf')" style="margin-top:1.4rem;">確認問題へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 確認問題 ══ -->
+<div class="page" id="page-cf">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-cf">確</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">確認問題</div><div class="page-hdr-desc">入試レベルの問題に挑戦しよう。</div></div>
+  </div>
+  <div class="prog-wrap"><div class="pb-w"><div class="pb pb-cf" id="pb-cf" style="width:0%"></div></div><div class="pb-txt" id="pb-cf-txt">0 / 1 完了</div></div>
+  <div class="prob-n"><span class="n n-cf">確</span><span>確認問題</span></div>
+  <div class="card" id="q3-card">
+    <div class="clabel cf">確認問題</div>
+    <div class="q-text">2 桁の自然数がある。十の位の数は一の位の数の <strong>2倍</strong> である。十の位と一の位を入れ替えた数はもとの数より <strong>27 小さく</strong>なる。もとの自然数を求めよ。</div>
+    <!-- 図解 -->
+    <div style="background:var(--sf2);border-radius:10px;padding:.8rem 1.2rem;margin:.6rem 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-bottom:3px;">もとの数</div>
+        <div class="digit-box">
+          <div class="digit-wrap"><div class="digit-cell x" style="color:#7d3c98;border-color:#7d3c98;background:#f5eef8;">2x</div><div class="digit-label">十</div></div>
+          <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">一</div></div>
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--blue);font-weight:700;">21x</div>
+      </div>
+      <div class="digit-arrow">⇄</div>
+      <div>
+        <div style="font-size:10px;color:var(--text3);text-align:center;margin-bottom:3px;">入れ替えた数</div>
+        <div class="digit-box">
+          <div class="digit-wrap"><div class="digit-cell x">x</div><div class="digit-label">十</div></div>
+          <div class="digit-wrap"><div class="digit-cell x" style="color:#7d3c98;border-color:#7d3c98;background:#f5eef8;">2x</div><div class="digit-label">一</div></div>
+        </div>
+        <div style="text-align:center;font-size:12px;color:var(--pink);font-weight:700;">12x</div>
+      </div>
+      <div class="digit-eq">差 = 27</div>
+    </div>
+    <button class="hint-toggle" onclick="toggleHint('h3')">💡 ヒントを見る</button>
+    <div class="hint-box" id="h3">一の位を x，十の位を 2x とおく。<br>もとの数 = 10×2x + x = 21x<br>入れ替えた数 = 10x + 2x = 12x<br>21x − 12x = 27 → x = 3</div>
+    <div id="t3" class="timer-wrap"><div class="timer-ring" id="ring-q3"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="cf-result-ok" id="cf-result-ok">🎉 合格！素晴らしい！</div>
+    <div class="cf-result-ng" id="cf-result-ng">😅 おしい！もう一度挑戦！</div>
+    <div class="choices" id="ch-q3">
+      <button class="ch cf-choice" data-correct="false" onclick="cfSelect(this)"><span class="cnum">1</span>42</button>
+      <button class="ch cf-choice" data-correct="false" onclick="cfSelect(this)"><span class="cnum">2</span>52</button>
+      <button class="ch cf-choice" data-correct="true" onclick="cfSelect(this)"><span class="cnum">3</span>63</button>
+      <button class="ch cf-choice" data-correct="false" onclick="cfSelect(this)"><span class="cnum">4</span>84</button>
+    </div>
+    <button class="cf-judge-btn" id="cf-judge-btn" data-qid="q3" onclick="cfJudge()">答えを確認する ✓</button>
+    <div id="q3-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>一の位x，十の位2x。21x−12x=27 → 9x=27 → x=3 → もとの数=63。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q3-mA" onclick="setMark('q3m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q3-mB" onclick="setMark('q3m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q3-mC" onclick="setMark('q3m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q3"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q3">
+    <div class="clabel kai">段階解説</div>
+    <div id="q3-s0" class="exp-box" style="display:none"><h4>STEP 1　x をおく</h4><p>一の位を <span class="hl-x">x</span>，十の位を <span class="hl-x">2x</span> とおく。
+もとの数 = 10 × 2x + x = <strong>21x</strong>
+入れ替えた数 = 10x + 2x = <strong>12x</strong></p></div>
+    <div id="q3-s1" class="exp-box blue" style="display:none"><h4>STEP 2　方程式をつくる（もと − 入替 = 27）</h4><p>21x − 12x = 27
+<strong>9x = 27</strong></p></div>
+    <div id="q3-s2" class="exp-box" style="display:none"><h4>STEP 3　解く</h4><p><strong>x = 3</strong>　十の位 = 2 × 3 = 6</p></div>
+    <div id="q3-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>もとの数 = <strong>63</strong>　入れ替えた数 = 36
+【確かめ】6 = 3×2 ✓　63−36 = 27 ✓</p></div>
+    <button class="reveal-btn" id="rb-q3" onclick="reveal('q3',4)">STEP 1 を見る ▼</button>
+    <div id="q3-fin" style="display:none"><div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+      <button class="abc-btn abc-A" id="q3-kA" onclick="setMark('q3k','A')">✅ A<span>わかった</span></button>
+      <button class="abc-btn abc-B" id="q3-kB" onclick="setMark('q3k','B')">📖 B<span>解説でわかった</span></button>
+      <button class="abc-btn abc-C" id="q3-kC" onclick="setMark('q3k','C')">❓ C<span>わからなかった</span></button>
+    </div></div></div>
+  </div>
+</div>
+
+<div class="unit-nav" id="unit-nav">
+  <div class="unit-nav-row"><a href="index_ME.html" class="unav-btn unav-index">📋 目次に戻る</a></div>
+  <div class="unit-nav-row"><a href="ME6-2.html" class="unav-btn unav-prev">← 比例式の利用③</a><a href="ME8.html" class="unav-btn unav-next">次へ：列車の問題 →</a></div>
+</div>
+</main>
+<script>
+const TMAX=300;const answered={};const stepRev={q0:0,q1:0,q2:0,q3:0};const timers={};let pracDone=0;
+function switchTab(tab){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));['ex','pr','cf'].forEach(t=>{document.getElementById('tab-'+t).className='tab-btn';});document.getElementById('page-'+tab).classList.add('active');document.getElementById('tab-'+tab).classList.add('active-'+tab);window.scrollTo({top:0,behavior:'smooth'});if(tab==='pr'&&!answered.q1)startTimer('q1');if(tab==='cf'&&!answered.q3)startTimer('q3');}
+function startTimer(qid){if(timers[qid]||answered[qid])return;const start=Date.now();const n=qid.slice(1);tick(0);timers[qid]=setInterval(()=>tick(Math.floor((Date.now()-start)/1000)),1000);function tick(sec){const ring=document.getElementById('ring-'+qid);if(!ring)return;const fg=ring.querySelector('.tfg');const txt=ring.querySelector('.tcenter');const tw=document.getElementById('t'+n);const msg=tw?tw.querySelector('.timer-msg'):null;const pct=Math.min(sec/TMAX,1);fg.style.strokeDashoffset=126*pct;fg.className='tfg'+(pct>.8?' warn':'');const m=Math.floor(sec/60),s=sec%60;txt.textContent=`${m}:${String(s).padStart(2,'0')}`;if(msg){if(sec<60)msg.innerHTML='自力で考えましょう。<span class="goal">目標内</span>';else if(sec<300)msg.innerHTML='じっくり考えています…<span class="goal">まだ大丈夫！</span>';else msg.innerHTML='解説を見て確認しましょう。';}}}
+function stopTimer(qid){clearInterval(timers[qid]);timers[qid]=null;}
+function ans(qid,idx,correct){
+  if(answered[qid])return;
+  answered[qid]=true;
+  stopTimer(qid);
+  var isOk=(idx===correct);
+  var n=qid.slice(1);
+  var tw=document.getElementById('t'+n);
+  if(tw)tw.style.display='none';
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b,i){
+    b.disabled=true;
+    if(i===correct){b.className='ch ok';b.querySelector('.cnum').style.cssText='background:var(--teal);color:#fff';}
+    else if(i===idx&&!isOk){b.className='ch ng';b.querySelector('.cnum').style.cssText='background:var(--pink);color:#fff';}
+  });
+  var fbOk=document.getElementById('fb-ok-'+qid);
+  var fbNg=document.getElementById('fb-ng-'+qid);
+  if(isOk){ if(fbOk)fbOk.style.display='flex'; _launchConfetti(); }
+  else     { if(fbNg)fbNg.style.display='flex'; }
+  var res=document.getElementById(qid+'-res'); if(res)res.style.display='block';
+  var cn=document.getElementById('cn-'+qid);   if(cn)cn.style.display='flex';
+  var kc=document.getElementById('kai-'+qid);
+  if(kc){kc.style.display='block';setTimeout(function(){kc.scrollIntoView({behavior:'smooth',block:'start'});},120);}
+  if(qid==='q1'||qid==='q2'){pracDone++;document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';if(pracDone===2)document.getElementById('done-pr').style.display='flex';if(qid==='q1'&&!answered.q2)setTimeout(()=>startTimer('q2'),300);
+}
+}
+
+function reveal(qid,total){const r=stepRev[qid];const el=document.getElementById(qid+'-s'+r);if(el){el.style.display='block';stepRev[qid]++;setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),60);}const btn=document.getElementById('rb-'+qid);if(stepRev[qid]>=total){btn.style.display='none';const fin=document.getElementById(qid+'-fin');if(fin){fin.style.display='block';setTimeout(()=>fin.scrollIntoView({behavior:'smooth',block:'nearest'}),60);}}else{btn.textContent='STEP '+stepRev[qid]+' を見る ▼';}}
+function toggleHint(id){const b=document.getElementById(id);b.style.display=b.style.display==='block'?'none':'block';}
+function setMark(prefix,m){const base=prefix.slice(0,2);const kind=prefix.slice(2);['A','B','C'].forEach(x=>{const el=document.getElementById(base+'-'+kind+x);if(el)el.classList.toggle('on',x===m);});}
+
+// 確認問題
+var cfSelected=null,cfAnswered=false,cfCanvas=null,cfCtx=null,cfPts=[],cfRunning=false;
+function cfSelect(btn){if(cfAnswered)return;document.querySelectorAll('.cf-choice').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');cfSelected=btn;document.getElementById('cf-judge-btn').classList.add('active');}
+function cfJudge(){if(!cfSelected||cfAnswered)return;cfAnswered=true;var isOk=cfSelected.getAttribute('data-correct')==='true';document.querySelectorAll('.cf-choice').forEach(function(b){b.disabled=true;if(b.getAttribute('data-correct')==='true'){b.className='ch ok cf-choice';b.querySelector('.cnum').style.cssText='background:var(--teal);color:#fff';}else if(b===cfSelected&&!isOk){b.className='ch ng cf-choice';b.querySelector('.cnum').style.cssText='background:var(--pink);color:#fff';}});document.getElementById('cf-judge-btn').style.display='none';if(isOk){document.getElementById('cf-result-ok').style.display='block'; _launchConfetti();startCfConfetti();var qid=document.getElementById('cf-judge-btn').getAttribute('data-qid');if(qid){setTimeout(function(){document.getElementById(qid+'-res').style.display='block';var cn=document.getElementById('cn-'+qid);if(cn)cn.style.display='flex';var kc=document.getElementById('kai-'+qid);if(kc)kc.style.display='block';document.getElementById('pb-cf').style.width='100%';document.getElementById('pb-cf-txt').textContent='1 / 1 完了';document.getElementById('done-cf').style.display='flex'; var _un=document.getElementById('unit-nav');if(_un)_un.style.display='flex';},800);}}else{document.getElementById('cf-result-ng').style.display='block';setTimeout(function(){document.getElementById('cf-result-ng').style.display='none';cfAnswered=false;cfSelected=null;document.querySelectorAll('.cf-choice').forEach(function(b){b.disabled=false;b.classList.remove('selected','ok','ng');b.querySelector('.cnum').style.cssText='';});document.getElementById('cf-judge-btn').classList.remove('active');document.getElementById('cf-judge-btn').style.display='';},2000);}}
+function startCfConfetti(){cfCanvas=document.getElementById('confetti-canvas');if(!cfCanvas){cfCanvas=document.createElement('canvas');cfCanvas.id='confetti-canvas';cfCanvas.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';document.body.appendChild(cfCanvas);}cfCtx=cfCanvas.getContext('2d');cfCanvas.width=window.innerWidth;cfCanvas.height=window.innerHeight;cfPts=[];for(var i=0;i<200;i++)cfPts.push({x:Math.random()*cfCanvas.width,y:Math.random()*cfCanvas.height-cfCanvas.height,s:Math.random()*10+4,c:'hsl('+Math.floor(Math.random()*360)+',80%,60%)',sp:Math.random()*4+2,r:Math.random()*Math.PI*2,rv:(Math.random()-.5)*.2});cfRunning=true;cfUpdate();setTimeout(function(){cfRunning=false;if(cfCtx)cfCtx.clearRect(0,0,cfCanvas.width,cfCanvas.height);},4000);}
+function cfUpdate(){if(!cfRunning)return;cfCtx.clearRect(0,0,cfCanvas.width,cfCanvas.height);cfPts.forEach(function(p){p.y+=p.sp;p.r+=p.rv;cfCtx.save();cfCtx.translate(p.x,p.y);cfCtx.rotate(p.r);cfCtx.fillStyle=p.c;cfCtx.fillRect(-p.s/2,-p.s/2,p.s,p.s);cfCtx.restore();if(p.y>cfCanvas.height)p.y=-20;});requestAnimationFrame(cfUpdate);}
+startTimer('q0');
+
+
+function resetQ(qid){
+  // 状態リセット
+  delete answered[qid];
+  stopTimer(qid);
+  delete timers[qid];
+  // プログレス減算（演習）
+  var n=parseInt(qid.slice(1));
+  if(qid==='q1'||qid==='q2'){if(pracDone>0)pracDone--;document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';document.getElementById('done-pr').style.display='none';}
+  if(qid==='q3'&&document.getElementById('pb-cf')){cfDone=0;document.getElementById('pb-cf').style.width='0%';document.getElementById('pb-cf-txt').textContent='0 / 1 完了';document.getElementById('done-cf').style.display='none';}
+  // バナー・解説を隠す
+  var fbOk=document.getElementById('fb-ok-'+qid);if(fbOk)fbOk.style.display='none';
+  var fbNg=document.getElementById('fb-ng-'+qid);if(fbNg)fbNg.style.display='none';
+  var res=document.getElementById(qid+'-res');if(res)res.style.display='none';
+  var cn=document.getElementById('cn-'+qid);if(cn)cn.style.display='none';
+  var kc=document.getElementById('kai-'+qid);if(kc)kc.style.display='none';
+  // タイマー表示を戻す
+  var tw=document.getElementById('t'+n);if(tw)tw.style.display='flex';
+  // 選択肢を全部リセット
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b){
+    b.disabled=false;
+    b.className='ch';
+    var cn2=b.querySelector('.cnum');if(cn2)cn2.style.cssText='';
+  });
+  // STEPリセット
+  var steps=document.querySelectorAll('[id^="'+qid+'-s"]');steps.forEach(function(el){el.style.display='none';});
+  stepRev[qid]=0;
+  var rb=document.getElementById('rb-'+qid);if(rb){rb.style.display='';rb.textContent='STEP 1 を見る ▼';}
+  var fin=document.getElementById(qid+'-fin');if(fin)fin.style.display='none';
+  // タイマー再スタート
+  startTimer(qid);
+}
+function _launchConfetti(){
+  var cv=document.getElementById('_gamba_cf');
+  if(!cv){
+    cv=document.createElement('canvas');cv.id='_gamba_cf';
+    cv.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(cv);
+  }
+  var ctx=cv.getContext('2d');
+  cv.width=window.innerWidth; cv.height=window.innerHeight;
+  var pts=[],run=true;
+  for(var i=0;i<200;i++) pts.push({
+    x:Math.random()*cv.width, y:-Math.random()*cv.height*0.5,
+    s:Math.random()*8+4, c:'hsl('+Math.floor(Math.random()*360)+',80%,60%)',
+    sp:Math.random()*4+2, r:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.15
+  });
+  (function step(){
+    if(!run)return;
+    requestAnimationFrame(step);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(function(p){
+      p.y+=p.sp; p.r+=p.rv;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
+      ctx.restore();
+    });
+  })();
+  setTimeout(function(){run=false;ctx.clearRect(0,0,cv.width,cv.height);},3500);
+}
+
+</script>
+</body>
+</html>
