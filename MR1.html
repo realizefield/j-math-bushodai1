@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMBA｜連立方程式文章題・個数と代金</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--sf:#fff;--sf2:#f0ede6;--bd:#d6d2c8;--bd2:#bcb8ae;--pink:#d93652;--teal:#0d9478;--blue:#2055b0;--amber:#a86000;--purple:#7d3eb0;--tl:#e6f5f1;--bl:#eaf0fb;--al:#fdf2dd;--pl:#fde8eb;--ppl:#f1e8f7;--text:#1a1814;--text2:#58544c;--text3:#98948c;--r:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+.site-header{background:var(--sf);border-bottom:1px solid var(--bd);padding:.65rem 1.5rem;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--pink);}
+.logo-sep{color:var(--bd2);}
+.logo-sub{font-size:12px;color:var(--text2);}
+.tab-nav{background:var(--sf);border-bottom:2px solid var(--bd);position:sticky;top:46px;z-index:99;display:flex;padding:0 1rem;overflow-x:auto;}
+.tab-btn{padding:.7rem 1.1rem;font-size:13px;font-weight:500;color:var(--text2);background:none;border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active-ex{color:var(--pink);border-bottom-color:var(--pink);}
+.tab-btn.active-pr{color:var(--blue);border-bottom-color:var(--blue);}
+.tab-btn.active-ap{color:var(--purple);border-bottom-color:var(--purple);}
+.tab-btn.active-cf{color:var(--amber);border-bottom-color:var(--amber);}
+.tab-pip{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.pip-ex{background:#fde8eb;color:var(--pink);}
+.pip-pr{background:var(--bl);color:var(--blue);}
+.pip-ap{background:var(--ppl);color:var(--purple);}
+.pip-cf{background:var(--al);color:var(--amber);}
+.tab-done{width:16px;height:16px;border-radius:50%;background:var(--teal);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;}
+.page{display:none;animation:fadeTab .2s ease;}
+.page.active{display:block;}
+@keyframes fadeTab{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+main{max-width:720px;margin:0 auto;padding:1.5rem 1rem 6rem;}
+.page-hdr{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1rem 1.4rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:12px;}
+.page-hdr-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;flex-shrink:0;}
+.icon-ex{background:var(--pink);color:#fff;}.icon-pr{background:var(--blue);color:#fff;}.icon-ap{background:var(--purple);color:#fff;}.icon-cf{background:var(--amber);color:#fff;}
+.page-hdr-body{flex:1;}
+.page-hdr-title{font-size:15px;font-weight:700;margin-bottom:2px;}
+.page-hdr-desc{font-size:12px;color:var(--text2);}
+.prog-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:.8rem 1.2rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:12px;}
+.pb-w{flex:1;height:6px;background:var(--bd);border-radius:3px;overflow:hidden;}
+.pb{height:100%;border-radius:3px;transition:width .4s;}
+.pb-pr{background:var(--blue);}.pb-ap{background:var(--purple);}.pb-cf{background:var(--amber);}
+.pb-txt{font-size:12px;color:var(--text2);white-space:nowrap;}
+.skip-banner{background:var(--ppl);border:1.5px dashed var(--purple);border-radius:var(--r);padding:.9rem 1.1rem;margin-bottom:1.2rem;font-size:13px;color:var(--text2);line-height:1.6;}
+.skip-banner strong{color:var(--purple);}
+.next-page-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--sf);border:1.5px solid var(--bd);border-radius:var(--r);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .15s;margin-top:.5rem;}
+.next-page-btn.pr{border-color:var(--blue);color:var(--blue);background:var(--bl);}
+.next-page-btn.ap{border-color:var(--purple);color:var(--purple);background:var(--ppl);}
+.next-page-btn.cf{border-color:var(--amber);color:var(--amber);background:var(--al);}
+.next-page-btn.skip{border-color:var(--bd2);color:var(--text2);background:var(--sf2);}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem 1.5rem;margin-bottom:1rem;}
+.clabel{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:.85rem;display:flex;align-items:center;gap:6px;}
+.clabel::before{content:'';width:3px;height:14px;border-radius:2px;display:inline-block;}
+.clabel.ex{color:var(--pink);}.clabel.ex::before{background:var(--pink);}
+.clabel.pr{color:var(--blue);}.clabel.pr::before{background:var(--blue);}
+.clabel.ap{color:var(--purple);}.clabel.ap::before{background:var(--purple);}
+.clabel.cf{color:var(--amber);}.clabel.cf::before{background:var(--amber);}
+.clabel.kai{color:var(--teal);}.clabel.kai::before{background:var(--teal);}
+.q-text{font-size:15px;line-height:1.95;color:var(--text);margin-bottom:1.2rem;}
+.prob-src{display:inline-block;font-size:11px;color:var(--text3);background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:3px 10px;margin-bottom:1.1rem;}
+.star-tag{display:inline-block;font-size:11px;color:#fff;background:var(--purple);border-radius:20px;padding:3px 10px;margin-left:6px;font-weight:700;}
+/* 連立方程式の重要ポイント */
+.point-box{background:#fff8e7;border-left:4px solid #FFB300;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:1rem 0;font-size:13px;line-height:1.8;color:var(--text);}
+.point-box strong{display:block;color:var(--amber);font-size:12px;margin-bottom:.3rem;letter-spacing:.05em;}
+/* 中1との比較ボックス */
+.compare-box{background:#e6f1fb;border-left:4px solid #185FA5;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:1rem 0;font-size:13px;line-height:1.8;color:var(--text);}
+.compare-box strong{display:block;color:var(--blue);font-size:12px;margin-bottom:.3rem;letter-spacing:.05em;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.5rem;}
+@media(max-width:480px){.compare-grid{grid-template-columns:1fr;}}
+.compare-col{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:.7rem .9rem;font-size:12.5px;line-height:1.7;}
+.compare-col h5{font-size:12px;font-weight:700;margin-bottom:.4rem;}
+.compare-col.ch1 h5{color:var(--text2);}
+.compare-col.ch2 h5{color:var(--blue);}
+/* 表 */
+.tbl{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:13.5px;}
+.tbl th{background:var(--sf2);color:var(--text2);font-weight:500;padding:8px 10px;border:1px solid var(--bd);text-align:center;font-size:12px;}
+.tbl td{padding:8px 10px;border:1px solid var(--bd);text-align:center;}
+.tbl .hi{background:#fff8e1;font-weight:700;color:#a86000;}
+/* STEP解説ボックス */
+.exp-box{background:var(--sf2);border-left:4px solid var(--text3);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.7rem 0;font-size:14px;line-height:1.85;}
+.exp-box.blue{border-left-color:var(--blue);background:var(--bl);}
+.exp-box.amber{border-left-color:var(--amber);background:var(--al);}
+.exp-box.teal{border-left-color:var(--teal);background:var(--tl);}
+.exp-box h4{font-size:13px;font-weight:700;margin-bottom:.4rem;color:var(--text);}
+.exp-box p{white-space:pre-line;}
+.hl-x{color:var(--pink);font-weight:700;}
+.hl-y{color:var(--blue);font-weight:700;}
+.hl-a{color:var(--teal);font-weight:700;}
+.eq-line{font-family:'DM Mono',monospace;background:var(--sf);border:1px solid var(--bd);border-radius:6px;padding:.4rem .7rem;margin:.3rem 0;display:inline-block;font-size:14px;}
+/* choices */
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:1rem;}
+.choices.col4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:480px){.choices.col4{grid-template-columns:1fr 1fr;}}
+.ch{background:var(--sf2);border:1.5px solid var(--bd);border-radius:9px;padding:10px 8px;font-size:13.5px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;font-family:'Noto Sans JP',sans-serif;width:100%;text-align:left;line-height:1.5;}
+.ch:hover:not(:disabled){border-color:var(--blue);background:var(--bl);}
+.ch:disabled{cursor:default;}
+.ch.ok{border-color:var(--teal);background:var(--tl);color:var(--teal);}
+.ch.ng{border-color:var(--pink);background:var(--pl);color:var(--pink);}
+.cnum{width:22px;height:22px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.ch.ok .cnum{background:var(--teal);color:#fff;}
+.ch.ng .cnum{background:var(--pink);color:#fff;}
+/* timer */
+.timer-wrap{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.timer-ring{position:relative;width:44px;height:44px;flex-shrink:0;}
+.timer-ring svg{transform:rotate(-90deg);}
+.timer-ring .tbg{fill:none;stroke:var(--bd);stroke-width:3;}
+.timer-ring .tfg{fill:none;stroke:var(--teal);stroke-width:3;stroke-dasharray:126;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke .3s;}
+.timer-ring .tfg.warn{stroke:var(--pink);}
+.timer-ring .tcenter{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace;}
+.timer-msg{font-size:12px;color:var(--text2);}
+.timer-msg .goal{color:var(--teal);font-weight:700;margin-left:6px;}
+/* hint */
+.hint-toggle{background:none;border:1.5px dashed var(--bd2);color:var(--text2);font-size:12px;font-weight:500;padding:7px 12px;border-radius:8px;cursor:pointer;margin-bottom:.7rem;font-family:'Noto Sans JP',sans-serif;}
+.hint-toggle:hover{border-color:var(--amber);color:var(--amber);}
+.hint-box{display:none;background:var(--al);border:1px solid var(--amber);border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;font-size:13px;line-height:1.7;color:var(--text);}
+.hint-box.show{display:block;}
+.hint2-toggle{background:none;border:1.5px dashed var(--bd2);color:var(--text2);font-size:12px;font-weight:500;padding:7px 12px;border-radius:8px;cursor:pointer;margin-bottom:.7rem;font-family:'Noto Sans JP',sans-serif;display:none;margin-left:6px;}
+.hint2-toggle:hover{border-color:var(--purple);color:var(--purple);}
+.hint2-box{display:none;background:var(--ppl);border:1px solid var(--purple);border-radius:8px;padding:.9rem 1rem;margin-bottom:.9rem;}
+.hint2-box.show{display:block;}
+.hint2-q{font-size:13px;font-weight:700;color:var(--purple);margin-bottom:.6rem;}
+.hint2-choices{display:grid;grid-template-columns:1fr;gap:6px;}
+.hint2-ch{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:8px 10px;font-size:13px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px;text-align:left;font-family:'Noto Sans JP',sans-serif;line-height:1.5;}
+.hint2-ch:hover:not(:disabled){border-color:var(--purple);background:#fff;}
+.hint2-ch:disabled{cursor:default;}
+.hint2-ch.ok{border-color:var(--teal);background:var(--tl);color:var(--teal);}
+.hint2-ch.ng{border-color:var(--pink);background:var(--pl);color:var(--pink);opacity:.7;}
+.hint2-num{width:20px;height:20px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.hint2-ch.ok .hint2-num{background:var(--teal);color:#fff;}
+.hint2-ch.ng .hint2-num{background:var(--pink);color:#fff;}
+.hint2-fb{display:none;margin-top:.6rem;font-size:12px;line-height:1.6;padding:.5rem .7rem;border-radius:6px;}
+.hint2-fb.show{display:block;}
+.hint2-fb.ok{background:var(--tl);color:var(--teal);}
+.hint2-fb.ng{background:var(--pl);color:var(--pink);}
+/* feedback */
+.fb-ok,.fb-ng{display:none;align-items:center;gap:10px;padding:.85rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:13px;}
+.fb-ok{background:var(--tl);color:var(--teal);}
+.fb-ng{background:var(--pl);color:var(--pink);}
+.fb-icon{font-size:1.3rem;}
+.fb-text{font-weight:700;}
+.fb-ok .fb-text{color:#0d9478;}
+.fb-ng .fb-text{color:#d93652;}
+.fb-sub{font-size:11px;font-weight:400;display:block;margin-top:1px;opacity:.8;}
+.reset-btn{margin-left:auto;background:none;border:1.5px solid var(--pink);color:var(--pink);font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;}
+.reset-btn:hover{background:var(--pink);color:#fff;}
+/* step reveal */
+.reveal-btn{display:block;width:100%;padding:11px;background:var(--sf);border:1.5px dashed var(--teal);color:var(--teal);font-size:13px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:.7rem;font-family:'Noto Sans JP',sans-serif;}
+.reveal-btn:hover{background:var(--tl);}
+/* connector */
+.connector{display:none;flex-direction:column;align-items:center;margin:.3rem 0;}
+.connector-line{width:2px;height:18px;background:var(--bd2);}
+.connector-arrow{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bd2);}
+.kai-card{display:none;}
+/* 理解度 */
+.abc-wrap{margin-top:1rem;padding-top:.9rem;border-top:1px dashed var(--bd);}
+.abc-lbl{font-size:11px;color:var(--text2);margin-bottom:.5rem;font-weight:500;}
+.abc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.abc-btn{padding:8px 6px;border:1.5px solid var(--bd);border-radius:7px;background:var(--sf);cursor:pointer;font-size:11px;font-weight:600;font-family:'Noto Sans JP',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all .15s;color:var(--text2);}
+.abc-btn span{font-size:9.5px;font-weight:400;color:var(--text3);}
+.abc-A.on{background:var(--tl);border-color:var(--teal);color:var(--teal);}
+.abc-A.on span{color:var(--teal);}
+.abc-B.on{background:var(--bl);border-color:var(--blue);color:var(--blue);}
+.abc-B.on span{color:var(--blue);}
+.abc-C.on{background:var(--pl);border-color:var(--pink);color:var(--pink);}
+.abc-C.on span{color:var(--pink);}
+/* prob number */
+.prob-n{display:flex;align-items:center;gap:8px;margin:1.4rem 0 .5rem;font-size:13px;font-weight:700;color:var(--text2);flex-wrap:wrap;}
+.prob-n .n{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;}
+/* 難易度バッジ */
+.diff-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-left:auto;border:1.5px solid;}
+.diff-badge .stars{font-size:12px;letter-spacing:1px;}
+.diff-1{background:#e6f5f1;color:#0d9478;border-color:#0d9478;}
+.diff-2{background:#e6f5f1;color:#0d9478;border-color:#0d9478;}
+.diff-3{background:#eaf0fb;color:#2055b0;border-color:#2055b0;}
+.diff-4{background:#fdf2dd;color:#a86000;border-color:#a86000;}
+.diff-5{background:#fde8eb;color:#d93652;border-color:#d93652;}
+.n-pr{background:var(--blue);}.n-ap{background:var(--purple);}.n-cf{background:var(--amber);}
+.prob-divider{border:none;border-top:1px dashed var(--bd);margin:1.5rem 0;}
+/* セクション見出し */
+.section-h{display:flex;align-items:center;gap:8px;margin:1.6rem 0 .7rem;font-size:13.5px;font-weight:700;}
+.section-h.basic{color:var(--blue);}
+.section-h.adv{color:var(--purple);}
+.section-h::before{content:'';width:4px;height:18px;border-radius:2px;display:inline-block;}
+.section-h.basic::before{background:var(--blue);}
+.section-h.adv::before{background:var(--purple);}
+.section-desc{font-size:12px;color:var(--text2);margin-bottom:.9rem;line-height:1.6;}
+/* unit nav */
+.unit-nav{display:none;flex-direction:column;gap:10px;margin:1.8rem 0 0;padding-top:1.4rem;border-top:2px dashed #d6d2c8;}
+.unit-nav-row{display:flex;gap:8px;flex-wrap:wrap;}
+.unav-btn{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;border:2px solid;font-family:'Noto Sans JP',sans-serif;transition:all .15s;text-align:center;}
+.unav-index{background:#fff;border-color:#d6d2c8;color:#58544c;}
+.unav-index:hover{border-color:#2055b0;color:#2055b0;background:#eaf0fb;}
+.unav-prev{background:#f0ede6;border-color:#bcb8ae;color:#58544c;}
+.unav-prev:hover{border-color:#0d9478;color:#0d9478;}
+.unav-next{background:#2055b0;border-color:#2055b0;color:#fff;}
+.unav-next:hover{background:#153a80;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <span class="logo">GAMBA</span><span class="logo-sep">|</span>
+  <span class="logo-sub">中2 連立方程式文章題 ／ 個数と代金</span>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active-ex" id="tab-ex" onclick="switchTab('ex')"><span class="tab-pip pip-ex">例</span>例題</button>
+  <button class="tab-btn" id="tab-pr" onclick="switchTab('pr')"><span class="tab-pip pip-pr">基</span>基本演習<span class="tab-done" id="done-pr">✓</span></button>
+  <button class="tab-btn" id="tab-ap" onclick="switchTab('ap')"><span class="tab-pip pip-ap">応</span>応用演習<span class="tab-done" id="done-ap">✓</span></button>
+  <button class="tab-btn" id="tab-cf" onclick="switchTab('cf')"><span class="tab-pip pip-cf">確</span>確認問題<span class="tab-done" id="done-cf">✓</span></button>
+</nav>
+<main>
+
+<!-- ════════ 例題 ════════ -->
+<div class="page active" id="page-ex">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-ex">例</div>
+    <div class="page-hdr-body">
+      <div class="page-hdr-title">例題 ─ 個数と代金（連立方程式）</div>
+      <div class="page-hdr-desc">連立方程式の文章題 ／ 中学2年</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel ex">例題</div>
+    <div class="q-text">
+      1個 <strong>80円</strong> のリンゴと，1個 <strong>50円</strong> のミカンを合わせて <strong>10個</strong> 買ったところ，代金の合計は <strong>620円</strong> だった。リンゴとミカンをそれぞれ何個買ったか。
+    </div>
+
+    <!-- 中1との比較ボックス -->
+    <div class="compare-box">
+      <strong>📘 中1で解いた問題が、連立方程式だとどう変わる？</strong>
+      この問題、実は中1の方程式単元で解いた問題と同じです。中1では<strong>1文字（x）だけ</strong>を使って解きましたが、中2では <strong>x と y の 2文字</strong> を使って <strong>連立方程式</strong> で解きます。
+      <div class="compare-grid">
+        <div class="compare-col ch1">
+          <h5>📗 中1のとき（1文字）</h5>
+          リンゴを <span class="hl-x">x 個</span>、ミカンを（10 − <span class="hl-x">x</span>）個と置く<br>
+          → 式は 1つ：<br>
+          80<span class="hl-x">x</span> + 50（10 − <span class="hl-x">x</span>）= 620
+        </div>
+        <div class="compare-col ch2">
+          <h5>📘 中2のとき（2文字）</h5>
+          リンゴを <span class="hl-x">x 個</span>、ミカンを <span class="hl-y">y 個</span> と置く<br>
+          → 式は 2つ：<br>
+          <span class="hl-x">x</span> + <span class="hl-y">y</span> = 10<br>
+          80<span class="hl-x">x</span> + 50<span class="hl-y">y</span> = 620
+        </div>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <strong>連立方程式の文章題の解き方</strong>
+      ① 求めるものを x、y とおく　② 等しい関係を <strong>2つ</strong> 見つける　③ 連立方程式をつくる　④ <strong>加減法</strong> で解く　⑤ 確かめる
+    </div>
+
+    <!-- STEP解説 -->
+    <div id="q0-s0" class="exp-box" style="display:none">
+      <h4>STEP 1　x、y をおく</h4>
+      <p>リンゴの個数を <span class="hl-x">x 個</span>、ミカンの個数を <span class="hl-y">y 個</span> とおく。</p>
+      <table class="tbl">
+        <tr><th></th><th>1個の値段</th><th>個数</th><th>代金</th></tr>
+        <tr><td>リンゴ</td><td>80円</td><td class="hi">x</td><td>80x</td></tr>
+        <tr><td>ミカン</td><td>50円</td><td class="hi">y</td><td>50y</td></tr>
+        <tr><td>合計</td><td>—</td><td>10</td><td>620円</td></tr>
+      </table>
+    </div>
+    <div id="q0-s1" class="exp-box blue" style="display:none">
+      <h4>STEP 2　連立方程式をつくる</h4>
+      <p>① 個数の合計：<span class="hl-x">x</span> + <span class="hl-y">y</span> = 10
+② 代金の合計：80<span class="hl-x">x</span> + 50<span class="hl-y">y</span> = 620</p>
+    </div>
+    <div id="q0-s2" class="exp-box" style="display:none">
+      <h4>STEP 3　加減法で解く</h4>
+      <p>①を50倍して、②から引く（y を消す）</p>
+      <p>　　80x + 50y = 620 ……②
+−)　50x + 50y = 500 ……①×50
+　　30x　　　 = 120
+　　　　　　 <strong>x = 4</strong></p>
+      <p>①に代入：4 + y = 10　→　<strong>y = 6</strong></p>
+    </div>
+    <div id="q0-s3" class="exp-box amber" style="display:none">
+      <h4>STEP 4　答えと確かめ</h4>
+      <p>リンゴ <strong>4個</strong>，ミカン <strong>6個</strong>
+【確かめ】個数：4 + 6 = 10個 ✓　　代金：80×4 + 50×6 = 320 + 300 = 620円 ✓</p>
+    </div>
+    <button class="reveal-btn" id="rb-q0" onclick="reveal('q0',4)">STEP 1 を見る ▼</button>
+
+    <div id="q0-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q0-kA" onclick="setMark('q0k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q0-kB" onclick="setMark('q0k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q0-kC" onclick="setMark('q0k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+      <button class="next-page-btn pr" onclick="switchTab('pr')" style="margin-top:1.4rem;">基本演習へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 基本演習 ════════ -->
+<div class="page" id="page-pr">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-pr">基</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">基本演習</div><div class="page-hdr-desc">例題と同じパターンの問題を、連立方程式で解いてみよう。</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-pr" id="pb-pr" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-pr-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 基本演習1 -->
+  <div class="prob-n"><span class="n n-pr">1</span><span>基本演習 第1問</span><span class="diff-badge diff-1"><span class="stars">★☆☆☆☆</span>とてもやさしい</span></div>
+  <div class="card" id="q1-card">
+    <div class="clabel pr">基本演習 第1問</div>
+    <div class="q-text">
+      1本 <strong>60円</strong> の鉛筆と，1個 <strong>120円</strong> の消しゴムを合わせて <strong>8個</strong> 買ったところ，代金の合計は <strong>600円</strong> だった。鉛筆と消しゴムをそれぞれ何個買ったか。
+    </div>
+    <button class="hint-toggle" onclick="showHint1('q1')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q1" onclick="showHint2('q1')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q1">鉛筆の本数を <span class="hl-x">x 本</span>、消しゴムの個数を <span class="hl-y">y 個</span> とおく。「個数の合計」と「代金の合計」で2つの式をつくろう。</div>
+    <div class="hint2-box" id="h2-q1">
+      <div class="hint2-q">代金の合計を表す式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q1',0,2)"><span class="hint2-num">1</span>x + y = 600</button>
+        <button class="hint2-ch" onclick="hint2Ans('q1',1,2)"><span class="hint2-num">2</span>60x + 120y = 8</button>
+        <button class="hint2-ch" onclick="hint2Ans('q1',2,2)"><span class="hint2-num">3</span>60x + 120y = 600</button>
+        <button class="hint2-ch" onclick="hint2Ans('q1',3,2)"><span class="hint2-num">4</span>120x + 60y = 600</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q1"></div>
+    </div>
+    <div id="t1" class="timer-wrap"><div class="timer-ring" id="ring-q1"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 4分以内</span></div></div>
+    <div class="choices col4" id="ch-q1">
+      <button class="ch" onclick="ans('q1',0,2)"><span class="cnum">1</span>鉛筆3本・消しゴム5個</button>
+      <button class="ch" onclick="ans('q1',1,2)"><span class="cnum">2</span>鉛筆5本・消しゴム3個</button>
+      <button class="ch" onclick="ans('q1',2,2)"><span class="cnum">3</span>鉛筆6本・消しゴム2個</button>
+      <button class="ch" onclick="ans('q1',3,2)"><span class="cnum">4</span>鉛筆7本・消しゴム1個</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q1"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q1"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q1')">🔄 もう一度</button></div>
+    <div id="q1-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>x + y = 8 と 60x + 120y = 600 の連立。①×60を②から引いて 60y = 120 → y = 2。x = 6。鉛筆6本・消しゴム2個。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q1-mA" onclick="setMark('q1m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q1-mB" onclick="setMark('q1m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q1-mC" onclick="setMark('q1m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q1"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q1">
+    <div class="clabel kai">段階解説</div>
+    <div id="q1-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4><p>鉛筆を <span class="hl-x">x 本</span>、消しゴムを <span class="hl-y">y 個</span> とおく。</p>
+      <table class="tbl">
+        <tr><th></th><th>単価</th><th>個数</th><th>代金</th></tr>
+        <tr><td>鉛筆</td><td>60円</td><td class="hi">x</td><td>60x</td></tr>
+        <tr><td>消しゴム</td><td>120円</td><td class="hi">y</td><td>120y</td></tr>
+        <tr><td>合計</td><td>—</td><td>8</td><td>600円</td></tr>
+      </table>
+    </div>
+    <div id="q1-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① <span class="hl-x">x</span> + <span class="hl-y">y</span> = 8
+② 60<span class="hl-x">x</span> + 120<span class="hl-y">y</span> = 600</p></div>
+    <div id="q1-s2" class="exp-box" style="display:none"><h4>STEP 3　加減法で解く</h4><p>①を60倍して②から引く（x を消す）</p><p>　　60x + 120y = 600 ……②
+−)　60x +  60y = 480 ……①×60
+　　　　　 60y = 120
+　　　　　　<strong>y = 2</strong></p><p>①に代入：x + 2 = 8　→　<strong>x = 6</strong></p></div>
+    <div id="q1-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>鉛筆 <strong>6本</strong>，消しゴム <strong>2個</strong>
+【確かめ】6 + 2 = 8個 ✓　　60×6 + 120×2 = 360 + 240 = 600円 ✓</p></div>
+    <button class="reveal-btn" id="rb-q1" onclick="reveal('q1',4)">STEP 1 を見る ▼</button>
+    <div id="q1-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q1-kA" onclick="setMark('q1k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q1-kB" onclick="setMark('q1k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q1-kC" onclick="setMark('q1k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- 基本演習2 -->
+  <div class="prob-n"><span class="n n-pr">2</span><span>基本演習 第2問</span><span class="diff-badge diff-2"><span class="stars">★★☆☆☆</span>やさしい</span></div>
+  <div class="card" id="q2-card">
+    <div class="clabel pr">基本演習 第2問</div>
+    <div class="q-text">
+      大人1人 <strong>500円</strong>，子ども1人 <strong>200円</strong> の入場料で，大人と子ども合わせて <strong>12人</strong> が入場したところ，入場料の合計は <strong>3900円</strong> だった。大人と子どもはそれぞれ何人か。
+    </div>
+    <button class="hint-toggle" onclick="showHint1('q2')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q2" onclick="showHint2('q2')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q2">大人を <span class="hl-x">x 人</span>、子どもを <span class="hl-y">y 人</span> とおく。「人数の合計」と「入場料の合計」で2つの式。</div>
+    <div class="hint2-box" id="h2-q2">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q2',0,1)"><span class="hint2-num">1</span>x + y = 12,　200x + 500y = 3900</button>
+        <button class="hint2-ch" onclick="hint2Ans('q2',1,1)"><span class="hint2-num">2</span>x + y = 12,　500x + 200y = 3900</button>
+        <button class="hint2-ch" onclick="hint2Ans('q2',2,1)"><span class="hint2-num">3</span>x + y = 3900,　500x + 200y = 12</button>
+        <button class="hint2-ch" onclick="hint2Ans('q2',3,1)"><span class="hint2-num">4</span>500x + 200y = 12,　x + y = 3900</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q2"></div>
+    </div>
+    <div id="t2" class="timer-wrap"><div class="timer-ring" id="ring-q2"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 4分以内</span></div></div>
+    <div class="choices col4" id="ch-q2">
+      <button class="ch" onclick="ans('q2',0,1)"><span class="cnum">1</span>大人3人・子ども9人</button>
+      <button class="ch" onclick="ans('q2',1,1)"><span class="cnum">2</span>大人5人・子ども7人</button>
+      <button class="ch" onclick="ans('q2',2,1)"><span class="cnum">3</span>大人7人・子ども5人</button>
+      <button class="ch" onclick="ans('q2',3,1)"><span class="cnum">4</span>大人9人・子ども3人</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q2"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q2"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q2')">🔄 もう一度</button></div>
+    <div id="q2-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>x + y = 12 と 500x + 200y = 3900 の連立。①×200を②から引いて 300x = 1500 → x = 5。y = 7。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q2-mA" onclick="setMark('q2m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q2-mB" onclick="setMark('q2m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q2-mC" onclick="setMark('q2m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q2"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q2">
+    <div class="clabel kai">段階解説</div>
+    <div id="q2-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4><p>大人を <span class="hl-x">x 人</span>、子どもを <span class="hl-y">y 人</span> とおく。</p>
+      <table class="tbl">
+        <tr><th></th><th>入場料</th><th>人数</th><th>料金合計</th></tr>
+        <tr><td>大人</td><td>500円</td><td class="hi">x</td><td>500x</td></tr>
+        <tr><td>子ども</td><td>200円</td><td class="hi">y</td><td>200y</td></tr>
+        <tr><td>合計</td><td>—</td><td>12</td><td>3900円</td></tr>
+      </table>
+    </div>
+    <div id="q2-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① <span class="hl-x">x</span> + <span class="hl-y">y</span> = 12
+② 500<span class="hl-x">x</span> + 200<span class="hl-y">y</span> = 3900</p></div>
+    <div id="q2-s2" class="exp-box" style="display:none"><h4>STEP 3　加減法で解く</h4><p>①を200倍して②から引く（y を消す）</p><p>　　500x + 200y = 3900 ……②
+−)　200x + 200y = 2400 ……①×200
+　　300x　　　　 = 1500
+　　　　　　　 <strong>x = 5</strong></p><p>①に代入：5 + y = 12　→　<strong>y = 7</strong></p></div>
+    <div id="q2-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>大人 <strong>5人</strong>，子ども <strong>7人</strong>
+【確かめ】5 + 7 = 12人 ✓　　500×5 + 200×7 = 2500 + 1400 = 3900円 ✓</p></div>
+    <button class="reveal-btn" id="rb-q2" onclick="reveal('q2',4)">STEP 1 を見る ▼</button>
+    <div id="q2-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q2-kA" onclick="setMark('q2k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q2-kB" onclick="setMark('q2k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q2-kC" onclick="setMark('q2k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="skip-banner" style="margin-top:1.5rem;">
+    💪 基本演習ができたら<strong>応用演習</strong>に挑戦しよう！<br>
+    <span style="font-size:12px;">苦手な人は応用をとばして<strong>確認問題</strong>に進んでもOKです。</span>
+  </div>
+  <button class="next-page-btn ap" onclick="switchTab('ap')">応用演習へ進む →</button>
+  <button class="next-page-btn skip" onclick="switchTab('cf')" style="margin-top:.6rem;">応用をとばして確認問題へ →</button>
+</div>
+
+<!-- ════════ 応用演習 ════════ -->
+<div class="page" id="page-ap">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-ap">応</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">応用演習（スキップ可）</div><div class="page-hdr-desc">少しひねりのある問題。できる人は挑戦しよう。</div></div>
+  </div>
+  <div class="skip-banner">
+    <strong>💡 苦手な人へ</strong>　応用演習はとばしてOKです。基本演習ができていれば、確認問題に進んで大丈夫。
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-ap" id="pb-ap" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-ap-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 応用1 -->
+  <div class="prob-n"><span class="n n-ap">1</span><span>応用演習 第1問</span><span class="diff-badge diff-2"><span class="stars">★★☆☆☆</span>やさしい</span></div>
+  <div class="card" id="q3-card">
+    <div class="clabel ap">応用演習 第1問</div>
+    <div class="q-text">
+      1冊 <strong>150円</strong> のノートと，1本 <strong>80円</strong> のボールペンを合わせて <strong>15個</strong> 買い，<strong>1690円</strong> 払った。ノートとボールペンをそれぞれ何個買ったか。
+    </div>
+    <button class="hint-toggle" onclick="showHint1('q3')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q3" onclick="showHint2('q3')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q3">ノートを <span class="hl-x">x 冊</span>、ボールペンを <span class="hl-y">y 本</span> とおく。「個数の合計＝15」と「代金の合計＝1690」で連立方程式。</div>
+    <div class="hint2-box" id="h2-q3">
+      <div class="hint2-q">①の式から y を消すには、①を何倍して②から引けばいい？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q3',0,1)"><span class="hint2-num">1</span>①を150倍して②から引く</button>
+        <button class="hint2-ch" onclick="hint2Ans('q3',1,1)"><span class="hint2-num">2</span>①を80倍して②から引く</button>
+        <button class="hint2-ch" onclick="hint2Ans('q3',2,1)"><span class="hint2-num">3</span>①と②をそのまま足す</button>
+        <button class="hint2-ch" onclick="hint2Ans('q3',3,1)"><span class="hint2-num">4</span>①を1690倍して②から引く</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q3"></div>
+    </div>
+    <div id="t3" class="timer-wrap"><div class="timer-ring" id="ring-q3"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q3">
+      <button class="ch" onclick="ans('q3',0,1)"><span class="cnum">1</span>ノート5冊・ペン10本</button>
+      <button class="ch" onclick="ans('q3',1,1)"><span class="cnum">2</span>ノート7冊・ペン8本</button>
+      <button class="ch" onclick="ans('q3',2,1)"><span class="cnum">3</span>ノート8冊・ペン7本</button>
+      <button class="ch" onclick="ans('q3',3,1)"><span class="cnum">4</span>ノート10冊・ペン5本</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q3"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q3"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q3')">🔄 もう一度</button></div>
+    <div id="q3-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>x + y = 15 と 150x + 80y = 1690。①×80を②から引いて 70x = 490 → x = 7。y = 8。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q3-mA" onclick="setMark('q3m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q3-mB" onclick="setMark('q3m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q3-mC" onclick="setMark('q3m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q3"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q3">
+    <div class="clabel kai">段階解説</div>
+    <div id="q3-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4><p>ノートを <span class="hl-x">x 冊</span>、ボールペンを <span class="hl-y">y 本</span> とおく。</p></div>
+    <div id="q3-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① <span class="hl-x">x</span> + <span class="hl-y">y</span> = 15
+② 150<span class="hl-x">x</span> + 80<span class="hl-y">y</span> = 1690</p></div>
+    <div id="q3-s2" class="exp-box" style="display:none"><h4>STEP 3　加減法で解く</h4><p>①を80倍して②から引く（y を消す）</p><p>　　150x + 80y = 1690 ……②
+−)　 80x + 80y = 1200 ……①×80
+　　 70x　　　 = 490
+　　　　　　 <strong>x = 7</strong></p><p>①に代入：7 + y = 15　→　<strong>y = 8</strong></p></div>
+    <div id="q3-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>ノート <strong>7冊</strong>，ボールペン <strong>8本</strong>
+【確かめ】7 + 8 = 15個 ✓　　150×7 + 80×8 = 1050 + 640 = 1690円 ✓</p></div>
+    <button class="reveal-btn" id="rb-q3" onclick="reveal('q3',4)">STEP 1 を見る ▼</button>
+    <div id="q3-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q3-kA" onclick="setMark('q3k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q3-kB" onclick="setMark('q3k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q3-kC" onclick="setMark('q3k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- 応用2 -->
+  <div class="prob-n"><span class="n n-ap">2</span><span>応用演習 第2問</span><span class="diff-badge diff-3"><span class="stars">★★★☆☆</span>標準</span></div>
+  <div class="card" id="q4-card">
+    <div class="clabel ap">応用演習 第2問</div>
+    <div class="q-text">
+      ある博物館の入館料は，大人1人 <strong>800円</strong>，子ども1人 <strong>300円</strong> である。ある日の入館者は <strong>120人</strong>で，入館料の合計は <strong>61000円</strong> だった。この日の大人と子どもの入館者数をそれぞれ求めよ。
+    </div>
+    <button class="hint-toggle" onclick="showHint1('q4')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q4" onclick="showHint2('q4')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q4">大人の人数を <span class="hl-x">x 人</span>、子どもの人数を <span class="hl-y">y 人</span> とおく。</div>
+    <div class="hint2-box" id="h2-q4">
+      <div class="hint2-q">入館料の合計を表す式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q4',0,2)"><span class="hint2-num">1</span>x + y = 61000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q4',1,2)"><span class="hint2-num">2</span>300x + 800y = 61000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q4',2,2)"><span class="hint2-num">3</span>800x + 300y = 61000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q4',3,2)"><span class="hint2-num">4</span>800x + 300y = 120</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q4"></div>
+    </div>
+    <div id="t4" class="timer-wrap"><div class="timer-ring" id="ring-q4"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q4">
+      <button class="ch" onclick="ans('q4',0,1)"><span class="cnum">1</span>大人40人・子ども80人</button>
+      <button class="ch" onclick="ans('q4',1,1)"><span class="cnum">2</span>大人50人・子ども70人</button>
+      <button class="ch" onclick="ans('q4',2,1)"><span class="cnum">3</span>大人70人・子ども50人</button>
+      <button class="ch" onclick="ans('q4',3,1)"><span class="cnum">4</span>大人80人・子ども40人</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q4"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q4"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q4')">🔄 もう一度</button></div>
+    <div id="q4-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>x + y = 120 と 800x + 300y = 61000。①×300を②から引いて 500x = 25000 → x = 50。y = 70。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q4-mA" onclick="setMark('q4m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q4-mB" onclick="setMark('q4m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q4-mC" onclick="setMark('q4m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q4"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q4">
+    <div class="clabel kai">段階解説</div>
+    <div id="q4-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4><p>大人を <span class="hl-x">x 人</span>、子どもを <span class="hl-y">y 人</span> とおく。</p></div>
+    <div id="q4-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① <span class="hl-x">x</span> + <span class="hl-y">y</span> = 120
+② 800<span class="hl-x">x</span> + 300<span class="hl-y">y</span> = 61000</p></div>
+    <div id="q4-s2" class="exp-box" style="display:none"><h4>STEP 3　加減法で解く</h4><p>①を300倍して②から引く（y を消す）</p><p>　　800x + 300y = 61000 ……②
+−)　300x + 300y = 36000 ……①×300
+　　500x　　　　 = 25000
+　　　　　　　 <strong>x = 50</strong></p><p>①に代入：50 + y = 120　→　<strong>y = 70</strong></p></div>
+    <div id="q4-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>大人 <strong>50人</strong>，子ども <strong>70人</strong>
+【確かめ】50 + 70 = 120人 ✓　　800×50 + 300×70 = 40000 + 21000 = 61000円 ✓</p></div>
+    <button class="reveal-btn" id="rb-q4" onclick="reveal('q4',4)">STEP 1 を見る ▼</button>
+    <div id="q4-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q4-kA" onclick="setMark('q4k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q4-kB" onclick="setMark('q4k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q4-kC" onclick="setMark('q4k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <button class="next-page-btn cf" onclick="switchTab('cf')" style="margin-top:1.5rem;">確認問題へ進む →</button>
+</div>
+
+<!-- ════════ 確認問題 ════════ -->
+<div class="page" id="page-cf">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-cf">確</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">確認問題</div><div class="page-hdr-desc">入試レベルの問題に挑戦しよう。</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-cf" id="pb-cf" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-cf-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 確認1 -->
+  <div class="prob-n"><span class="n n-cf">確</span><span>確認問題</span><span class="diff-badge diff-3"><span class="stars">★★★☆☆</span>標準</span></div>
+  <div class="card" id="q5-card">
+    <div class="clabel cf">確認問題</div>
+    <span class="prob-src">〈入試改題〉</span>
+    <div class="q-text">
+      ある店で，1個 <strong>120円</strong> のおにぎりと，1個 <strong>180円</strong> のサンドイッチを合わせて <strong>20個</strong> 買ったところ，代金の合計は <strong>2940円</strong> だった。おにぎりとサンドイッチをそれぞれ何個買ったか，連立方程式をつくって求めなさい。
+    </div>
+    <button class="hint-toggle" onclick="showHint1('q5')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q5" onclick="showHint2('q5')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q5">おにぎりを <span class="hl-x">x 個</span>、サンドイッチを <span class="hl-y">y 個</span> とおく。</div>
+    <div class="hint2-box" id="h2-q5">
+      <div class="hint2-q">①を120倍して②から引くと？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q5',0,2)"><span class="hint2-num">1</span>60x = 540</button>
+        <button class="hint2-ch" onclick="hint2Ans('q5',1,2)"><span class="hint2-num">2</span>60y = 2940</button>
+        <button class="hint2-ch" onclick="hint2Ans('q5',2,2)"><span class="hint2-num">3</span>60y = 540</button>
+        <button class="hint2-ch" onclick="hint2Ans('q5',3,2)"><span class="hint2-num">4</span>60x + 60y = 540</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q5"></div>
+    </div>
+    <div id="t5" class="timer-wrap"><div class="timer-ring" id="ring-q5"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q5">
+      <button class="ch" onclick="ans('q5',0,1)"><span class="cnum">1</span>おにぎり9個・サンド11個</button>
+      <button class="ch" onclick="ans('q5',1,1)"><span class="cnum">2</span>おにぎり11個・サンド9個</button>
+      <button class="ch" onclick="ans('q5',2,1)"><span class="cnum">3</span>おにぎり13個・サンド7個</button>
+      <button class="ch" onclick="ans('q5',3,1)"><span class="cnum">4</span>おにぎり15個・サンド5個</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q5"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q5"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q5')">🔄 もう一度</button></div>
+    <div id="q5-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>x + y = 20 と 120x + 180y = 2940。①×120を②から引いて 60y = 540 → y = 9。x = 11。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q5-mA" onclick="setMark('q5m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q5-mB" onclick="setMark('q5m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q5-mC" onclick="setMark('q5m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q5"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q5">
+    <div class="clabel kai">段階解説</div>
+    <div id="q5-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4><p>おにぎりを <span class="hl-x">x 個</span>、サンドイッチを <span class="hl-y">y 個</span> とおく。</p></div>
+    <div id="q5-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① <span class="hl-x">x</span> + <span class="hl-y">y</span> = 20
+② 120<span class="hl-x">x</span> + 180<span class="hl-y">y</span> = 2940</p></div>
+    <div id="q5-s2" class="exp-box" style="display:none"><h4>STEP 3　加減法で解く</h4><p>①を120倍して②から引く（x を消す）</p><p>　　120x + 180y = 2940 ……②
+−)　120x + 120y = 2400 ……①×120
+　　　　　 60y = 540
+　　　　　　<strong>y = 9</strong></p><p>①に代入：x + 9 = 20　→　<strong>x = 11</strong></p></div>
+    <div id="q5-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>おにぎり <strong>11個</strong>，サンドイッチ <strong>9個</strong>
+【確かめ】11 + 9 = 20個 ✓　　120×11 + 180×9 = 1320 + 1620 = 2940円 ✓</p></div>
+    <button class="reveal-btn" id="rb-q5" onclick="reveal('q5',4)">STEP 1 を見る ▼</button>
+    <div id="q5-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q5-kA" onclick="setMark('q5k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q5-kB" onclick="setMark('q5k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q5-kC" onclick="setMark('q5k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- チャレンジ -->
+  <div class="prob-n"><span class="n n-cf">★</span><span>チャレンジ問題<span class="star-tag">★ 任意</span></span><span class="diff-badge diff-4"><span class="stars">★★★★☆</span>やや難しい</span></div>
+  <div class="card" id="q6-card">
+    <div class="clabel cf">チャレンジ問題　★</div>
+    <span class="prob-src">〈入試レベル〉</span>
+    <div class="q-text">
+      ある中学校の生徒が遠足に行った。電車の運賃は，中学生1人 <strong>180円</strong>，大人（引率の先生）1人 <strong>360円</strong> である。生徒と先生を合わせて <strong>52人</strong> が乗車し，運賃の合計は <strong>10080円</strong> だった。生徒と先生の人数をそれぞれ求めよ。
+    </div>
+    <button class="hint-toggle" onclick="showHint1('q6')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q6" onclick="showHint2('q6')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q6">生徒を <span class="hl-x">x 人</span>、先生を <span class="hl-y">y 人</span> とおく。先生の運賃は生徒の2倍。</div>
+    <div class="hint2-box" id="h2-q6">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q6',0,2)"><span class="hint2-num">1</span>x + y = 10080,　180x + 360y = 52</button>
+        <button class="hint2-ch" onclick="hint2Ans('q6',1,2)"><span class="hint2-num">2</span>x + y = 52,　360x + 180y = 10080</button>
+        <button class="hint2-ch" onclick="hint2Ans('q6',2,2)"><span class="hint2-num">3</span>x + y = 52,　180x + 360y = 10080</button>
+        <button class="hint2-ch" onclick="hint2Ans('q6',3,2)"><span class="hint2-num">4</span>180x + 360y = 52,　x + y = 10080</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q6"></div>
+    </div>
+    <div id="t6" class="timer-wrap"><div class="timer-ring" id="ring-q6"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">じっくり考えてみよう。<span class="goal">目標 6分以内</span></div></div>
+    <div class="choices col4" id="ch-q6">
+      <button class="ch" onclick="ans('q6',0,2)"><span class="cnum">1</span>生徒42人・先生10人</button>
+      <button class="ch" onclick="ans('q6',1,2)"><span class="cnum">2</span>生徒44人・先生8人</button>
+      <button class="ch" onclick="ans('q6',2,2)"><span class="cnum">3</span>生徒48人・先生4人</button>
+      <button class="ch" onclick="ans('q6',3,2)"><span class="cnum">4</span>生徒50人・先生2人</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q6"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q6"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q6')">🔄 もう一度</button></div>
+    <div id="q6-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>x + y = 52 と 180x + 360y = 10080。①×180を②から引いて 180y = 720 → y = 4。x = 48。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q6-mA" onclick="setMark('q6m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q6-mB" onclick="setMark('q6m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q6-mC" onclick="setMark('q6m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q6"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q6">
+    <div class="clabel kai">段階解説</div>
+    <div id="q6-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4><p>生徒を <span class="hl-x">x 人</span>、先生を <span class="hl-y">y 人</span> とおく。</p></div>
+    <div id="q6-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① <span class="hl-x">x</span> + <span class="hl-y">y</span> = 52
+② 180<span class="hl-x">x</span> + 360<span class="hl-y">y</span> = 10080</p></div>
+    <div id="q6-s2" class="exp-box" style="display:none"><h4>STEP 3　加減法で解く</h4><p>①を180倍して②から引く（x を消す）</p><p>　　180x + 360y = 10080 ……②
+−)　180x + 180y =  9360 ……①×180
+　　　　　180y =   720
+　　　　　　<strong>y = 4</strong></p><p>①に代入：x + 4 = 52　→　<strong>x = 48</strong></p></div>
+    <div id="q6-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>生徒 <strong>48人</strong>，先生 <strong>4人</strong>
+【確かめ】48 + 4 = 52人 ✓　　180×48 + 360×4 = 8640 + 1440 = 10080円 ✓</p></div>
+    <button class="reveal-btn" id="rb-q6" onclick="reveal('q6',4)">STEP 1 を見る ▼</button>
+    <div id="q6-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q6-kA" onclick="setMark('q6k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q6-kB" onclick="setMark('q6k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q6-kC" onclick="setMark('q6k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="unit-nav" id="unit-nav" style="display:flex;">
+    <div class="unit-nav-row"><a href="index_MR.html" class="unav-btn unav-index">📋 単元表に戻る</a></div>
+    <div class="unit-nav-row"><a href="MR2.html" class="unav-btn unav-next">次へ：時間・速さ・距離① →</a></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TMAX=240;
+const answered={};
+const stepRev={q0:0,q1:0,q2:0,q3:0,q4:0,q5:0,q6:0};
+const stepMax={q0:4,q1:4,q2:4,q3:4,q4:4,q5:4,q6:4};
+const timers={};
+const hint2Done={};
+let pracDone=0,apDone=0,cfDone=0;
+
+function switchTab(tab){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  ['ex','pr','ap','cf'].forEach(t=>{const b=document.getElementById('tab-'+t);b.className='tab-btn';});
+  document.getElementById('page-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active-'+tab);
+  // restore done marks
+  ['pr','ap','cf'].forEach(t=>{
+    const total=t==='pr'?2:(t==='ap'?2:2);
+    const done=t==='pr'?pracDone:(t==='ap'?apDone:cfDone);
+    if(done>=total){document.getElementById('done-'+t).style.display='flex';}
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(tab==='pr'&&!answered.q1)startTimer('q1');
+  if(tab==='ap'&&!answered.q3)startTimer('q3');
+  if(tab==='cf'&&!answered.q5)startTimer('q5');
+}
+
+function startTimer(qid){
+  if(timers[qid]||answered[qid])return;
+  const start=Date.now();
+  const n=qid.slice(1);
+  tick(0);
+  timers[qid]=setInterval(()=>tick(Math.floor((Date.now()-start)/1000)),1000);
+  function tick(sec){
+    const ring=document.getElementById('ring-'+qid);if(!ring)return;
+    const fg=ring.querySelector('.tfg');
+    const txt=ring.querySelector('.tcenter');
+    const tw=document.getElementById('t'+n);
+    const msg=tw?tw.querySelector('.timer-msg'):null;
+    const pct=Math.min(sec/TMAX,1);
+    fg.style.strokeDashoffset=126*pct;
+    fg.className='tfg'+(pct>.8?' warn':'');
+    const m=Math.floor(sec/60),s=sec%60;
+    txt.textContent=`${m}:${String(s).padStart(2,'0')}`;
+    if(msg){
+      if(sec<90)msg.innerHTML='自力で考えましょう。<span class="goal">目標内</span>';
+      else if(sec<240)msg.innerHTML='じっくり考えています…<span class="goal">まだ大丈夫！</span>';
+      else msg.innerHTML='解説を見て確認してみましょう。';
+    }
+  }
+}
+function stopTimer(qid){clearInterval(timers[qid]);timers[qid]=null;}
+
+function showHint1(qid){
+  const h1=document.getElementById('h1-'+qid);
+  h1.classList.toggle('show');
+  if(h1.classList.contains('show')){
+    document.getElementById('h2btn-'+qid).style.display='inline-block';
+  }
+}
+function showHint2(qid){
+  const h2=document.getElementById('h2-'+qid);
+  h2.classList.toggle('show');
+}
+function hint2Ans(qid,idx,correct){
+  if(hint2Done[qid])return;
+  hint2Done[qid]=true;
+  const isOk=(idx===correct);
+  const box=document.getElementById('h2-'+qid);
+  const btns=box.querySelectorAll('.hint2-ch');
+  btns.forEach((b,i)=>{
+    b.disabled=true;
+    if(i===correct){b.className='hint2-ch ok';}
+    else if(i===idx&&!isOk){b.className='hint2-ch ng';}
+  });
+  const fb=document.getElementById('h2fb-'+qid);
+  fb.classList.add('show');
+  if(isOk){fb.className='hint2-fb ok show';fb.textContent='✓ その通り！この式で解いてみよう。';}
+  else{fb.className='hint2-fb ng show';fb.textContent='✗ よく見直そう。正解にマークがついたよ。';}
+}
+
+function ans(qid,idx,correct){
+  if(answered[qid])return;
+  answered[qid]=true;
+  stopTimer(qid);
+  var isOk=(idx===correct);
+  var n=qid.slice(1);
+  var tw=document.getElementById('t'+n);
+  if(tw)tw.style.display='none';
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b,i){
+    b.disabled=true;
+    if(i===correct){b.className='ch ok';b.querySelector('.cnum').style.cssText='background:var(--teal);color:#fff';}
+    else if(i===idx&&!isOk){b.className='ch ng';b.querySelector('.cnum').style.cssText='background:var(--pink);color:#fff';}
+  });
+  var fbOk=document.getElementById('fb-ok-'+qid);
+  var fbNg=document.getElementById('fb-ng-'+qid);
+  if(isOk){ if(fbOk)fbOk.style.display='flex'; _launchConfetti(); }
+  else     { if(fbNg)fbNg.style.display='flex'; }
+  var res=document.getElementById(qid+'-res'); if(res)res.style.display='block';
+  var cn=document.getElementById('cn-'+qid);   if(cn)cn.style.display='flex';
+  var kc=document.getElementById('kai-'+qid);
+  if(kc){kc.style.display='block';setTimeout(function(){kc.scrollIntoView({behavior:'smooth',block:'start'});},120);}
+  if(qid==='q1'||qid==='q2'){
+    pracDone++;
+    document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';
+    document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';
+    if(pracDone>=2){const d=document.getElementById('done-pr');if(d)d.style.display='flex';}
+    if(qid==='q1'&&!answered.q2)setTimeout(()=>startTimer('q2'),300);
+  }
+  if(qid==='q3'||qid==='q4'){
+    apDone++;
+    document.getElementById('pb-ap').style.width=(apDone/2*100)+'%';
+    document.getElementById('pb-ap-txt').textContent=apDone+' / 2 完了';
+    if(apDone>=2){const d=document.getElementById('done-ap');if(d)d.style.display='flex';}
+    if(qid==='q3'&&!answered.q4)setTimeout(()=>startTimer('q4'),300);
+  }
+  if(qid==='q5'||qid==='q6'){
+    cfDone++;
+    document.getElementById('pb-cf').style.width=(cfDone/2*100)+'%';
+    document.getElementById('pb-cf-txt').textContent=cfDone+' / 2 完了';
+    if(cfDone>=2){const d=document.getElementById('done-cf');if(d)d.style.display='flex';}
+    if(qid==='q5'&&!answered.q6)setTimeout(()=>startTimer('q6'),300);
+  }
+}
+
+function reveal(qid,total){
+  const r=stepRev[qid];
+  const el=document.getElementById(qid+'-s'+r);
+  if(el){el.style.display='block';stepRev[qid]++;setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),60);}
+  const btn=document.getElementById('rb-'+qid);
+  if(stepRev[qid]>=total){
+    btn.style.display='none';
+    const fin=document.getElementById(qid+'-fin');
+    if(fin){fin.style.display='block';setTimeout(()=>fin.scrollIntoView({behavior:'smooth',block:'nearest'}),60);}
+  }else{
+    btn.textContent='STEP '+(stepRev[qid]+1)+' を見る ▼';
+  }
+}
+
+function setMark(prefix,m){
+  const base=prefix.slice(0,2);const kind=prefix.slice(2);
+  ['A','B','C'].forEach(x=>{const el=document.getElementById(base+'-'+kind+x);if(el)el.classList.toggle('on',x===m);});
+}
+
+startTimer('q0');
+
+function resetQ(qid){
+  delete answered[qid];
+  stopTimer(qid);
+  delete timers[qid];
+  var n=qid.slice(1);
+  if(qid==='q1'||qid==='q2'){if(pracDone>0)pracDone--;document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';document.getElementById('done-pr').style.display='none';}
+  if(qid==='q3'||qid==='q4'){if(apDone>0)apDone--;document.getElementById('pb-ap').style.width=(apDone/2*100)+'%';document.getElementById('pb-ap-txt').textContent=apDone+' / 2 完了';document.getElementById('done-ap').style.display='none';}
+  if(qid==='q5'||qid==='q6'){if(cfDone>0)cfDone--;document.getElementById('pb-cf').style.width=(cfDone/2*100)+'%';document.getElementById('pb-cf-txt').textContent=cfDone+' / 2 完了';document.getElementById('done-cf').style.display='none';}
+  var fbOk=document.getElementById('fb-ok-'+qid);if(fbOk)fbOk.style.display='none';
+  var fbNg=document.getElementById('fb-ng-'+qid);if(fbNg)fbNg.style.display='none';
+  var res=document.getElementById(qid+'-res');if(res)res.style.display='none';
+  var cn=document.getElementById('cn-'+qid);if(cn)cn.style.display='none';
+  var kc=document.getElementById('kai-'+qid);if(kc)kc.style.display='none';
+  var tw=document.getElementById('t'+n);if(tw)tw.style.display='flex';
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b){
+    b.disabled=false;b.className='ch';
+    var cn2=b.querySelector('.cnum');if(cn2)cn2.style.cssText='';
+  });
+  var steps=document.querySelectorAll('[id^="'+qid+'-s"]');steps.forEach(function(el){el.style.display='none';});
+  stepRev[qid]=0;
+  var rb=document.getElementById('rb-'+qid);if(rb){rb.style.display='';rb.textContent='STEP 1 を見る ▼';}
+  var fin=document.getElementById(qid+'-fin');if(fin)fin.style.display='none';
+  startTimer(qid);
+}
+
+function _launchConfetti(){
+  var cv=document.getElementById('_gamba_cf');
+  if(!cv){
+    cv=document.createElement('canvas');cv.id='_gamba_cf';
+    cv.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(cv);
+  }
+  var ctx=cv.getContext('2d');
+  cv.width=window.innerWidth; cv.height=window.innerHeight;
+  var pts=[],run=true;
+  for(var i=0;i<200;i++) pts.push({
+    x:Math.random()*cv.width, y:-Math.random()*cv.height*0.5,
+    s:Math.random()*8+4, c:'hsl('+Math.floor(Math.random()*360)+',80%,60%)',
+    sp:Math.random()*4+2, r:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.15
+  });
+  (function step(){
+    if(!run)return;
+    requestAnimationFrame(step);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(function(p){
+      p.y+=p.sp; p.r+=p.rv;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
+      ctx.restore();
+    });
+  })();
+  setTimeout(function(){run=false;ctx.clearRect(0,0,cv.width,cv.height);},3500);
+}
+</script>
+</body>
+</html>

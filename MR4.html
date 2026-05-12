@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMBA｜連立方程式文章題・出会い追いつき</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--sf:#fff;--sf2:#f0ede6;--bd:#d6d2c8;--bd2:#bcb8ae;--pink:#d93652;--teal:#0d9478;--blue:#2055b0;--amber:#a86000;--purple:#7d3eb0;--tl:#e6f5f1;--bl:#eaf0fb;--al:#fdf2dd;--pl:#fde8eb;--ppl:#f1e8f7;--text:#1a1814;--text2:#58544c;--text3:#98948c;--r:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;min-height:100vh;}
+.site-header{background:var(--sf);border-bottom:1px solid var(--bd);padding:.65rem 1.5rem;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+.logo{font-family:'Shippori Mincho',serif;font-size:1.05rem;color:var(--pink);}
+.logo-sep{color:var(--bd2);}
+.logo-sub{font-size:12px;color:var(--text2);}
+.tab-nav{background:var(--sf);border-bottom:2px solid var(--bd);position:sticky;top:46px;z-index:99;display:flex;padding:0 1rem;overflow-x:auto;}
+.tab-btn{padding:.7rem 1.1rem;font-size:13px;font-weight:500;color:var(--text2);background:none;border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active-ex{color:var(--pink);border-bottom-color:var(--pink);}
+.tab-btn.active-pr{color:var(--blue);border-bottom-color:var(--blue);}
+.tab-btn.active-ap{color:var(--purple);border-bottom-color:var(--purple);}
+.tab-btn.active-cf{color:var(--amber);border-bottom-color:var(--amber);}
+.tab-pip{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.pip-ex{background:#fde8eb;color:var(--pink);}
+.pip-pr{background:var(--bl);color:var(--blue);}
+.pip-ap{background:var(--ppl);color:var(--purple);}
+.pip-cf{background:var(--al);color:var(--amber);}
+.tab-done{width:16px;height:16px;border-radius:50%;background:var(--teal);color:#fff;font-size:9px;display:none;align-items:center;justify-content:center;}
+.page{display:none;animation:fadeTab .2s ease;}
+.page.active{display:block;}
+@keyframes fadeTab{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+main{max-width:720px;margin:0 auto;padding:1.5rem 1rem 6rem;}
+.page-hdr{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1rem 1.4rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:12px;}
+.page-hdr-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700;flex-shrink:0;}
+.icon-ex{background:var(--pink);color:#fff;}.icon-pr{background:var(--blue);color:#fff;}.icon-ap{background:var(--purple);color:#fff;}.icon-cf{background:var(--amber);color:#fff;}
+.page-hdr-body{flex:1;}
+.page-hdr-title{font-size:15px;font-weight:700;margin-bottom:2px;}
+.page-hdr-desc{font-size:12px;color:var(--text2);}
+.prog-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:.8rem 1.2rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:12px;}
+.pb-w{flex:1;height:6px;background:var(--bd);border-radius:3px;overflow:hidden;}
+.pb{height:100%;border-radius:3px;transition:width .4s;}
+.pb-pr{background:var(--blue);}.pb-ap{background:var(--purple);}.pb-cf{background:var(--amber);}
+.pb-txt{font-size:12px;color:var(--text2);white-space:nowrap;}
+.skip-banner{background:var(--ppl);border:1.5px dashed var(--purple);border-radius:var(--r);padding:.9rem 1.1rem;margin-bottom:1.2rem;font-size:13px;color:var(--text2);line-height:1.6;}
+.skip-banner strong{color:var(--purple);}
+.next-page-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--sf);border:1.5px solid var(--bd);border-radius:var(--r);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .15s;margin-top:.5rem;}
+.next-page-btn.pr{border-color:var(--blue);color:var(--blue);background:var(--bl);}
+.next-page-btn.ap{border-color:var(--purple);color:var(--purple);background:var(--ppl);}
+.next-page-btn.cf{border-color:var(--amber);color:var(--amber);background:var(--al);}
+.next-page-btn.skip{border-color:var(--bd2);color:var(--text2);background:var(--sf2);}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:1.4rem 1.5rem;margin-bottom:1rem;}
+.clabel{font-size:11px;font-weight:700;letter-spacing:.1em;margin-bottom:.85rem;display:flex;align-items:center;gap:6px;}
+.clabel::before{content:'';width:3px;height:14px;border-radius:2px;display:inline-block;}
+.clabel.ex{color:var(--pink);}.clabel.ex::before{background:var(--pink);}
+.clabel.pr{color:var(--blue);}.clabel.pr::before{background:var(--blue);}
+.clabel.ap{color:var(--purple);}.clabel.ap::before{background:var(--purple);}
+.clabel.cf{color:var(--amber);}.clabel.cf::before{background:var(--amber);}
+.clabel.kai{color:var(--teal);}.clabel.kai::before{background:var(--teal);}
+.q-text{font-size:15px;line-height:1.95;color:var(--text);margin-bottom:1.2rem;}
+.prob-src{display:inline-block;font-size:11px;color:var(--text3);background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:3px 10px;margin-bottom:1.1rem;}
+.star-tag{display:inline-block;font-size:11px;color:#fff;background:var(--purple);border-radius:20px;padding:3px 10px;margin-left:6px;font-weight:700;}
+.point-box{background:#fff8e7;border-left:4px solid #FFB300;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:1rem 0;font-size:13px;line-height:1.8;color:var(--text);}
+.point-box strong{display:block;color:var(--amber);font-size:12px;margin-bottom:.3rem;letter-spacing:.05em;}
+.tbl{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:13.5px;}
+.tbl th{background:var(--sf2);color:var(--text2);font-weight:500;padding:8px 10px;border:1px solid var(--bd);text-align:center;font-size:12px;}
+.tbl td{padding:8px 10px;border:1px solid var(--bd);text-align:center;}
+.tbl .hi{background:#fff8e1;font-weight:700;color:#a86000;}
+.senbu-wrap{background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:.8rem;margin:.8rem 0;overflow-x:auto;}
+.senbu-title{font-size:11px;color:var(--text2);font-weight:700;margin-bottom:.4rem;letter-spacing:.05em;}
+.senbu-svg{display:block;width:100%;height:auto;max-width:100%;}
+/* 池の図の下の補足説明ボックス */
+.pond-note{background:#fff;border:1.5px solid var(--bd);border-radius:8px;padding:.7rem 1rem;margin:.6rem 0 0;font-size:13px;line-height:1.85;color:var(--text);}
+.pond-note .red{color:var(--pink);font-weight:700;}
+.pond-note .blue{color:var(--blue);font-weight:700;}
+.pond-note .eq{display:inline-block;margin-top:.2rem;}
+.fr{display:inline-flex;flex-direction:column;align-items:center;font-size:.95em;line-height:1.05;vertical-align:middle;margin:0 3px;text-align:center;}
+.fr .num{border-bottom:1.8px solid currentColor;padding:0 4px 1px;font-weight:bold;display:block;}
+.fr .den{padding:1px 4px 0;font-weight:bold;display:block;}
+.exp-box{background:var(--sf2);border-left:4px solid var(--text3);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.7rem 0;font-size:14px;line-height:1.85;}
+.exp-box.blue{border-left-color:var(--blue);background:var(--bl);}
+.exp-box.amber{border-left-color:var(--amber);background:var(--al);}
+.exp-box.teal{border-left-color:var(--teal);background:var(--tl);}
+.exp-box h4{font-size:13px;font-weight:700;margin-bottom:.4rem;color:var(--text);}
+.exp-box p{white-space:pre-line;}
+.calc-block{background:var(--sf);border:1px solid var(--bd);border-radius:6px;padding:.6rem .9rem;margin:.5rem 0;font-family:'DM Mono',monospace;font-size:13.5px;line-height:1.8;white-space:pre;overflow-x:auto;}
+.hl-x{color:var(--pink);font-weight:700;}
+.hl-y{color:var(--blue);font-weight:700;}
+.hl-a{color:var(--teal);font-weight:700;}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:1rem;}
+.choices.col4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:480px){.choices.col4{grid-template-columns:1fr 1fr;}}
+.ch{background:var(--sf2);border:1.5px solid var(--bd);border-radius:9px;padding:10px 8px;font-size:13.5px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;font-family:'Noto Sans JP',sans-serif;width:100%;text-align:left;line-height:1.5;}
+.ch:hover:not(:disabled){border-color:var(--blue);background:var(--bl);}
+.ch:disabled{cursor:default;}
+.ch.ok{border-color:var(--teal);background:var(--tl);color:var(--teal);}
+.ch.ng{border-color:var(--pink);background:var(--pl);color:var(--pink);}
+.cnum{width:22px;height:22px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.ch.ok .cnum{background:var(--teal);color:#fff;}
+.ch.ng .cnum{background:var(--pink);color:#fff;}
+.timer-wrap{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.timer-ring{position:relative;width:44px;height:44px;flex-shrink:0;}
+.timer-ring svg{transform:rotate(-90deg);}
+.timer-ring .tbg{fill:none;stroke:var(--bd);stroke-width:3;}
+.timer-ring .tfg{fill:none;stroke:var(--teal);stroke-width:3;stroke-dasharray:126;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear,stroke .3s;}
+.timer-ring .tfg.warn{stroke:var(--pink);}
+.timer-ring .tcenter{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace;}
+.timer-msg{font-size:12px;color:var(--text2);}
+.timer-msg .goal{color:var(--teal);font-weight:700;margin-left:6px;}
+.hint-toggle{background:none;border:1.5px dashed var(--bd2);color:var(--text2);font-size:12px;font-weight:500;padding:7px 12px;border-radius:8px;cursor:pointer;margin-bottom:.7rem;font-family:'Noto Sans JP',sans-serif;}
+.hint-toggle:hover{border-color:var(--amber);color:var(--amber);}
+.hint-box{display:none;background:var(--al);border:1px solid var(--amber);border-radius:8px;padding:.7rem 1rem;margin-bottom:.7rem;font-size:13px;line-height:1.7;color:var(--text);}
+.hint-box.show{display:block;}
+.hint2-toggle{background:none;border:1.5px dashed var(--bd2);color:var(--text2);font-size:12px;font-weight:500;padding:7px 12px;border-radius:8px;cursor:pointer;margin-bottom:.7rem;font-family:'Noto Sans JP',sans-serif;display:none;margin-left:6px;}
+.hint2-toggle:hover{border-color:var(--purple);color:var(--purple);}
+.hint2-box{display:none;background:var(--ppl);border:1px solid var(--purple);border-radius:8px;padding:.9rem 1rem;margin-bottom:.9rem;}
+.hint2-box.show{display:block;}
+.hint2-q{font-size:13px;font-weight:700;color:var(--purple);margin-bottom:.6rem;}
+.hint2-choices{display:grid;grid-template-columns:1fr;gap:6px;}
+.hint2-ch{background:var(--sf);border:1.5px solid var(--bd);border-radius:7px;padding:8px 10px;font-size:13px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:6px;text-align:left;font-family:'Noto Sans JP',sans-serif;line-height:1.5;}
+.hint2-ch:hover:not(:disabled){border-color:var(--purple);background:#fff;}
+.hint2-ch:disabled{cursor:default;}
+.hint2-ch.ok{border-color:var(--teal);background:var(--tl);color:var(--teal);}
+.hint2-ch.ng{border-color:var(--pink);background:var(--pl);color:var(--pink);opacity:.7;}
+.hint2-num{width:20px;height:20px;border-radius:50%;background:var(--bd);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.hint2-ch.ok .hint2-num{background:var(--teal);color:#fff;}
+.hint2-ch.ng .hint2-num{background:var(--pink);color:#fff;}
+.hint2-fb{display:none;margin-top:.6rem;font-size:12px;line-height:1.6;padding:.5rem .7rem;border-radius:6px;}
+.hint2-fb.show{display:block;}
+.hint2-fb.ok{background:var(--tl);color:var(--teal);}
+.hint2-fb.ng{background:var(--pl);color:var(--pink);}
+.fb-ok,.fb-ng{display:none;align-items:center;gap:10px;padding:.85rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:13px;}
+.fb-ok{background:var(--tl);color:var(--teal);}
+.fb-ng{background:var(--pl);color:var(--pink);}
+.fb-icon{font-size:1.3rem;}
+.fb-text{font-weight:700;}
+.fb-ok .fb-text{color:#0d9478;}
+.fb-ng .fb-text{color:#d93652;}
+.fb-sub{font-size:11px;font-weight:400;display:block;margin-top:1px;opacity:.8;}
+.reset-btn{margin-left:auto;background:none;border:1.5px solid var(--pink);color:var(--pink);font-size:11px;font-weight:600;padding:5px 10px;border-radius:6px;cursor:pointer;font-family:'Noto Sans JP',sans-serif;}
+.reset-btn:hover{background:var(--pink);color:#fff;}
+.reveal-btn{display:block;width:100%;padding:11px;background:var(--sf);border:1.5px dashed var(--teal);color:var(--teal);font-size:13px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:.7rem;font-family:'Noto Sans JP',sans-serif;}
+.reveal-btn:hover{background:var(--tl);}
+.connector{display:none;flex-direction:column;align-items:center;margin:.3rem 0;}
+.connector-line{width:2px;height:18px;background:var(--bd2);}
+.connector-arrow{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--bd2);}
+.kai-card{display:none;}
+.abc-wrap{margin-top:1rem;padding-top:.9rem;border-top:1px dashed var(--bd);}
+.abc-lbl{font-size:11px;color:var(--text2);margin-bottom:.5rem;font-weight:500;}
+.abc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.abc-btn{padding:8px 6px;border:1.5px solid var(--bd);border-radius:7px;background:var(--sf);cursor:pointer;font-size:11px;font-weight:600;font-family:'Noto Sans JP',sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all .15s;color:var(--text2);}
+.abc-btn span{font-size:9.5px;font-weight:400;color:var(--text3);}
+.abc-A.on{background:var(--tl);border-color:var(--teal);color:var(--teal);}
+.abc-A.on span{color:var(--teal);}
+.abc-B.on{background:var(--bl);border-color:var(--blue);color:var(--blue);}
+.abc-B.on span{color:var(--blue);}
+.abc-C.on{background:var(--pl);border-color:var(--pink);color:var(--pink);}
+.abc-C.on span{color:var(--pink);}
+.prob-n{display:flex;align-items:center;gap:8px;margin:1.4rem 0 .5rem;font-size:13px;font-weight:700;color:var(--text2);flex-wrap:wrap;}
+.prob-n .n{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;}
+.n-pr{background:var(--blue);}.n-ap{background:var(--purple);}.n-cf{background:var(--amber);}
+/* 難易度バッジ */
+.diff-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-left:auto;border:1.5px solid;}
+.diff-badge .stars{font-size:12px;letter-spacing:1px;}
+.diff-1{background:#e6f5f1;color:#0d9478;border-color:#0d9478;}
+.diff-2{background:#e6f5f1;color:#0d9478;border-color:#0d9478;}
+.diff-3{background:#eaf0fb;color:#2055b0;border-color:#2055b0;}
+.diff-4{background:#fdf2dd;color:#a86000;border-color:#a86000;}
+.diff-5{background:#fde8eb;color:#d93652;border-color:#d93652;}
+.prob-divider{border:none;border-top:1px dashed var(--bd);margin:1.5rem 0;}
+.unit-nav{display:none;flex-direction:column;gap:10px;margin:1.8rem 0 0;padding-top:1.4rem;border-top:2px dashed #d6d2c8;}
+.unit-nav-row{display:flex;gap:8px;flex-wrap:wrap;}
+.unav-btn{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;border:2px solid;font-family:'Noto Sans JP',sans-serif;transition:all .15s;text-align:center;}
+.unav-index{background:#fff;border-color:#d6d2c8;color:#58544c;}
+.unav-index:hover{border-color:#2055b0;color:#2055b0;background:#eaf0fb;}
+.unav-prev{background:#f0ede6;border-color:#bcb8ae;color:#58544c;}
+.unav-prev:hover{border-color:#0d9478;color:#0d9478;}
+.unav-next{background:#2055b0;border-color:#2055b0;color:#fff;}
+.unav-next:hover{background:#153a80;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <span class="logo">GAMBA</span><span class="logo-sep">|</span>
+  <span class="logo-sub">中2 連立方程式文章題 ／ 出会い・追いつき問題（池）</span>
+</header>
+<nav class="tab-nav">
+  <button class="tab-btn active-ex" id="tab-ex" onclick="switchTab('ex')"><span class="tab-pip pip-ex">例</span>例題</button>
+  <button class="tab-btn" id="tab-pr" onclick="switchTab('pr')"><span class="tab-pip pip-pr">基</span>基本演習<span class="tab-done" id="done-pr">✓</span></button>
+  <button class="tab-btn" id="tab-ap" onclick="switchTab('ap')"><span class="tab-pip pip-ap">応</span>応用演習<span class="tab-done" id="done-ap">✓</span></button>
+  <button class="tab-btn" id="tab-cf" onclick="switchTab('cf')"><span class="tab-pip pip-cf">確</span>確認問題<span class="tab-done" id="done-cf">✓</span></button>
+</nav>
+<main>
+
+<!-- ════════ 例題 ════════ -->
+<div class="page active" id="page-ex">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-ex">例</div>
+    <div class="page-hdr-body">
+      <div class="page-hdr-title">例題 ─ 出会い・追いつき（池）</div>
+      <div class="page-hdr-desc">池の周りを2人が走る問題 ／ 中学2年</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="clabel ex">例題</div>
+    <div class="q-text">
+      周囲が <strong>1200m</strong> の池がある。A君とB君は池の周りに沿って同じところから同時に走って出発した。<strong>反対方向</strong> に走ると <strong>4分後</strong> に出会った。次に，同じところから <strong>同じ方向</strong> へ走ると，A君がB君に追いつくのに <strong>20分</strong> かかった。A君，B君それぞれの速さ（分速）を求めよ。
+    </div>
+
+    <!-- 池の図 -->
+    <div class="senbu-wrap">
+      <div class="senbu-title">📐 図（池の周り＝1200m）</div>
+      <svg class="senbu-svg" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="ex-arrA" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#d93652"/></marker>
+          <marker id="ex-arrB" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2055b0"/></marker>
+        </defs>
+
+        <!-- ① 反対方向 -->
+        <text x="150" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">①反対方向に走ると4分後に出会う</text>
+        <!-- 池(点線) -->
+        <circle cx="150" cy="130" r="75" fill="#eaf0fb" stroke="#bcb8ae" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+        <!-- スタート点(上) -->
+        <circle cx="150" cy="55" r="6" fill="#1a1814"/>
+        <text x="150" y="47" text-anchor="middle" font-size="11" font-weight="bold" font-family="Noto Sans JP">スタート</text>
+        <!-- A 右回り（円の右半分を下まで） -->
+        <path d="M 150 55 A 75 75 0 0 1 195 200" stroke="#d93652" stroke-width="3" fill="none" marker-end="url(#ex-arrA)"/>
+        <text x="240" y="100" font-size="13" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">A→</text>
+        <!-- B 左回り（円の左半分を下まで） -->
+        <path d="M 150 55 A 75 75 0 0 0 105 200" stroke="#2055b0" stroke-width="3" fill="none" marker-end="url(#ex-arrB)"/>
+        <text x="40" y="100" font-size="13" font-weight="bold" fill="#2055b0" font-family="Noto Sans JP">←B</text>
+        <!-- 中央テキスト -->
+        <text x="150" y="135" text-anchor="middle" font-size="12" font-family="Noto Sans JP">周囲 1200m</text>
+        <!-- 出会う点(下) -->
+        <circle cx="150" cy="205" r="6" fill="#0d9478"/>
+        <text x="150" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d9478" font-family="Noto Sans JP">⇒ 4分後ここで出会う</text>
+
+        <!-- ② 同じ方向 -->
+        <text x="450" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#7d3eb0" font-family="Noto Sans JP">②同じ方向だと20分後にAがBに追いつく</text>
+        <circle cx="450" cy="130" r="75" fill="#f1e8f7" stroke="#bcb8ae" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+        <!-- スタート点 -->
+        <circle cx="450" cy="55" r="6" fill="#1a1814"/>
+        <text x="450" y="47" text-anchor="middle" font-size="11" font-weight="bold" font-family="Noto Sans JP">スタート</text>
+        <!-- A ほぼ1周（350度時計回り、スタート点の少し手前で止まる） -->
+        <path d="M 450 55 A 75 75 0 1 1 437 56.1" stroke="#d93652" stroke-width="3" fill="none" marker-end="url(#ex-arrA)"/>
+        <text x="540" y="135" font-size="13" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">A</text>
+        <!-- B 少しだけ進む（45度時計回り） -->
+        <path d="M 450 55 A 75 75 0 0 1 503 75" stroke="#2055b0" stroke-width="3" fill="none" marker-end="url(#ex-arrB)"/>
+        <text x="490" y="73" font-size="13" font-weight="bold" fill="#2055b0" font-family="Noto Sans JP">B</text>
+        <!-- 中央テキスト -->
+        <text x="450" y="130" text-anchor="middle" font-size="11" font-family="Noto Sans JP">A は B より</text>
+        <text x="450" y="148" text-anchor="middle" font-size="11" font-family="Noto Sans JP">1周分多く走る</text>
+      </svg>
+      <div class="pond-note">
+        ② で <strong>A は B に追いつくため</strong>、<span class="red">赤い矢印</span> ＋ <span class="blue">青い矢印</span> の分進みます。<br>
+        <span class="eq">＝ <strong>1周</strong>　＋　<strong>B の進んだ距離</strong> 進みます。</span>
+      </div>
+    </div>
+
+    <div class="point-box">
+      <strong>出会い・追いつきのコツ</strong>
+      📌 <strong>反対方向</strong>に走って出会う → 2人合わせて<strong>池1周分</strong>走った<br>
+      　　→　(A+B)×時間 ＝ 池の周り<br>
+      📌 <strong>同じ方向</strong>に走って追いつく → AはBより<strong>1周分多く</strong>走った<br>
+      　　→　(A−B)×時間 ＝ 池の周り
+    </div>
+
+    <!-- STEP解説 -->
+    <div id="q0-s0" class="exp-box" style="display:none">
+      <h4>STEP 1　x、y をおく</h4>
+      <p>A君の速さを <span class="hl-x">x m/分</span>、B君の速さを <span class="hl-y">y m/分</span> とおく。</p>
+      <p style="margin-top:.5rem;">【反対方向の場合】4分間で2人合わせて池1周分（1200m）走る
+　→ A君の進んだ距離 + B君の進んだ距離 = 1200
+　→ 4x + 4y = 1200</p>
+      <p style="margin-top:.5rem;">【同じ方向の場合】20分間でA君はB君より1周分多く走る
+　→ A君の進んだ距離 − B君の進んだ距離 = 1200
+　→ 20x − 20y = 1200</p>
+    </div>
+    <div id="q0-s1" class="exp-box blue" style="display:none">
+      <h4>STEP 2　連立方程式をつくる</h4>
+      <p>① 反対方向：　4<span class="hl-x">x</span> + 4<span class="hl-y">y</span> = 1200
+② 同じ方向：　20<span class="hl-x">x</span> − 20<span class="hl-y">y</span> = 1200</p>
+    </div>
+    <div id="q0-s2" class="exp-box" style="display:none">
+      <h4>STEP 3　連立方程式を解く</h4>
+      <p>まず式を簡単にする。①を4で割り、②を20で割る：</p>
+      <div class="calc-block">  ①：4<span class="hl-x">x</span> + 4<span class="hl-y">y</span> = 1200
+     ÷4 で → <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300  ……①'
+
+  ②：20<span class="hl-x">x</span> − 20<span class="hl-y">y</span> = 1200
+     ÷20 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 60   ……②'</div>
+      <p style="margin-top:.5rem;"><strong>①' + ②' で y を消す：</strong></p>
+      <div class="calc-block">    <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300   ……①'
++)  <span class="hl-x">x</span> − <span class="hl-y">y</span> =  60   ……②'
+─────────────────
+   2<span class="hl-x">x</span>     = 360
+
+       ∴  <span class="hl-x">x</span> = 180</div>
+      <p style="margin-top:.5rem;"><strong>①'に x = 180 を代入：</strong></p>
+      <div class="calc-block">  180 + <span class="hl-y">y</span> = 300
+        <span class="hl-y">y</span> = 120</div>
+    </div>
+    <div id="q0-s3" class="exp-box amber" style="display:none">
+      <h4>STEP 4　答えと確かめ</h4>
+      <p>A君 <strong>分速 180 m</strong>，B君 <strong>分速 120 m</strong></p>
+      <p>【確かめ】
+　反対方向：4×(180+120) = 4×300 = 1200m ✓
+　同じ方向：20×(180−120) = 20×60 = 1200m ✓</p>
+    </div>
+    <button class="reveal-btn" id="rb-q0" onclick="reveal('q0',4)">STEP 1 を見る ▼</button>
+
+    <div id="q0-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q0-kA" onclick="setMark('q0k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q0-kB" onclick="setMark('q0k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q0-kC" onclick="setMark('q0k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+      <button class="next-page-btn pr" onclick="switchTab('pr')" style="margin-top:1.4rem;">基本演習へ進む →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 基本演習 ════════ -->
+<div class="page" id="page-pr">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-pr">基</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">基本演習</div><div class="page-hdr-desc">例題と同じパターンの問題を、連立方程式で解いてみよう。</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-pr" id="pb-pr" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-pr-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 基本1（やさしい数値） -->
+  <div class="prob-n"><span class="n n-pr">1</span><span>基本演習 第1問</span><span class="diff-badge diff-2"><span class="stars">★★☆☆☆</span>やさしい</span></div>
+  <div class="card" id="q1-card">
+    <div class="clabel pr">基本演習 第1問</div>
+    <div class="q-text">
+      周囲が <strong>900m</strong> の池がある。A，Bの2人が池の周りを同じところから同時に出発して，<strong>反対方向</strong> に走ると <strong>3分後</strong> に出会った。また，<strong>同じ方向</strong> に走るとAがBに追いつくまでに <strong>15分</strong> かかった。AとBの分速をそれぞれ求めよ。
+    </div>
+
+    <div class="senbu-wrap">
+      <div class="senbu-title">📐 池の図（周囲900m）</div>
+      <svg class="senbu-svg" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="q1-arrA" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#d93652"/></marker>
+          <marker id="q1-arrB" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2055b0"/></marker>
+        </defs>
+
+        <!-- ① 反対方向 -->
+        <text x="150" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">反対方向 → 3分後に出会う</text>
+        <circle cx="150" cy="120" r="70" fill="#eaf0fb" stroke="#bcb8ae" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+        <circle cx="150" cy="50" r="6" fill="#1a1814"/>
+        <text x="150" y="42" text-anchor="middle" font-size="11" font-weight="bold" font-family="Noto Sans JP">スタート</text>
+        <!-- A 右回り(下まで) -->
+        <path d="M 150 50 A 70 70 0 0 1 195 185" stroke="#d93652" stroke-width="3" fill="none" marker-end="url(#q1-arrA)"/>
+        <text x="240" y="95" font-size="13" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">A→</text>
+        <!-- B 左回り -->
+        <path d="M 150 50 A 70 70 0 0 0 105 185" stroke="#2055b0" stroke-width="3" fill="none" marker-end="url(#q1-arrB)"/>
+        <text x="40" y="95" font-size="13" font-weight="bold" fill="#2055b0" font-family="Noto Sans JP">←B</text>
+        <text x="150" y="125" text-anchor="middle" font-size="12" font-family="Noto Sans JP">900m</text>
+        <circle cx="150" cy="190" r="5" fill="#0d9478"/>
+        <text x="150" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d9478" font-family="Noto Sans JP">⇒ 出会う</text>
+
+        <!-- ② 同じ方向 -->
+        <text x="450" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#7d3eb0" font-family="Noto Sans JP">同じ方向 → 15分後にAが追いつく</text>
+        <circle cx="450" cy="120" r="70" fill="#f1e8f7" stroke="#bcb8ae" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+        <circle cx="450" cy="50" r="6" fill="#1a1814"/>
+        <text x="450" y="42" text-anchor="middle" font-size="11" font-weight="bold" font-family="Noto Sans JP">スタート</text>
+        <!-- A ほぼ1周（350度時計回り） -->
+        <path d="M 450 50 A 70 70 0 1 1 437.8 51.1" stroke="#d93652" stroke-width="3" fill="none" marker-end="url(#q1-arrA)"/>
+        <text x="535" y="125" font-size="13" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">A</text>
+        <!-- B 少しだけ（45度） -->
+        <path d="M 450 50 A 70 70 0 0 1 499.5 70.5" stroke="#2055b0" stroke-width="3" fill="none" marker-end="url(#q1-arrB)"/>
+        <text x="487" y="68" font-size="13" font-weight="bold" fill="#2055b0" font-family="Noto Sans JP">B</text>
+        <text x="450" y="118" text-anchor="middle" font-size="11" font-family="Noto Sans JP">Aは1周</text>
+        <text x="450" y="136" text-anchor="middle" font-size="11" font-family="Noto Sans JP">多く走る</text>
+      </svg>
+      <div class="pond-note">
+        <strong>A は B に追いつくため</strong>、<span class="red">赤い矢印</span> ＋ <span class="blue">青い矢印</span> の分進みます。<br>
+        <span class="eq">＝ <strong>1周（900m）</strong>　＋　<strong>B の進んだ距離</strong> 進みます。</span>
+      </div>
+    </div>
+
+    <button class="hint-toggle" onclick="showHint1('q1')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q1" onclick="showHint2('q1')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q1">Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。反対方向の場合は2人合わせて池1周分(900m)、同じ方向の場合はAがBより1周分(900m)多く走る。</div>
+    <div class="hint2-box" id="h2-q1">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q1',0,2)"><span class="hint2-num">1</span>3x − 3y = 900,　15x + 15y = 900</button>
+        <button class="hint2-ch" onclick="hint2Ans('q1',1,2)"><span class="hint2-num">2</span>x + y = 900,　x − y = 900</button>
+        <button class="hint2-ch" onclick="hint2Ans('q1',2,2)"><span class="hint2-num">3</span>3x + 3y = 900,　15x − 15y = 900</button>
+        <button class="hint2-ch" onclick="hint2Ans('q1',3,2)"><span class="hint2-num">4</span>3(x + y) = 15(x − y)</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q1"></div>
+    </div>
+    <div id="t1" class="timer-wrap"><div class="timer-ring" id="ring-q1"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q1">
+      <button class="ch" onclick="ans('q1',0,1)"><span class="cnum">1</span>A 150m/分・B 150m/分</button>
+      <button class="ch" onclick="ans('q1',1,1)"><span class="cnum">2</span>A 180m/分・B 120m/分</button>
+      <button class="ch" onclick="ans('q1',2,1)"><span class="cnum">3</span>A 200m/分・B 100m/分</button>
+      <button class="ch" onclick="ans('q1',3,1)"><span class="cnum">4</span>A 240m/分・B 60m/分</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q1"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q1"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q1')">🔄 もう一度</button></div>
+    <div id="q1-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>3(x+y)=900, 15(x−y)=900。簡単にして x+y=300, x−y=60。x=180, y=120。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q1-mA" onclick="setMark('q1m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q1-mB" onclick="setMark('q1m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q1-mC" onclick="setMark('q1m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q1"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q1">
+    <div class="clabel kai">段階解説</div>
+    <div id="q1-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4>
+      <p>Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。</p>
+      <p style="margin-top:.5rem;">【反対方向】3分で合計1周（900m）：3x + 3y = 900
+【同じ方向】15分でAがBより1周（900m）多く走る：15x − 15y = 900</p>
+    </div>
+    <div id="q1-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① 反対方向：　3<span class="hl-x">x</span> + 3<span class="hl-y">y</span> = 900
+② 同じ方向：　15<span class="hl-x">x</span> − 15<span class="hl-y">y</span> = 900</p></div>
+    <div id="q1-s2" class="exp-box" style="display:none"><h4>STEP 3　まず式を簡単にする</h4>
+      <div class="calc-block">  ①：3<span class="hl-x">x</span> + 3<span class="hl-y">y</span> = 900
+     ÷3 で → <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300  ……①'
+
+  ②：15<span class="hl-x">x</span> − 15<span class="hl-y">y</span> = 900
+     ÷15 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 60   ……②'</div>
+      <p style="margin-top:.5rem;"><strong>①' + ②' で y を消す：</strong></p>
+      <div class="calc-block">    <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300   ……①'
++)  <span class="hl-x">x</span> − <span class="hl-y">y</span> =  60   ……②'
+─────────────────
+   2<span class="hl-x">x</span>     = 360
+
+       ∴  <span class="hl-x">x</span> = 180</div>
+      <p style="margin-top:.5rem;"><strong>①'に x = 180 を代入：</strong></p>
+      <div class="calc-block">  180 + <span class="hl-y">y</span> = 300
+        <span class="hl-y">y</span> = 120</div>
+    </div>
+    <div id="q1-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>A <strong>分速 180 m</strong>，B <strong>分速 120 m</strong></p>
+      <p>【確かめ】
+　反対方向：3×(180+120) = 900m ✓
+　同じ方向：15×(180−120) = 900m ✓</p></div>
+    <button class="reveal-btn" id="rb-q1" onclick="reveal('q1',4)">STEP 1 を見る ▼</button>
+    <div id="q1-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q1-kA" onclick="setMark('q1k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q1-kB" onclick="setMark('q1k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q1-kC" onclick="setMark('q1k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- 基本2（PDF練習1） -->
+  <div class="prob-n"><span class="n n-pr">2</span><span>基本演習 第2問</span><span class="diff-badge diff-2"><span class="stars">★★☆☆☆</span>やさしい</span></div>
+  <div class="card" id="q2-card">
+    <div class="clabel pr">基本演習 第2問</div>
+    <div class="q-text">
+      周囲が <strong>2km</strong> の池がある。Aは自転車で，Bは徒歩で，同じところを出発して <strong>反対の方向</strong> にまわると，2人が最初に出会うまで <strong>10分</strong> かかる。また，<strong>同じ方向</strong> にまわれば，AはBに追いつくのに <strong>50分</strong> かかるという。A，B 2人の分速をそれぞれ求めよ。
+    </div>
+
+    <div class="senbu-wrap">
+      <div class="senbu-title">📐 池の図（周囲2km=2000m）</div>
+      <svg class="senbu-svg" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="q2-arrA" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#d93652"/></marker>
+          <marker id="q2-arrB" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#2055b0"/></marker>
+        </defs>
+
+        <!-- ① 反対方向 -->
+        <text x="150" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">反対方向 → 10分後に出会う</text>
+        <circle cx="150" cy="120" r="70" fill="#eaf0fb" stroke="#bcb8ae" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+        <circle cx="150" cy="50" r="6" fill="#1a1814"/>
+        <text x="150" y="42" text-anchor="middle" font-size="11" font-weight="bold" font-family="Noto Sans JP">スタート</text>
+        <!-- A 右回り -->
+        <path d="M 150 50 A 70 70 0 0 1 195 185" stroke="#d93652" stroke-width="3" fill="none" marker-end="url(#q2-arrA)"/>
+        <text x="230" y="100" font-size="12" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">A(自転車)→</text>
+        <!-- B 左回り -->
+        <path d="M 150 50 A 70 70 0 0 0 105 185" stroke="#2055b0" stroke-width="3" fill="none" marker-end="url(#q2-arrB)"/>
+        <text x="25" y="100" font-size="12" font-weight="bold" fill="#2055b0" font-family="Noto Sans JP">←B(徒歩)</text>
+        <text x="150" y="125" text-anchor="middle" font-size="12" font-family="Noto Sans JP">2000m</text>
+        <circle cx="150" cy="190" r="5" fill="#0d9478"/>
+        <text x="150" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d9478" font-family="Noto Sans JP">⇒ 出会う</text>
+
+        <!-- ② 同じ方向 -->
+        <text x="450" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#7d3eb0" font-family="Noto Sans JP">同じ方向 → 50分後に追いつく</text>
+        <circle cx="450" cy="120" r="70" fill="#f1e8f7" stroke="#bcb8ae" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+        <circle cx="450" cy="50" r="6" fill="#1a1814"/>
+        <text x="450" y="42" text-anchor="middle" font-size="11" font-weight="bold" font-family="Noto Sans JP">スタート</text>
+        <!-- A ほぼ1周（350度時計回り） -->
+        <path d="M 450 50 A 70 70 0 1 1 437.8 51.1" stroke="#d93652" stroke-width="3" fill="none" marker-end="url(#q2-arrA)"/>
+        <text x="535" y="125" font-size="13" font-weight="bold" fill="#d93652" font-family="Noto Sans JP">A</text>
+        <!-- B 少しだけ（45度） -->
+        <path d="M 450 50 A 70 70 0 0 1 499.5 70.5" stroke="#2055b0" stroke-width="3" fill="none" marker-end="url(#q2-arrB)"/>
+        <text x="487" y="68" font-size="13" font-weight="bold" fill="#2055b0" font-family="Noto Sans JP">B</text>
+        <text x="450" y="118" text-anchor="middle" font-size="11" font-family="Noto Sans JP">Aは1周</text>
+        <text x="450" y="136" text-anchor="middle" font-size="11" font-family="Noto Sans JP">多く走る</text>
+      </svg>
+      <div class="pond-note">
+        <strong>A は B に追いつくため</strong>、<span class="red">赤い矢印</span> ＋ <span class="blue">青い矢印</span> の分進みます。<br>
+        <span class="eq">＝ <strong>1周（2000m）</strong>　＋　<strong>B の進んだ距離</strong> 進みます。</span>
+      </div>
+    </div>
+
+    <button class="hint-toggle" onclick="showHint1('q2')">💡 ヒント1：単位に注意！</button>
+    <button class="hint2-toggle" id="h2btn-q2" onclick="showHint2('q2')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q2">分速を求めるので単位を m に揃える：2km = 2000m。Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span>。</div>
+    <div class="hint2-box" id="h2-q2">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q2',0,1)"><span class="hint2-num">1</span>10x − 10y = 2000,　50x + 50y = 2000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q2',1,1)"><span class="hint2-num">2</span>10x + 10y = 2000,　50x − 50y = 2000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q2',2,1)"><span class="hint2-num">3</span>10x + 10y = 2,　50x − 50y = 2</button>
+        <button class="hint2-ch" onclick="hint2Ans('q2',3,1)"><span class="hint2-num">4</span>x + y = 10,　x − y = 50</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q2"></div>
+    </div>
+    <div id="t2" class="timer-wrap"><div class="timer-ring" id="ring-q2"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q2">
+      <button class="ch" onclick="ans('q2',0,2)"><span class="cnum">1</span>A 100m/分・B 100m/分</button>
+      <button class="ch" onclick="ans('q2',1,2)"><span class="cnum">2</span>A 110m/分・B 90m/分</button>
+      <button class="ch" onclick="ans('q2',2,2)"><span class="cnum">3</span>A 120m/分・B 80m/分</button>
+      <button class="ch" onclick="ans('q2',3,2)"><span class="cnum">4</span>A 150m/分・B 50m/分</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q2"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q2"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q2')">🔄 もう一度</button></div>
+    <div id="q2-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>10(x+y)=2000, 50(x−y)=2000。x+y=200, x−y=40。x=120, y=80。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q2-mA" onclick="setMark('q2m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q2-mB" onclick="setMark('q2m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q2-mC" onclick="setMark('q2m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q2"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q2">
+    <div class="clabel kai">段階解説</div>
+    <div id="q2-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく（単位に注意）</h4>
+      <p>2km = 2000m に直す。Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。</p>
+    </div>
+    <div id="q2-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① 反対方向：　10<span class="hl-x">x</span> + 10<span class="hl-y">y</span> = 2000
+② 同じ方向：　50<span class="hl-x">x</span> − 50<span class="hl-y">y</span> = 2000</p></div>
+    <div id="q2-s2" class="exp-box" style="display:none"><h4>STEP 3　まず式を簡単にする</h4>
+      <div class="calc-block">  ①：10<span class="hl-x">x</span> + 10<span class="hl-y">y</span> = 2000
+     ÷10 で → <span class="hl-x">x</span> + <span class="hl-y">y</span> = 200  ……①'
+
+  ②：50<span class="hl-x">x</span> − 50<span class="hl-y">y</span> = 2000
+     ÷50 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 40   ……②'</div>
+      <p style="margin-top:.5rem;"><strong>①' + ②' で y を消す：</strong></p>
+      <div class="calc-block">    <span class="hl-x">x</span> + <span class="hl-y">y</span> = 200   ……①'
++)  <span class="hl-x">x</span> − <span class="hl-y">y</span> =  40   ……②'
+─────────────────
+   2<span class="hl-x">x</span>     = 240
+
+       ∴  <span class="hl-x">x</span> = 120</div>
+      <p style="margin-top:.5rem;"><strong>①'に x = 120 を代入：</strong></p>
+      <div class="calc-block">  120 + <span class="hl-y">y</span> = 200
+        <span class="hl-y">y</span> = 80</div>
+    </div>
+    <div id="q2-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>A <strong>分速 120 m</strong>（自転車），B <strong>分速 80 m</strong>（徒歩）</p>
+      <p>【確かめ】
+　反対方向：10×(120+80) = 2000m ✓
+　同じ方向：50×(120−80) = 2000m ✓</p></div>
+    <button class="reveal-btn" id="rb-q2" onclick="reveal('q2',4)">STEP 1 を見る ▼</button>
+    <div id="q2-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q2-kA" onclick="setMark('q2k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q2-kB" onclick="setMark('q2k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q2-kC" onclick="setMark('q2k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="skip-banner" style="margin-top:1.5rem;">
+    💪 基本演習ができたら<strong>応用演習</strong>に挑戦しよう！<br>
+    <span style="font-size:12px;">苦手な人は応用をとばして<strong>確認問題</strong>に進んでもOKです。</span>
+  </div>
+  <button class="next-page-btn ap" onclick="switchTab('ap')">応用演習へ進む →</button>
+  <button class="next-page-btn skip" onclick="switchTab('cf')" style="margin-top:.6rem;">応用をとばして確認問題へ →</button>
+</div>
+
+<!-- ════════ 応用演習 ════════ -->
+<div class="page" id="page-ap">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-ap">応</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">応用演習（スキップ可）</div><div class="page-hdr-desc">少しひねりのある問題。できる人は挑戦しよう。</div></div>
+  </div>
+  <div class="skip-banner">
+    <strong>💡 苦手な人へ</strong>　応用演習はとばしてOKです。基本演習ができていれば、確認問題に進んで大丈夫。
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-ap" id="pb-ap" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-ap-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 応用1 -->
+  <div class="prob-n"><span class="n n-ap">1</span><span>応用演習 第1問</span><span class="diff-badge diff-3"><span class="stars">★★★☆☆</span>標準</span></div>
+  <div class="card" id="q3-card">
+    <div class="clabel ap">応用演習 第1問</div>
+    <div class="q-text">
+      1周 <strong>1200m</strong> のランニングコースがある。A君とB君は同時に <strong>反対方向</strong> に走ると <strong>4分後</strong> に出会った。また，A君とB君が同時に <strong>同じ方向</strong> に走ると <strong>30分後</strong> にA君がB君に1周の差をつけて追いついた。A君，B君それぞれの分速を求めよ。
+    </div>
+
+    <button class="hint-toggle" onclick="showHint1('q3')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q3" onclick="showHint2('q3')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q3">A君の分速を <span class="hl-x">x m/分</span>、B君の分速を <span class="hl-y">y m/分</span> とおく。</div>
+    <div class="hint2-box" id="h2-q3">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q3',0,2)"><span class="hint2-num">1</span>4x + 30y = 1200,　4x − 30y = 1200</button>
+        <button class="hint2-ch" onclick="hint2Ans('q3',1,2)"><span class="hint2-num">2</span>4x − 4y = 1200,　30x + 30y = 1200</button>
+        <button class="hint2-ch" onclick="hint2Ans('q3',2,2)"><span class="hint2-num">3</span>4x + 4y = 1200,　30x − 30y = 1200</button>
+        <button class="hint2-ch" onclick="hint2Ans('q3',3,2)"><span class="hint2-num">4</span>x + y = 1200,　x − y = 1200</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q3"></div>
+    </div>
+    <div id="t3" class="timer-wrap"><div class="timer-ring" id="ring-q3"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q3">
+      <button class="ch" onclick="ans('q3',0,1)"><span class="cnum">1</span>A 150m/分・B 150m/分</button>
+      <button class="ch" onclick="ans('q3',1,1)"><span class="cnum">2</span>A 170m/分・B 130m/分</button>
+      <button class="ch" onclick="ans('q3',2,1)"><span class="cnum">3</span>A 200m/分・B 100m/分</button>
+      <button class="ch" onclick="ans('q3',3,1)"><span class="cnum">4</span>A 250m/分・B 50m/分</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q3"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q3"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q3')">🔄 もう一度</button></div>
+    <div id="q3-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>4(x+y)=1200, 30(x−y)=1200。x+y=300, x−y=40。x=170, y=130。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q3-mA" onclick="setMark('q3m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q3-mB" onclick="setMark('q3m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q3-mC" onclick="setMark('q3m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q3"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q3">
+    <div class="clabel kai">段階解説</div>
+    <div id="q3-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4>
+      <p>A君の分速を <span class="hl-x">x m/分</span>、B君の分速を <span class="hl-y">y m/分</span> とおく。</p>
+    </div>
+    <div id="q3-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① 反対方向：　4<span class="hl-x">x</span> + 4<span class="hl-y">y</span> = 1200
+② 同じ方向：　30<span class="hl-x">x</span> − 30<span class="hl-y">y</span> = 1200</p></div>
+    <div id="q3-s2" class="exp-box" style="display:none"><h4>STEP 3　連立方程式を解く</h4>
+      <div class="calc-block">  ①：4<span class="hl-x">x</span> + 4<span class="hl-y">y</span> = 1200
+     ÷4 で → <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300  ……①'
+
+  ②：30<span class="hl-x">x</span> − 30<span class="hl-y">y</span> = 1200
+     ÷30 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 40   ……②'</div>
+      <p style="margin-top:.5rem;"><strong>①' + ②'：</strong></p>
+      <div class="calc-block">    <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300   ……①'
++)  <span class="hl-x">x</span> − <span class="hl-y">y</span> =  40   ……②'
+─────────────────
+   2<span class="hl-x">x</span>     = 340
+
+       ∴  <span class="hl-x">x</span> = 170</div>
+      <p style="margin-top:.5rem;"><strong>①'に代入：</strong></p>
+      <div class="calc-block">  170 + <span class="hl-y">y</span> = 300
+        <span class="hl-y">y</span> = 130</div>
+    </div>
+    <div id="q3-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>A君 <strong>分速 170 m</strong>，B君 <strong>分速 130 m</strong></p>
+      <p>【確かめ】
+　反対：4×(170+130) = 1200m ✓
+　同じ：30×(170−130) = 1200m ✓</p></div>
+    <button class="reveal-btn" id="rb-q3" onclick="reveal('q3',4)">STEP 1 を見る ▼</button>
+    <div id="q3-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q3-kA" onclick="setMark('q3k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q3-kB" onclick="setMark('q3k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q3-kC" onclick="setMark('q3k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- 応用2（時速単位）-->
+  <div class="prob-n"><span class="n n-ap">2</span><span>応用演習 第2問</span><span class="diff-badge diff-4"><span class="stars">★★★★☆</span>やや難しい</span></div>
+  <div class="card" id="q4-card">
+    <div class="clabel ap">応用演習 第2問</div>
+    <div class="q-text">
+      A君とB君が1周 <strong>3km</strong> のサイクリングコースを自転車で走った。スタート地点から <strong>同じ方向</strong> に走ると <strong>36分後</strong> にA君がB君に1周の差をつけた。また，スタート地点から <strong>反対方向</strong> に走ると <strong>4分後</strong> に2人は出会った。A君，B君の走る速さをそれぞれ <strong>時速で</strong> 求めよ。
+    </div>
+
+    <button class="hint-toggle" onclick="showHint1('q4')">💡 ヒント1：単位に注意！</button>
+    <button class="hint2-toggle" id="h2btn-q4" onclick="showHint2('q4')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q4">時速で答えるので、時間も「時間」単位に直す。36分 = <span class="fr"><span class="num">36</span><span class="den">60</span></span> = <span class="fr"><span class="num">3</span><span class="den">5</span></span> 時間、4分 = <span class="fr"><span class="num">4</span><span class="den">60</span></span> = <span class="fr"><span class="num">1</span><span class="den">15</span></span> 時間。Aの時速を <span class="hl-x">x km/時</span>、Bの時速を <span class="hl-y">y km/時</span> とおく。</div>
+    <div class="hint2-box" id="h2-q4">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q4',0,1)"><span class="hint2-num">1</span><span class="fr"><span class="num">3</span><span class="den">5</span></span>(x + y) = 3,　<span class="fr"><span class="num">1</span><span class="den">15</span></span>(x − y) = 3</button>
+        <button class="hint2-ch" onclick="hint2Ans('q4',1,1)"><span class="hint2-num">2</span><span class="fr"><span class="num">3</span><span class="den">5</span></span>(x − y) = 3,　<span class="fr"><span class="num">1</span><span class="den">15</span></span>(x + y) = 3</button>
+        <button class="hint2-ch" onclick="hint2Ans('q4',2,1)"><span class="hint2-num">3</span>36(x − y) = 3,　4(x + y) = 3</button>
+        <button class="hint2-ch" onclick="hint2Ans('q4',3,1)"><span class="hint2-num">4</span>36x + 4y = 3,　36x − 4y = 3</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q4"></div>
+    </div>
+    <div id="t4" class="timer-wrap"><div class="timer-ring" id="ring-q4"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">じっくり考えてみよう。<span class="goal">目標 6分以内</span></div></div>
+    <div class="choices col4" id="ch-q4">
+      <button class="ch" onclick="ans('q4',0,1)"><span class="cnum">1</span>A 20km/時・B 25km/時</button>
+      <button class="ch" onclick="ans('q4',1,1)"><span class="cnum">2</span>A 25km/時・B 20km/時</button>
+      <button class="ch" onclick="ans('q4',2,1)"><span class="cnum">3</span>A 30km/時・B 15km/時</button>
+      <button class="ch" onclick="ans('q4',3,1)"><span class="cnum">4</span>A 36km/時・B 9km/時</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q4"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q4"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q4')">🔄 もう一度</button></div>
+    <div id="q4-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>(3/5)(x−y)=3, (1/15)(x+y)=3。簡単にして x−y=5, x+y=45。x=25, y=20。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q4-mA" onclick="setMark('q4m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q4-mB" onclick="setMark('q4m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q4-mC" onclick="setMark('q4m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q4"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q4">
+    <div class="clabel kai">段階解説</div>
+    <div id="q4-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく（時間の単位に注意）</h4>
+      <p>時速で求めるので、分を時間に直す。
+36分 = <span class="fr"><span class="num">36</span><span class="den">60</span></span> = <span class="fr"><span class="num">3</span><span class="den">5</span></span> 時間
+4分 = <span class="fr"><span class="num">4</span><span class="den">60</span></span> = <span class="fr"><span class="num">1</span><span class="den">15</span></span> 時間</p>
+      <p>A君の時速を <span class="hl-x">x km/時</span>、B君の時速を <span class="hl-y">y km/時</span> とおく。</p>
+    </div>
+    <div id="q4-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① 同じ方向（36分でAがBより1周＝3km多く）：
+　<span class="fr"><span class="num">3</span><span class="den">5</span></span><span class="hl-x">x</span> − <span class="fr"><span class="num">3</span><span class="den">5</span></span><span class="hl-y">y</span> = 3
+② 反対方向（4分で合計1周＝3km）：
+　<span class="fr"><span class="num">1</span><span class="den">15</span></span><span class="hl-x">x</span> + <span class="fr"><span class="num">1</span><span class="den">15</span></span><span class="hl-y">y</span> = 3</p></div>
+    <div id="q4-s2" class="exp-box" style="display:none"><h4>STEP 3　分母をはらう</h4>
+      <p>①×5：</p>
+      <div class="calc-block">  3              3
+─── <span class="hl-x">x</span> − ─── <span class="hl-y">y</span> = 3   の両辺に 5 をかける
+  5              5
+
+  3<span class="hl-x">x</span> − 3<span class="hl-y">y</span> = 15  ……①'</div>
+      <p style="margin-top:.5rem;">②×15：</p>
+      <div class="calc-block">   1              1
+─── <span class="hl-x">x</span> + ─── <span class="hl-y">y</span> = 3   の両辺に 15 をかける
+  15             15
+
+  <span class="hl-x">x</span> + <span class="hl-y">y</span> = 45  ……②'</div>
+      <p style="margin-top:.5rem;">①'をさらに ÷3 して簡単にする：</p>
+      <div class="calc-block">  3<span class="hl-x">x</span> − 3<span class="hl-y">y</span> = 15
+     ÷3 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 5  ……①''</div>
+      <p style="margin-top:.5rem;"><strong>①'' + ②' で y を消す：</strong></p>
+      <div class="calc-block">    <span class="hl-x">x</span> − <span class="hl-y">y</span> =  5   ……①''
++)  <span class="hl-x">x</span> + <span class="hl-y">y</span> = 45   ……②'
+─────────────────
+   2<span class="hl-x">x</span>     = 50
+
+       ∴  <span class="hl-x">x</span> = 25</div>
+      <p style="margin-top:.5rem;"><strong>②'に x = 25 を代入：</strong></p>
+      <div class="calc-block">  25 + <span class="hl-y">y</span> = 45
+       <span class="hl-y">y</span> = 20</div>
+    </div>
+    <div id="q4-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>A君 <strong>時速 25 km</strong>，B君 <strong>時速 20 km</strong></p>
+      <p>【確かめ】
+　反対：(1/15)×(25+20) = 45/15 = 3km ✓
+　同じ：(3/5)×(25−20) = 15/5 = 3km ✓</p></div>
+    <button class="reveal-btn" id="rb-q4" onclick="reveal('q4',4)">STEP 1 を見る ▼</button>
+    <div id="q4-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q4-kA" onclick="setMark('q4k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q4-kB" onclick="setMark('q4k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q4-kC" onclick="setMark('q4k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <button class="next-page-btn cf" onclick="switchTab('cf')" style="margin-top:1.5rem;">確認問題へ進む →</button>
+</div>
+
+<!-- ════════ 確認問題 ════════ -->
+<div class="page" id="page-cf">
+  <div class="page-hdr">
+    <div class="page-hdr-icon icon-cf">確</div>
+    <div class="page-hdr-body"><div class="page-hdr-title">確認問題</div><div class="page-hdr-desc">入試レベルの問題に挑戦しよう。</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="pb-w"><div class="pb pb-cf" id="pb-cf" style="width:0%"></div></div>
+    <div class="pb-txt" id="pb-cf-txt">0 / 2 完了</div>
+  </div>
+
+  <!-- 確認問題 -->
+  <div class="prob-n"><span class="n n-cf">確</span><span>確認問題</span><span class="diff-badge diff-3"><span class="stars">★★★☆☆</span>標準</span></div>
+  <div class="card" id="q5-card">
+    <div class="clabel cf">確認問題</div>
+    <span class="prob-src">〈入試改題〉</span>
+    <div class="q-text">
+      1周 <strong>2100m</strong> のジョギングコースがあり，A，Bの2人が同じ地点から同時に出発する。<strong>反対方向</strong> に走ると，出発してから <strong>7分後</strong> に出会い，<strong>同じ向き</strong> に走ると，出発してから <strong>35分後</strong> にAがBを追いぬく。A，Bの走る速さをそれぞれ求めなさい。
+    </div>
+
+    <button class="hint-toggle" onclick="showHint1('q5')">💡 ヒント1：x、y を何にする？</button>
+    <button class="hint2-toggle" id="h2btn-q5" onclick="showHint2('q5')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q5">Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。</div>
+    <div class="hint2-box" id="h2-q5">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q5',0,1)"><span class="hint2-num">1</span>7x − 7y = 2100,　35x + 35y = 2100</button>
+        <button class="hint2-ch" onclick="hint2Ans('q5',1,1)"><span class="hint2-num">2</span>7x + 7y = 2100,　35x − 35y = 2100</button>
+        <button class="hint2-ch" onclick="hint2Ans('q5',2,1)"><span class="hint2-num">3</span>x + y = 7,　x − y = 35</button>
+        <button class="hint2-ch" onclick="hint2Ans('q5',3,1)"><span class="hint2-num">4</span>7(x + y) = 35(x − y)</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q5"></div>
+    </div>
+    <div id="t5" class="timer-wrap"><div class="timer-ring" id="ring-q5"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">自力で考えましょう。<span class="goal">目標 5分以内</span></div></div>
+    <div class="choices col4" id="ch-q5">
+      <button class="ch" onclick="ans('q5',0,1)"><span class="cnum">1</span>A 150m/分・B 150m/分</button>
+      <button class="ch" onclick="ans('q5',1,1)"><span class="cnum">2</span>A 180m/分・B 120m/分</button>
+      <button class="ch" onclick="ans('q5',2,1)"><span class="cnum">3</span>A 200m/分・B 100m/分</button>
+      <button class="ch" onclick="ans('q5',3,1)"><span class="cnum">4</span>A 240m/分・B 60m/分</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q5"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q5"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q5')">🔄 もう一度</button></div>
+    <div id="q5-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>7(x+y)=2100, 35(x−y)=2100。x+y=300, x−y=60。x=180, y=120。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q5-mA" onclick="setMark('q5m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q5-mB" onclick="setMark('q5m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q5-mC" onclick="setMark('q5m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q5"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q5">
+    <div class="clabel kai">段階解説</div>
+    <div id="q5-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおく</h4>
+      <p>Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。</p>
+    </div>
+    <div id="q5-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① 反対方向：　7<span class="hl-x">x</span> + 7<span class="hl-y">y</span> = 2100
+② 同じ向き：　35<span class="hl-x">x</span> − 35<span class="hl-y">y</span> = 2100</p></div>
+    <div id="q5-s2" class="exp-box" style="display:none"><h4>STEP 3　連立方程式を解く</h4>
+      <div class="calc-block">  ①：7<span class="hl-x">x</span> + 7<span class="hl-y">y</span> = 2100
+     ÷7 で → <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300  ……①'
+
+  ②：35<span class="hl-x">x</span> − 35<span class="hl-y">y</span> = 2100
+     ÷35 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 60   ……②'</div>
+      <p style="margin-top:.5rem;"><strong>①' + ②'：</strong></p>
+      <div class="calc-block">    <span class="hl-x">x</span> + <span class="hl-y">y</span> = 300   ……①'
++)  <span class="hl-x">x</span> − <span class="hl-y">y</span> =  60   ……②'
+─────────────────
+   2<span class="hl-x">x</span>     = 360
+
+       ∴  <span class="hl-x">x</span> = 180</div>
+      <p style="margin-top:.5rem;"><strong>①'に代入：</strong></p>
+      <div class="calc-block">  180 + <span class="hl-y">y</span> = 300
+        <span class="hl-y">y</span> = 120</div>
+    </div>
+    <div id="q5-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>A <strong>分速 180 m</strong>，B <strong>分速 120 m</strong></p>
+      <p>【確かめ】
+　反対：7×(180+120) = 2100m ✓
+　同じ：35×(180−120) = 2100m ✓</p></div>
+    <button class="reveal-btn" id="rb-q5" onclick="reveal('q5',4)">STEP 1 を見る ▼</button>
+    <div id="q5-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q5-kA" onclick="setMark('q5k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q5-kB" onclick="setMark('q5k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q5-kC" onclick="setMark('q5k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <hr class="prob-divider">
+
+  <!-- チャレンジ -->
+  <div class="prob-n"><span class="n n-cf">★</span><span>チャレンジ問題<span class="star-tag">★ 任意</span></span><span class="diff-badge diff-5"><span class="stars">★★★★★</span>難しい</span></div>
+  <div class="card" id="q6-card">
+    <div class="clabel cf">チャレンジ問題　★</div>
+    <span class="prob-src">〈入試レベル：時間差つき出発〉</span>
+    <div class="q-text">
+      池のまわりに長さ <strong>6km</strong> の道があり，この道をAは自転車で，Bは徒歩でまわる。スタート地点から同時に <strong>同じ方向</strong> に進んだところ <strong>50分</strong> でAはBに1周差をつけ追いついた。また，次に，スタート地点からAがBより <strong>12分遅れて</strong> Bとは <strong>反対方向</strong> に出発して進んだところ，Bが出発してから <strong>27分後</strong> に2人は出会った。A，Bの速さはそれぞれ分速何mであるか答えよ。
+    </div>
+
+    <button class="hint-toggle" onclick="showHint1('q6')">💡 ヒント1：時間に注意！</button>
+    <button class="hint2-toggle" id="h2btn-q6" onclick="showHint2('q6')">💡💡 ヒント2：式はどうなる？</button>
+    <div class="hint-box" id="h1-q6">Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。<br><br>反対方向の出会いの場面で、AはBより12分遅れて出発したので、Bが出発してから27分後に出会うとき、<strong>Aは 27−12 = 15分</strong> しか走っていない。Bは27分走る。</div>
+    <div class="hint2-box" id="h2-q6">
+      <div class="hint2-q">この問題の連立方程式はどれ？</div>
+      <div class="hint2-choices">
+        <button class="hint2-ch" onclick="hint2Ans('q6',0,1)"><span class="hint2-num">1</span>50x − 50y = 6000,　27x + 27y = 6000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q6',1,1)"><span class="hint2-num">2</span>50x − 50y = 6000,　15x + 27y = 6000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q6',2,1)"><span class="hint2-num">3</span>50x + 50y = 6000,　15x − 27y = 6000</button>
+        <button class="hint2-ch" onclick="hint2Ans('q6',3,1)"><span class="hint2-num">4</span>50(x − y) = 6,　15x + 27y = 6</button>
+      </div>
+      <div class="hint2-fb" id="h2fb-q6"></div>
+    </div>
+    <div id="t6" class="timer-wrap"><div class="timer-ring" id="ring-q6"><svg viewBox="0 0 44 44"><circle class="tbg" cx="22" cy="22" r="20"/><circle class="tfg" cx="22" cy="22" r="20"/></svg><div class="tcenter">0:00</div></div><div class="timer-msg">じっくり考えてみよう。<span class="goal">目標 7分以内</span></div></div>
+    <div class="choices col4" id="ch-q6">
+      <button class="ch" onclick="ans('q6',0,2)"><span class="cnum">1</span>A 150m/分・B 50m/分</button>
+      <button class="ch" onclick="ans('q6',1,2)"><span class="cnum">2</span>A 180m/分・B 80m/分</button>
+      <button class="ch" onclick="ans('q6',2,2)"><span class="cnum">3</span>A 220m/分・B 100m/分</button>
+      <button class="ch" onclick="ans('q6',3,2)"><span class="cnum">4</span>A 250m/分・B 120m/分</button>
+    </div>
+    <div class="fb-ok" id="fb-ok-q6"><span class="fb-icon">🎉</span><span class="fb-text">正解！すばらしい！<span class="fb-sub">紙吹雪が舞っています ✨</span></span></div>
+    <div class="fb-ng" id="fb-ng-q6"><span class="fb-icon">😢</span><span class="fb-text">おしい！もう少し！<span class="fb-sub">💡 ヒントやステップ解説を見てみよう</span></span><button class="reset-btn" onclick="resetQ('q6')">🔄 もう一度</button></div>
+    <div id="q6-res" style="display:none">
+      <div class="point-box"><strong>解法のカギ</strong>50(x−y)=6000, 15x+27y=6000。x−y=120 と 15x+27y=6000 を解いて x=220, y=100。</div>
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q6-mA" onclick="setMark('q6m','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q6-mB" onclick="setMark('q6m','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q6-mC" onclick="setMark('q6m','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+  <div class="connector" id="cn-q6"><div class="connector-line"></div><div class="connector-arrow"></div></div>
+  <div class="card kai-card" id="kai-q6">
+    <div class="clabel kai">段階解説</div>
+    <div id="q6-s0" class="exp-box" style="display:none"><h4>STEP 1　x、y をおいて、走った時間を整理する</h4>
+      <p>Aの分速を <span class="hl-x">x m/分</span>、Bの分速を <span class="hl-y">y m/分</span> とおく。6km = 6000m。</p>
+      <p style="margin-top:.5rem;"><strong>【1回目：同じ方向に同時出発】</strong>
+50分でAがBに1周差をつけて追いつく。
+→ AはBより1周分（6000m）多く走る。</p>
+      <p style="margin-top:.5rem;"><strong>【2回目：反対方向、Aが12分遅れて出発】</strong>
+Bが出発してから27分後に出会う。
+→ Bは <strong>27分間</strong> 走る。
+→ Aは Bより12分遅れたので <strong>27 − 12 = 15分間</strong> 走る。
+2人合わせて1周（6000m）走る。</p>
+    </div>
+    <div id="q6-s1" class="exp-box blue" style="display:none"><h4>STEP 2　連立方程式をつくる</h4><p>① 同じ方向：　50<span class="hl-x">x</span> − 50<span class="hl-y">y</span> = 6000
+② 反対方向：　15<span class="hl-x">x</span> + 27<span class="hl-y">y</span> = 6000</p></div>
+    <div id="q6-s2" class="exp-box" style="display:none"><h4>STEP 3　連立方程式を解く</h4>
+      <p>まず①を簡単にする：</p>
+      <div class="calc-block">  ①：50<span class="hl-x">x</span> − 50<span class="hl-y">y</span> = 6000
+     ÷50 で → <span class="hl-x">x</span> − <span class="hl-y">y</span> = 120  ……①'</div>
+      <p style="margin-top:.5rem;">②をそのまま使う：</p>
+      <div class="calc-block">  ②：15<span class="hl-x">x</span> + 27<span class="hl-y">y</span> = 6000  ……②'</div>
+      <p style="margin-top:.5rem;"><strong>①'×27 + ②' で y を消す：</strong></p>
+      <div class="calc-block">    ①'×27：27<span class="hl-x">x</span> − 27<span class="hl-y">y</span> = 3240
+
+       ②'：15<span class="hl-x">x</span> + 27<span class="hl-y">y</span> = 6000
+
+       ①'×27 + ②'
+
+    27<span class="hl-x">x</span> − 27<span class="hl-y">y</span> = 3240
++)  15<span class="hl-x">x</span> + 27<span class="hl-y">y</span> = 6000
+─────────────────
+    42<span class="hl-x">x</span>      = 9240
+
+       ∴  <span class="hl-x">x</span> = 220</div>
+      <p style="margin-top:.5rem;"><strong>①'に x = 220 を代入：</strong></p>
+      <div class="calc-block">  220 − <span class="hl-y">y</span> = 120
+       −<span class="hl-y">y</span> = −100
+        <span class="hl-y">y</span> = 100</div>
+    </div>
+    <div id="q6-s3" class="exp-box amber" style="display:none"><h4>STEP 4　答え</h4><p>A <strong>分速 220 m</strong>，B <strong>分速 100 m</strong></p>
+      <p>【確かめ】
+　同じ方向：50×(220−100) = 50×120 = 6000m ✓
+　反対方向：15×220 + 27×100 = 3300 + 2700 = 6000m ✓</p></div>
+    <button class="reveal-btn" id="rb-q6" onclick="reveal('q6',4)">STEP 1 を見る ▼</button>
+    <div id="q6-fin" style="display:none">
+      <div class="abc-wrap"><div class="abc-lbl">理解度をマーク</div><div class="abc-row">
+        <button class="abc-btn abc-A" id="q6-kA" onclick="setMark('q6k','A')">✅ A<span>わかった</span></button>
+        <button class="abc-btn abc-B" id="q6-kB" onclick="setMark('q6k','B')">📖 B<span>解説でわかった</span></button>
+        <button class="abc-btn abc-C" id="q6-kC" onclick="setMark('q6k','C')">❓ C<span>わからなかった</span></button>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="unit-nav" id="unit-nav" style="display:flex;">
+    <div class="unit-nav-row"><a href="index.html" class="unav-btn unav-index">📋 単元表に戻る</a></div>
+    <div class="unit-nav-row">
+      <a href="MR3.html" class="unav-btn unav-prev">← 前へ：時間と距離②</a>
+      <a href="MR5.html" class="unav-btn unav-next">次へ：鉄橋・トンネル →</a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const TMAX=360;
+const answered={};
+const stepRev={q0:0,q1:0,q2:0,q3:0,q4:0,q5:0,q6:0};
+const stepMax={q0:4,q1:4,q2:4,q3:4,q4:4,q5:4,q6:4};
+const timers={};
+const hint2Done={};
+let pracDone=0,apDone=0,cfDone=0;
+
+function switchTab(tab){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  ['ex','pr','ap','cf'].forEach(t=>{const b=document.getElementById('tab-'+t);b.className='tab-btn';});
+  document.getElementById('page-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active-'+tab);
+  ['pr','ap','cf'].forEach(t=>{
+    const total=2;
+    const done=t==='pr'?pracDone:(t==='ap'?apDone:cfDone);
+    if(done>=total){document.getElementById('done-'+t).style.display='flex';}
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(tab==='pr'&&!answered.q1)startTimer('q1');
+  if(tab==='ap'&&!answered.q3)startTimer('q3');
+  if(tab==='cf'&&!answered.q5)startTimer('q5');
+}
+
+function startTimer(qid){
+  if(timers[qid]||answered[qid])return;
+  const start=Date.now();
+  const n=qid.slice(1);
+  tick(0);
+  timers[qid]=setInterval(()=>tick(Math.floor((Date.now()-start)/1000)),1000);
+  function tick(sec){
+    const ring=document.getElementById('ring-'+qid);if(!ring)return;
+    const fg=ring.querySelector('.tfg');
+    const txt=ring.querySelector('.tcenter');
+    const tw=document.getElementById('t'+n);
+    const msg=tw?tw.querySelector('.timer-msg'):null;
+    const pct=Math.min(sec/TMAX,1);
+    fg.style.strokeDashoffset=126*pct;
+    fg.className='tfg'+(pct>.8?' warn':'');
+    const m=Math.floor(sec/60),s=sec%60;
+    txt.textContent=`${m}:${String(s).padStart(2,'0')}`;
+    if(msg){
+      if(sec<180)msg.innerHTML='自力で考えましょう。<span class="goal">目標内</span>';
+      else if(sec<360)msg.innerHTML='じっくり考えています…<span class="goal">まだ大丈夫！</span>';
+      else msg.innerHTML='解説を見て確認してみましょう。';
+    }
+  }
+}
+function stopTimer(qid){clearInterval(timers[qid]);timers[qid]=null;}
+
+function showHint1(qid){
+  const h1=document.getElementById('h1-'+qid);
+  h1.classList.toggle('show');
+  if(h1.classList.contains('show')){
+    document.getElementById('h2btn-'+qid).style.display='inline-block';
+  }
+}
+function showHint2(qid){
+  const h2=document.getElementById('h2-'+qid);
+  h2.classList.toggle('show');
+}
+function hint2Ans(qid,idx,correct){
+  if(hint2Done[qid])return;
+  hint2Done[qid]=true;
+  const isOk=(idx===correct);
+  const box=document.getElementById('h2-'+qid);
+  const btns=box.querySelectorAll('.hint2-ch');
+  btns.forEach((b,i)=>{
+    b.disabled=true;
+    if(i===correct){b.className='hint2-ch ok';}
+    else if(i===idx&&!isOk){b.className='hint2-ch ng';}
+  });
+  const fb=document.getElementById('h2fb-'+qid);
+  fb.classList.add('show');
+  if(isOk){fb.className='hint2-fb ok show';fb.textContent='✓ その通り！この式で解いてみよう。';}
+  else{fb.className='hint2-fb ng show';fb.textContent='✗ よく見直そう。正解にマークがついたよ。';}
+}
+
+function ans(qid,idx,correct){
+  if(answered[qid])return;
+  answered[qid]=true;
+  stopTimer(qid);
+  var isOk=(idx===correct);
+  var n=qid.slice(1);
+  var tw=document.getElementById('t'+n);
+  if(tw)tw.style.display='none';
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b,i){
+    b.disabled=true;
+    if(i===correct){b.className='ch ok';b.querySelector('.cnum').style.cssText='background:var(--teal);color:#fff';}
+    else if(i===idx&&!isOk){b.className='ch ng';b.querySelector('.cnum').style.cssText='background:var(--pink);color:#fff';}
+  });
+  var fbOk=document.getElementById('fb-ok-'+qid);
+  var fbNg=document.getElementById('fb-ng-'+qid);
+  if(isOk){ if(fbOk)fbOk.style.display='flex'; _launchConfetti(); }
+  else     { if(fbNg)fbNg.style.display='flex'; }
+  var res=document.getElementById(qid+'-res'); if(res)res.style.display='block';
+  var cn=document.getElementById('cn-'+qid);   if(cn)cn.style.display='flex';
+  var kc=document.getElementById('kai-'+qid);
+  if(kc){kc.style.display='block';setTimeout(function(){kc.scrollIntoView({behavior:'smooth',block:'start'});},120);}
+  if(qid==='q1'||qid==='q2'){
+    pracDone++;
+    document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';
+    document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';
+    if(pracDone>=2){const d=document.getElementById('done-pr');if(d)d.style.display='flex';}
+    if(qid==='q1'&&!answered.q2)setTimeout(()=>startTimer('q2'),300);
+  }
+  if(qid==='q3'||qid==='q4'){
+    apDone++;
+    document.getElementById('pb-ap').style.width=(apDone/2*100)+'%';
+    document.getElementById('pb-ap-txt').textContent=apDone+' / 2 完了';
+    if(apDone>=2){const d=document.getElementById('done-ap');if(d)d.style.display='flex';}
+    if(qid==='q3'&&!answered.q4)setTimeout(()=>startTimer('q4'),300);
+  }
+  if(qid==='q5'||qid==='q6'){
+    cfDone++;
+    document.getElementById('pb-cf').style.width=(cfDone/2*100)+'%';
+    document.getElementById('pb-cf-txt').textContent=cfDone+' / 2 完了';
+    if(cfDone>=2){const d=document.getElementById('done-cf');if(d)d.style.display='flex';}
+    if(qid==='q5'&&!answered.q6)setTimeout(()=>startTimer('q6'),300);
+  }
+}
+
+function reveal(qid,total){
+  const r=stepRev[qid];
+  const el=document.getElementById(qid+'-s'+r);
+  if(el){el.style.display='block';stepRev[qid]++;setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),60);}
+  const btn=document.getElementById('rb-'+qid);
+  if(stepRev[qid]>=total){
+    btn.style.display='none';
+    const fin=document.getElementById(qid+'-fin');
+    if(fin){fin.style.display='block';setTimeout(()=>fin.scrollIntoView({behavior:'smooth',block:'nearest'}),60);}
+  }else{
+    btn.textContent='STEP '+(stepRev[qid]+1)+' を見る ▼';
+  }
+}
+
+function setMark(prefix,m){
+  const base=prefix.slice(0,2);const kind=prefix.slice(2);
+  ['A','B','C'].forEach(x=>{const el=document.getElementById(base+'-'+kind+x);if(el)el.classList.toggle('on',x===m);});
+}
+
+startTimer('q0');
+
+function resetQ(qid){
+  delete answered[qid];
+  stopTimer(qid);
+  delete timers[qid];
+  var n=qid.slice(1);
+  if(qid==='q1'||qid==='q2'){if(pracDone>0)pracDone--;document.getElementById('pb-pr').style.width=(pracDone/2*100)+'%';document.getElementById('pb-pr-txt').textContent=pracDone+' / 2 完了';document.getElementById('done-pr').style.display='none';}
+  if(qid==='q3'||qid==='q4'){if(apDone>0)apDone--;document.getElementById('pb-ap').style.width=(apDone/2*100)+'%';document.getElementById('pb-ap-txt').textContent=apDone+' / 2 完了';document.getElementById('done-ap').style.display='none';}
+  if(qid==='q5'||qid==='q6'){if(cfDone>0)cfDone--;document.getElementById('pb-cf').style.width=(cfDone/2*100)+'%';document.getElementById('pb-cf-txt').textContent=cfDone+' / 2 完了';document.getElementById('done-cf').style.display='none';}
+  var fbOk=document.getElementById('fb-ok-'+qid);if(fbOk)fbOk.style.display='none';
+  var fbNg=document.getElementById('fb-ng-'+qid);if(fbNg)fbNg.style.display='none';
+  var res=document.getElementById(qid+'-res');if(res)res.style.display='none';
+  var cn=document.getElementById('cn-'+qid);if(cn)cn.style.display='none';
+  var kc=document.getElementById('kai-'+qid);if(kc)kc.style.display='none';
+  var tw=document.getElementById('t'+n);if(tw)tw.style.display='flex';
+  document.querySelectorAll('#ch-'+qid+' .ch').forEach(function(b){
+    b.disabled=false;b.className='ch';
+    var cn2=b.querySelector('.cnum');if(cn2)cn2.style.cssText='';
+  });
+  var steps=document.querySelectorAll('[id^="'+qid+'-s"]');steps.forEach(function(el){el.style.display='none';});
+  stepRev[qid]=0;
+  var rb=document.getElementById('rb-'+qid);if(rb){rb.style.display='';rb.textContent='STEP 1 を見る ▼';}
+  var fin=document.getElementById(qid+'-fin');if(fin)fin.style.display='none';
+  startTimer(qid);
+}
+
+function _launchConfetti(){
+  var cv=document.getElementById('_gamba_cf');
+  if(!cv){
+    cv=document.createElement('canvas');cv.id='_gamba_cf';
+    cv.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(cv);
+  }
+  var ctx=cv.getContext('2d');
+  cv.width=window.innerWidth; cv.height=window.innerHeight;
+  var pts=[],run=true;
+  for(var i=0;i<200;i++) pts.push({
+    x:Math.random()*cv.width, y:-Math.random()*cv.height*0.5,
+    s:Math.random()*8+4, c:'hsl('+Math.floor(Math.random()*360)+',80%,60%)',
+    sp:Math.random()*4+2, r:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.15
+  });
+  (function step(){
+    if(!run)return;
+    requestAnimationFrame(step);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(function(p){
+      p.y+=p.sp; p.r+=p.rv;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
+      ctx.restore();
+    });
+  })();
+  setTimeout(function(){run=false;ctx.clearRect(0,0,cv.width,cv.height);},3500);
+}
+</script>
+</body>
+</html>

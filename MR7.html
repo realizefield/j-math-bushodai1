@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR7 連立方程式文章題 ⑦ 生徒数（割合・％増減）</title>
+<style>
+  :root{
+    --pink:#d93652; --teal:#0d9478; --blue:#2055b0;
+    --amber:#a86000; --purple:#7d3eb0;
+    --bg:#fafaf7; --card:#ffffff; --line:#e5e5e0; --text:#222;
+    --boy:#2055b0; --girl:#d93652;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.7; font-size:16px;
+  }
+  header{
+    background:linear-gradient(135deg,#7d3eb0 0%,#2055b0 100%);
+    color:#fff; padding:18px 20px; box-shadow:0 2px 10px rgba(0,0,0,.1);
+  }
+  header h1{margin:0; font-size:22px; letter-spacing:.5px}
+  header .sub{font-size:14px; opacity:.9; margin-top:4px}
+  nav.tabs{
+    display:flex; background:#fff; border-bottom:2px solid var(--line);
+    position:sticky; top:0; z-index:10; overflow-x:auto;
+  }
+  nav.tabs button{
+    flex:1 1 0; min-width:130px; padding:12px 8px;
+    background:#fff; border:none; border-bottom:3px solid transparent;
+    font-size:15px; font-weight:600; color:#555; cursor:pointer;
+    transition:all .15s;
+  }
+  nav.tabs button:hover{background:#f5f5f0}
+  nav.tabs button.active{
+    color:var(--purple); border-bottom-color:var(--purple); background:#faf6ff;
+  }
+  main{max-width:880px; margin:0 auto; padding:20px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:20px 22px; margin-bottom:18px; box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .qhead{
+    display:flex; align-items:center; gap:10px; margin-bottom:12px;
+    padding-bottom:10px; border-bottom:1px dashed var(--line);
+  }
+  .qhead .num{
+    background:var(--purple); color:#fff; padding:4px 12px;
+    border-radius:6px; font-weight:700; font-size:14px;
+  }
+  .qhead .ttl{font-size:18px; font-weight:700}
+  .qhead .src{font-size:13px; color:#888; margin-left:4px}
+  .diff{
+    margin-left:auto; padding:3px 10px; border-radius:14px;
+    font-size:13px; font-weight:700; letter-spacing:1px;
+  }
+  .diff-1,.diff-2{background:#e3f5ec; color:#0d7548}
+  .diff-3{background:#e0ecfb; color:#1c4d9c}
+  .diff-4{background:#fff0dc; color:#a86000}
+  .diff-5{background:#fde2e2; color:#b71c1c}
+  .qtext{font-size:16px; padding:6px 0 4px}
+  .qtext b{color:var(--pink)}
+
+  /* ヒントブロック */
+  .hint-toggle{
+    display:inline-block; background:#fff3d0; color:#7a5500;
+    border:1px solid #e0c068; padding:6px 14px; border-radius:18px;
+    font-size:14px; font-weight:600; cursor:pointer; margin:6px 6px 6px 0;
+    user-select:none; transition:all .15s;
+  }
+  .hint-toggle:hover{background:#ffe9a8}
+  .hint-toggle.on{background:#7a5500; color:#fff3d0}
+  .hint-body{
+    display:none; background:#fffaee; border-left:4px solid #e0c068;
+    padding:12px 16px; margin:8px 0 14px; border-radius:0 8px 8px 0;
+    font-size:15px;
+  }
+  .hint-body.open{display:block}
+
+  /* 4択 */
+  .choices{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px}
+  @media (max-width:600px){.choices{grid-template-columns:1fr}}
+  .choice{
+    background:#fff; border:2px solid var(--line); border-radius:8px;
+    padding:10px 12px; cursor:pointer; font-size:14px; transition:all .15s;
+  }
+  .choice:hover{background:#f5f5f0; border-color:#999}
+  .choice.correct{background:#e3f5ec; border-color:#0d7548; color:#0d7548; font-weight:700}
+  .choice.wrong{background:#fde2e2; border-color:#b71c1c; color:#b71c1c}
+  .choice .lab{
+    display:inline-block; background:#666; color:#fff;
+    width:22px; height:22px; line-height:22px; text-align:center;
+    border-radius:50%; margin-right:6px; font-size:12px; font-weight:700;
+  }
+  .choice.correct .lab{background:#0d7548}
+  .choice.wrong .lab{background:#b71c1c}
+
+  /* 解答ブロック */
+  .ans-toggle{
+    display:inline-block; background:#7d3eb0; color:#fff;
+    padding:8px 18px; border-radius:20px; font-size:14px; font-weight:600;
+    cursor:pointer; margin:10px 0 6px; user-select:none; border:none;
+  }
+  .ans-toggle:hover{background:#5e2c87}
+  .ans-body{display:none; padding:10px 0}
+  .ans-body.open{display:block}
+
+  /* 式・計算ブロック */
+  .eq-block{
+    background:#f7f5fa; border-left:4px solid var(--purple);
+    padding:12px 16px; margin:10px 0; border-radius:0 6px 6px 0;
+    font-size:15px;
+  }
+  .calc-block{
+    background:#fafaf5; border:1px solid var(--line); border-radius:6px;
+    padding:12px 16px; margin:10px 0; font-family:"Menlo","Consolas",monospace;
+    font-size:15px; white-space:pre; overflow-x:auto;
+  }
+  .conclusion{
+    background:#e3f5ec; border:2px solid #0d7548; border-radius:8px;
+    padding:10px 14px; margin:10px 0; font-weight:700; color:#0d7548;
+  }
+
+  /* 縦型分数 */
+  .frac{
+    display:inline-block; vertical-align:middle;
+    text-align:center; font-size:.95em; line-height:1.1; margin:0 2px;
+  }
+  .frac .num{display:block; padding:0 4px; border-bottom:1.5px solid currentColor}
+  .frac .den{display:block; padding:0 4px}
+
+  /* テーブル（割合増減用） */
+  .ratio-table{
+    width:100%; border-collapse:collapse; margin:10px 0; font-size:14px;
+  }
+  .ratio-table th,.ratio-table td{
+    border:1px solid var(--line); padding:8px 10px; text-align:center;
+  }
+  .ratio-table th{background:#f0eef5; font-weight:700}
+  .ratio-table .boy{color:var(--boy); font-weight:700}
+  .ratio-table .girl{color:var(--girl); font-weight:700}
+  .ratio-table tr.tot{background:#fafaf5; font-weight:700}
+
+  /* スキップボタン */
+  .skip-row{
+    display:flex; justify-content:center; gap:14px; margin:20px 0;
+    flex-wrap:wrap;
+  }
+  .skip-btn{
+    padding:10px 22px; border-radius:24px; border:2px solid var(--teal);
+    background:#fff; color:var(--teal); font-size:15px; font-weight:600;
+    cursor:pointer; transition:all .15s;
+  }
+  .skip-btn:hover{background:var(--teal); color:#fff}
+
+  /* フッターナビ */
+  .footer-nav{
+    display:flex; justify-content:space-between; align-items:center;
+    margin:30px 0 20px; padding:14px 0; border-top:2px solid var(--line);
+  }
+  .footer-nav a{
+    padding:8px 18px; background:#fff; border:2px solid var(--purple);
+    color:var(--purple); border-radius:20px; text-decoration:none;
+    font-size:14px; font-weight:600;
+  }
+  .footer-nav a:hover{background:var(--purple); color:#fff}
+
+  /* チェックマーク */
+  .mark-row{display:flex; gap:8px; align-items:center; margin-top:10px}
+  .mark-btn{
+    padding:5px 14px; border-radius:14px; border:2px solid var(--line);
+    background:#fff; font-size:13px; cursor:pointer; transition:all .15s;
+  }
+  .mark-btn:hover{background:#f5f5f0}
+  .mark-btn.on-ok{background:#e3f5ec; border-color:#0d7548; color:#0d7548; font-weight:700}
+  .mark-btn.on-ng{background:#fde2e2; border-color:#b71c1c; color:#b71c1c; font-weight:700}
+  .mark-label{font-size:13px; color:#666; margin-right:4px}
+
+  /* 加減法縦書き */
+  .elim-block{
+    display:inline-block; background:#fafaf5; border:1px solid var(--line);
+    padding:10px 18px; border-radius:6px; margin:8px 0;
+    font-family:"Menlo","Consolas",monospace; font-size:15px;
+    white-space:pre; line-height:1.6;
+  }
+  .step-label{
+    color:var(--purple); font-weight:700; font-size:14px; margin-top:8px;
+    display:block;
+  }
+
+  /* 図 */
+  .ill-wrap{text-align:center; margin:14px 0}
+  .ill-wrap svg{max-width:100%; height:auto}
+
+  /* 注釈 */
+  .note{font-size:13px; color:#666; margin-top:6px}
+  .point{
+    background:#fffaee; border-left:4px solid #e0c068;
+    padding:8px 14px; margin:8px 0; border-radius:0 6px 6px 0; font-size:14px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MR7　連立方程式文章題 ⑦ 生徒数（割合・％増減）</h1>
+  <div class="sub">昨年と今年の人数比較／％の増減／お年玉問題</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="t1">例題</button>
+  <button class="tab-btn" data-tab="t2">基本演習</button>
+  <button class="tab-btn" data-tab="t3">応用演習</button>
+  <button class="tab-btn" data-tab="t4">確認問題</button>
+</nav>
+
+<main>
+
+<!-- ========== 例題 ========== -->
+<section class="panel active" id="t1">
+
+  <div class="card">
+    <div class="qhead">
+      <span class="num">例題</span>
+      <span class="ttl">男女の生徒数</span>
+    </div>
+    <div class="qtext">
+      ある中学校の昨年の生徒数は<b>男女合わせて300人</b>でした。今年は昨年と比べて<b>男子が10％増え、女子が5％減り</b>、全体では<b>15人増え</b>ました。<br>
+      昨年の男子と女子の生徒数をそれぞれ求めなさい。
+    </div>
+
+    <!-- ヒント1 -->
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：何をx, yとおく？</span>
+    <div class="hint-body">
+      <b>昨年の人数</b>をx, y とおきます。<br>
+      　・昨年の男子の人数 …… x 人<br>
+      　・昨年の女子の人数 …… y 人<br>
+      「○％増」「○％減」が出てきたら、<b>もとになる数（＝昨年）をx, y にする</b>のが鉄則です。
+    </div>
+
+    <!-- ヒント2 -->
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：式はどれ？</span>
+    <div class="hint-body">
+      正しい連立方程式はどれ？
+      <div class="choices">
+        <div class="choice" onclick="pick(this,false)"><span class="lab">A</span>x + y = 300<br>1.1x + 0.95y = 15</div>
+        <div class="choice" onclick="pick(this,true)"><span class="lab">B</span>x + y = 300<br>0.1x − 0.05y = 15</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">C</span>x + y = 315<br>0.1x − 0.05y = 15</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">D</span>x + y = 300<br>1.1x − 0.95y = 15</div>
+      </div>
+      <div class="point" style="margin-top:10px">
+        ポイント：増減<b>「だけ」</b>を表すなら係数は<b>0.1や−0.05</b>。<br>
+        今年の<b>合計人数</b>を表すなら係数は<b>1.1や0.95</b>になります。
+      </div>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+
+      <span class="step-label">【ステップ1】文字でおく】</span>
+      <div class="eq-block">
+        昨年の男子の人数を x 人、昨年の女子の人数を y 人 とおく。
+      </div>
+
+      <span class="step-label">【ステップ2】表で整理】</span>
+      <table class="ratio-table">
+        <tr><th></th><th class="boy">男子</th><th class="girl">女子</th><th>合計</th></tr>
+        <tr><th>昨年</th><td class="boy">x</td><td class="girl">y</td><td>300</td></tr>
+        <tr><th>増減</th><td class="boy">+10％<br>= +0.1x</td><td class="girl">−5％<br>= −0.05y</td><td>+15</td></tr>
+      </table>
+
+      <span class="step-label">【ステップ3】連立方程式をつくる】</span>
+      <div class="eq-block">
+        <b>合計：</b>　x + y = 300 　……①<br>
+        <b>増減：</b>　0.1x − 0.05y = 15 　……②
+      </div>
+
+      <span class="step-label">【ステップ4】②の両辺×100で整数化】</span>
+      <div class="calc-block">  0.1x −  0.05y =   15   ……②
+            ↓ 両辺×100
+   10x −   5y = 1500   ……②'</div>
+
+      <span class="step-label">【ステップ5】加減法（①×5＋②'）】</span>
+      <div class="elim-block">    ①×5)　 5x +  5y = 1500
+   ②')   10x −  5y = 1500
+─────────────────────
+         15x       = 3000
+              x    = 200</div>
+
+      <span class="step-label">【ステップ6】①に代入】</span>
+      <div class="calc-block">  200 + y = 300
+        y = 100</div>
+
+      <div class="conclusion">
+        ✅ 答え　昨年の男子 <b>200人</b>、昨年の女子 <b>100人</b>
+      </div>
+
+      <div class="point" style="margin-top:10px">
+        ✏️ <b>検算</b>：男子 200×1.1 = 220人、女子 100×0.95 = 95人、合計 315人 → 昨年比 +15人 ✓
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="skip-row">
+    <button class="skip-btn" onclick="switchTab('t2')">▶ 基本演習へ進む</button>
+  </div>
+</section>
+
+<!-- ========== 基本演習 ========== -->
+<section class="panel" id="t2">
+
+  <!-- 基本1 -->
+  <div class="card">
+    <div class="qhead">
+      <span class="num">基本①</span>
+      <span class="ttl">男女の人数（％増減）</span>
+      <span class="diff diff-2">★★</span>
+    </div>
+    <div class="qtext">
+      ある中学校の昨年の生徒数は<b>男女合わせて250人</b>でした。今年は昨年と比べて<b>男子が6％増え、女子が4％減り</b>、全体では<b>5人増え</b>ました。<br>
+      昨年の男子と女子の人数をそれぞれ求めなさい。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：何をx, yとおく？</span>
+    <div class="hint-body">
+      昨年の男子＝x 人、昨年の女子＝y 人 とおきましょう。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：式はどれ？</span>
+    <div class="hint-body">
+      <div class="choices">
+        <div class="choice" onclick="pick(this,false)"><span class="lab">A</span>x + y = 250<br>1.06x + 0.96y = 255</div>
+        <div class="choice" onclick="pick(this,true)"><span class="lab">B</span>x + y = 250<br>0.06x − 0.04y = 5</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">C</span>x + y = 255<br>0.06x − 0.04y = 5</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">D</span>x + y = 250<br>0.06x + 0.04y = 5</div>
+      </div>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+      <span class="step-label">【式】</span>
+      <div class="eq-block">
+        昨年の男子 x 人、昨年の女子 y 人 とおく。<br>
+        x + y = 250 　……①<br>
+        0.06x − 0.04y = 5 　……②
+      </div>
+
+      <span class="step-label">【②の両辺×100】</span>
+      <div class="calc-block">  6x −  4y = 500   ……②'</div>
+
+      <span class="step-label">【加減法（①×4＋②'）】</span>
+      <div class="elim-block">    ①×4)　 4x +  4y = 1000
+   ②')    6x −  4y =  500
+────────────────────
+          10x      = 1500
+                x  =  150</div>
+
+      <span class="step-label">【①に代入】</span>
+      <div class="calc-block">  150 + y = 250
+        y = 100</div>
+
+      <div class="conclusion">
+        ✅ 答え　昨年の男子 <b>150人</b>、昨年の女子 <b>100人</b>
+      </div>
+
+      <div class="point">
+        検算：男子 150×1.06 = 159、女子 100×0.96 = 96、合計 255 → +5人 ✓
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 基本2 -->
+  <div class="card">
+    <div class="qhead">
+      <span class="num">基本②</span>
+      <span class="ttl">お年玉問題</span>
+      <span class="src">〈桐朋高〉</span>
+      <span class="diff diff-3">★★★</span>
+    </div>
+    <div class="qtext">
+      兄と弟がもらったお年玉の合計は、昨年は<b>35000円</b>でした。今年は昨年に比べて、<b>兄は10％増え、弟は15％増えて</b>、合計で<b>4300円多く</b>もらいました。<br>
+      <b>今年</b>の兄と弟のお年玉はそれぞれいくらか求めなさい。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：何をx, yとおく？</span>
+    <div class="hint-body">
+      聞かれているのは「今年」ですが、x, y には<b>もとになる「昨年」</b>をおくのが楽です。<br>
+      　・昨年の兄のお年玉 …… x 円<br>
+      　・昨年の弟のお年玉 …… y 円<br>
+      ※答えるときに「×1.1」「×1.15」で今年に直すのを忘れずに！
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：式はどれ？</span>
+    <div class="hint-body">
+      <div class="choices">
+        <div class="choice" onclick="pick(this,false)"><span class="lab">A</span>x + y = 35000<br>1.1x + 1.15y = 4300</div>
+        <div class="choice" onclick="pick(this,true)"><span class="lab">B</span>x + y = 35000<br>0.1x + 0.15y = 4300</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">C</span>x + y = 39300<br>0.1x + 0.15y = 4300</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">D</span>x + y = 35000<br>0.1x − 0.15y = 4300</div>
+      </div>
+      <div class="point" style="margin-top:10px">
+        どちらも「増えた」ので、増減は <b>＋（プラス）</b>同士になります。
+      </div>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+      <span class="step-label">【ステップ1】文字でおく】</span>
+      <div class="eq-block">
+        昨年の兄のお年玉 x 円、昨年の弟のお年玉 y 円 とおく。
+      </div>
+
+      <span class="step-label">【ステップ2】表で整理】</span>
+      <table class="ratio-table">
+        <tr><th></th><th class="boy">兄</th><th class="girl">弟</th><th>合計</th></tr>
+        <tr><th>昨年</th><td class="boy">x</td><td class="girl">y</td><td>35000</td></tr>
+        <tr><th>増減</th><td class="boy">+10％<br>= +0.1x</td><td class="girl">+15％<br>= +0.15y</td><td>+4300</td></tr>
+      </table>
+
+      <span class="step-label">【ステップ3】連立方程式】</span>
+      <div class="eq-block">
+        x + y = 35000 　……①<br>
+        0.1x + 0.15y = 4300 　……②
+      </div>
+
+      <span class="step-label">【ステップ4】②の両辺×100】</span>
+      <div class="calc-block">  10x + 15y = 430000   ……②'</div>
+
+      <span class="step-label">【ステップ5】加減法（①×10 − ②'）】</span>
+      <div class="elim-block">    ①×10)　10x + 10y = 350000
+   ②')   10x + 15y = 430000
+─────────────────────────
+   ①×10−②')   −5y = −80000
+                y  = 16000</div>
+
+      <span class="step-label">【ステップ6】①に代入】</span>
+      <div class="calc-block">  x + 16000 = 35000
+            x = 19000</div>
+
+      <span class="step-label">【ステップ7】「今年」に直す】</span>
+      <div class="calc-block">  兄（今年）= 19000 × 1.1  = 20900 円
+  弟（今年）= 16000 × 1.15 = 18400 円</div>
+
+      <div class="conclusion">
+        ✅ 答え　今年の兄 <b>20900円</b>、今年の弟 <b>18400円</b>
+      </div>
+
+      <div class="point">
+        検算：合計 20900 + 18400 = 39300円 → 35000 + 4300 = 39300円 ✓
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="skip-row">
+    <button class="skip-btn" onclick="switchTab('t3')">▶ 応用演習へ進む</button>
+    <button class="skip-btn" onclick="switchTab('t4')">⏭ 応用をスキップして確認問題へ</button>
+  </div>
+</section>
+
+<!-- ========== 応用演習 ========== -->
+<section class="panel" id="t3">
+
+  <!-- 応用1 -->
+  <div class="card">
+    <div class="qhead">
+      <span class="num">応用①</span>
+      <span class="ttl">自転車通学者</span>
+      <span class="src">〈佐賀〉</span>
+      <span class="diff diff-3">★★★</span>
+    </div>
+    <div class="qtext">
+      ある中学校で自転車通学をしている生徒は、<b>今年は510人</b>で、昨年と比べると<b>20人増え</b>ました。これを男女別に見ると、昨年と比べて<b>男子は10％減り、女子は20％増え</b>ました。<br>
+      <b>今年</b>の男子と女子の自転車通学者の人数をそれぞれ求めなさい。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：何をx, yとおく？</span>
+    <div class="hint-body">
+      ・昨年の男子＝x 人、昨年の女子＝y 人 とおく。<br>
+      ・昨年の合計は <b>510 − 20 = 490人</b>。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：式はどれ？</span>
+    <div class="hint-body">
+      <div class="choices">
+        <div class="choice" onclick="pick(this,false)"><span class="lab">A</span>x + y = 510<br>−0.1x + 0.2y = 20</div>
+        <div class="choice" onclick="pick(this,true)"><span class="lab">B</span>x + y = 490<br>−0.1x + 0.2y = 20</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">C</span>x + y = 490<br>0.9x + 1.2y = 510</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">D</span>x + y = 510<br>0.9x + 1.2y = 20</div>
+      </div>
+      <div class="point" style="margin-top:10px">
+        Cも実は正解だけど、Bの方が計算がラク。「合計＝もとの数」「増減＝増減」で式を立てると間違えにくいよ。
+      </div>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+      <span class="step-label">【ステップ1】文字でおく】</span>
+      <div class="eq-block">
+        昨年の男子 x 人、昨年の女子 y 人 とおく。
+      </div>
+
+      <span class="step-label">【ステップ2】表で整理】</span>
+      <table class="ratio-table">
+        <tr><th></th><th class="boy">男子</th><th class="girl">女子</th><th>合計</th></tr>
+        <tr><th>昨年</th><td class="boy">x</td><td class="girl">y</td><td>490</td></tr>
+        <tr><th>増減</th><td class="boy">−10％<br>= −0.1x</td><td class="girl">+20％<br>= +0.2y</td><td>+20</td></tr>
+      </table>
+
+      <span class="step-label">【ステップ3】連立方程式】</span>
+      <div class="eq-block">
+        x + y = 490 　……①<br>
+        −0.1x + 0.2y = 20 　……②
+      </div>
+
+      <span class="step-label">【ステップ4】②の両辺×10】</span>
+      <div class="calc-block">  −x + 2y = 200   ……②'</div>
+
+      <span class="step-label">【ステップ5】加減法（①＋②'）】</span>
+      <div class="elim-block">    ①)　  x +  y = 490
+   ②')  −x + 2y = 200
+─────────────────
+          3y = 690
+           y = 230</div>
+
+      <span class="step-label">【ステップ6】①に代入】</span>
+      <div class="calc-block">  x + 230 = 490
+        x = 260</div>
+
+      <span class="step-label">【ステップ7】「今年」に直す】</span>
+      <div class="calc-block">  男子（今年）= 260 × 0.9 = 234 人
+  女子（今年）= 230 × 1.2 = 276 人</div>
+
+      <div class="conclusion">
+        ✅ 答え　今年の男子 <b>234人</b>、今年の女子 <b>276人</b>
+      </div>
+
+      <div class="point">
+        検算：234 + 276 = 510人 ✓
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 応用2 -->
+  <div class="card">
+    <div class="qhead">
+      <span class="num">応用②</span>
+      <span class="ttl">今年度入学者</span>
+      <span class="src">〈栃木〉</span>
+      <span class="diff diff-4">★★★★</span>
+    </div>
+    <div class="qtext">
+      ある学校の今年度の入学者は<b>男女合わせて279人</b>で、昨年度より<b>4人増え</b>ました。これを男女別に見ると、昨年度より<b>男子は6％増え、女子は4％減って</b>います。<br>
+      <b>今年度</b>の男子と女子の入学者の人数をそれぞれ求めなさい。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：何をx, yとおく？</span>
+    <div class="hint-body">
+      ・昨年度の男子＝x 人、昨年度の女子＝y 人 とおく。<br>
+      ・昨年度の合計は <b>279 − 4 = 275人</b>。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：式はどれ？</span>
+    <div class="hint-body">
+      <div class="choices">
+        <div class="choice" onclick="pick(this,false)"><span class="lab">A</span>x + y = 279<br>0.06x − 0.04y = 4</div>
+        <div class="choice" onclick="pick(this,true)"><span class="lab">B</span>x + y = 275<br>0.06x − 0.04y = 4</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">C</span>x + y = 275<br>1.06x − 0.96y = 4</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">D</span>x + y = 275<br>0.06x + 0.04y = 4</div>
+      </div>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+      <span class="step-label">【ステップ1】文字でおく】</span>
+      <div class="eq-block">
+        昨年度の男子 x 人、昨年度の女子 y 人 とおく。
+      </div>
+
+      <span class="step-label">【ステップ2】表で整理】</span>
+      <table class="ratio-table">
+        <tr><th></th><th class="boy">男子</th><th class="girl">女子</th><th>合計</th></tr>
+        <tr><th>昨年度</th><td class="boy">x</td><td class="girl">y</td><td>275</td></tr>
+        <tr><th>増減</th><td class="boy">+6％<br>= +0.06x</td><td class="girl">−4％<br>= −0.04y</td><td>+4</td></tr>
+      </table>
+
+      <span class="step-label">【ステップ3】連立方程式】</span>
+      <div class="eq-block">
+        x + y = 275 　……①<br>
+        0.06x − 0.04y = 4 　……②
+      </div>
+
+      <span class="step-label">【ステップ4】②の両辺×100】</span>
+      <div class="calc-block">  6x − 4y = 400   ……②'</div>
+
+      <span class="step-label">【ステップ5】加減法（①×4＋②'）】</span>
+      <div class="elim-block">    ①×4)　 4x + 4y = 1100
+   ②')    6x − 4y =  400
+─────────────────────
+          10x     = 1500
+                x =  150</div>
+
+      <span class="step-label">【ステップ6】①に代入】</span>
+      <div class="calc-block">  150 + y = 275
+        y = 125</div>
+
+      <span class="step-label">【ステップ7】「今年度」に直す】</span>
+      <div class="calc-block">  男子（今年度）= 150 × 1.06 = 159 人
+  女子（今年度）= 125 × 0.96 = 120 人</div>
+
+      <div class="conclusion">
+        ✅ 答え　今年度の男子 <b>159人</b>、今年度の女子 <b>120人</b>
+      </div>
+
+      <div class="point">
+        検算：159 + 120 = 279人 ✓
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="skip-row">
+    <button class="skip-btn" onclick="switchTab('t4')">▶ 確認問題へ進む</button>
+  </div>
+</section>
+
+<!-- ========== 確認問題 ========== -->
+<section class="panel" id="t4">
+
+  <!-- 確認 -->
+  <div class="card">
+    <div class="qhead">
+      <span class="num">確認</span>
+      <span class="ttl">男女の生徒数（％増減）</span>
+      <span class="diff diff-4">★★★★</span>
+    </div>
+    <div class="qtext">
+      ある中学校の昨年の生徒数は<b>男女合わせて500人</b>でした。今年は昨年と比べて<b>男子が4％増え、女子が2％減り</b>、全体では<b>11人増え</b>ました。<br>
+      <b>今年</b>の男子と女子の生徒数をそれぞれ求めなさい。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：何をx, yとおく？</span>
+    <div class="hint-body">
+      昨年の男子＝x 人、昨年の女子＝y 人 とおく。<br>
+      最後に「今年」に直すのを忘れずに！
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：式はどれ？</span>
+    <div class="hint-body">
+      <div class="choices">
+        <div class="choice" onclick="pick(this,false)"><span class="lab">A</span>x + y = 500<br>1.04x − 0.98y = 11</div>
+        <div class="choice" onclick="pick(this,true)"><span class="lab">B</span>x + y = 500<br>0.04x − 0.02y = 11</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">C</span>x + y = 511<br>0.04x − 0.02y = 11</div>
+        <div class="choice" onclick="pick(this,false)"><span class="lab">D</span>x + y = 500<br>0.04x + 0.02y = 11</div>
+      </div>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+      <span class="step-label">【式】</span>
+      <div class="eq-block">
+        昨年の男子 x 人、昨年の女子 y 人 とおく。<br>
+        x + y = 500 　……①<br>
+        0.04x − 0.02y = 11 　……②
+      </div>
+
+      <span class="step-label">【②の両辺×100】</span>
+      <div class="calc-block">  4x − 2y = 1100   ……②'</div>
+
+      <span class="step-label">【加減法（①×2＋②'）】</span>
+      <div class="elim-block">    ①×2)　 2x + 2y = 1000
+   ②')    4x − 2y = 1100
+─────────────────────
+          6x      = 2100
+                x =  350</div>
+
+      <span class="step-label">【①に代入】</span>
+      <div class="calc-block">  350 + y = 500
+        y = 150</div>
+
+      <span class="step-label">【「今年」に直す】</span>
+      <div class="calc-block">  男子（今年）= 350 × 1.04 = 364 人
+  女子（今年）= 150 × 0.98 = 147 人</div>
+
+      <div class="conclusion">
+        ✅ 答え　今年の男子 <b>364人</b>、今年の女子 <b>147人</b>
+      </div>
+
+      <div class="point">
+        検算：364 + 147 = 511人 → 500 + 11 = 511人 ✓
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- チャレンジ★ -->
+  <div class="card" style="border:2px solid #b71c1c; background:#fffaf7">
+    <div class="qhead">
+      <span class="num" style="background:#b71c1c">★挑戦</span>
+      <span class="ttl">男子の方が少ない？多い？</span>
+      <span class="src">〈愛知〉</span>
+      <span class="diff diff-5">★★★★★</span>
+    </div>
+    <div class="qtext">
+      ある中学校の昨年の男子の人数は、<b>女子よりも10人少なかった</b>。今年は昨年と比べて、<b>男子は5％増え、女子は4％減ったところ、男子の人数の方が女子よりも3人多くなった</b>。<br>
+      昨年の男子と女子の人数をそれぞれ求めなさい。
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント1：x, yの関係</span>
+    <div class="hint-body">
+      ・昨年の男子＝x 人、昨年の女子＝y 人 とおく。<br>
+      ・「男子は女子より10人少ない」 → <b>x = y − 10</b>（または x + 10 = y）
+    </div>
+
+    <span class="hint-toggle" onclick="toggleHint(this)">💡 ヒント2：もうひとつの式</span>
+    <div class="hint-body">
+      今年の人数で比べる：<br>
+      　・今年の男子 = 1.05x 人<br>
+      　・今年の女子 = 0.96y 人<br>
+      「男子が女子より3人多い」 → <b>1.05x − 0.96y = 3</b>
+    </div>
+
+    <button class="ans-toggle" onclick="toggleAns(this)">▼ 解答・解き方を見る</button>
+    <div class="ans-body">
+      <span class="step-label">【ステップ1】文字でおく】</span>
+      <div class="eq-block">
+        昨年の男子 x 人、昨年の女子 y 人 とおく。
+      </div>
+
+      <span class="step-label">【ステップ2】連立方程式】</span>
+      <div class="eq-block">
+        <b>昨年の関係：</b>　x = y − 10 　……①<br>
+        <b>今年の関係：</b>　1.05x − 0.96y = 3 　……②
+      </div>
+
+      <span class="step-label">【ステップ3】②の両辺×100】</span>
+      <div class="calc-block">  105x − 96y = 300   ……②'</div>
+
+      <span class="step-label">【ステップ4】①を②'に代入（代入法）】</span>
+      <div class="calc-block">  105(y − 10) − 96y = 300
+   105y − 1050 − 96y = 300
+                  9y = 1350
+                   y = 150</div>
+
+      <span class="step-label">【ステップ5】①に代入】</span>
+      <div class="calc-block">  x = 150 − 10 = 140</div>
+
+      <div class="conclusion">
+        ✅ 答え　昨年の男子 <b>140人</b>、昨年の女子 <b>150人</b>
+      </div>
+
+      <div class="point">
+        検算：今年の男子 140×1.05 = 147人、今年の女子 150×0.96 = 144人 → 147 − 144 = 3人多い ✓
+      </div>
+
+      <div class="point" style="background:#fde2e2; border-left-color:#b71c1c">
+        💡 <b>この問題のポイント</b>：「合計」が出てこないので、<br>
+        ① 昨年の関係（x と y の関係）<br>
+        ② 今年の関係（1.05x と 0.96y の関係）<br>
+        の2本で式を作るのがコツ。代入法がスマート！
+      </div>
+
+      <div class="mark-row">
+        <span class="mark-label">自己採点：</span>
+        <button class="mark-btn" onclick="setMark(this,'ok')">○ できた</button>
+        <button class="mark-btn" onclick="setMark(this,'ng')">× 難しかった</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="background:#f0eef5; text-align:center">
+    <div style="font-size:18px; font-weight:700; color:var(--purple); margin-bottom:8px">
+      🎉 MR7「生徒数（割合・％増減）」おつかれさま！
+    </div>
+    <div style="font-size:14px; color:#555">
+      ％増減は<b>「もとの数をx, yにおく」</b>のがコツ。<br>
+      答えを「今年」で聞かれているか「昨年」で聞かれているか、最後にもう一度確認しよう！
+    </div>
+  </div>
+
+</section>
+
+<!-- フッターナビ -->
+<div class="footer-nav" style="max-width:880px; margin:30px auto 20px; padding:14px 20px">
+  <a href="MR6.html">◀ MR6 食塩水へ</a>
+  <a href="index.html">📚 単元一覧へ</a>
+</div>
+
+</main>
+
+<script>
+  // タブ切替
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+  function switchTab(id){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab===id));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id===id));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // ヒント開閉
+  function toggleHint(el){
+    el.classList.toggle('on');
+    const body = el.nextElementSibling;
+    body.classList.toggle('open');
+  }
+
+  // 4択判定
+  function pick(el, isCorrect){
+    const parent = el.parentElement;
+    parent.querySelectorAll('.choice').forEach(c => {
+      c.classList.remove('correct','wrong');
+      c.style.pointerEvents = 'none';
+    });
+    if(isCorrect){
+      el.classList.add('correct');
+    } else {
+      el.classList.add('wrong');
+      // 正解を表示
+      parent.querySelectorAll('.choice').forEach(c => {
+        if(c.getAttribute('onclick').includes('true')){
+          c.classList.add('correct');
+        }
+      });
+    }
+    // リセットボタンを追加
+    setTimeout(() => {
+      parent.querySelectorAll('.choice').forEach(c => c.style.pointerEvents = '');
+      parent.querySelectorAll('.choice').forEach(c => c.classList.remove('correct','wrong'));
+    }, 3500);
+  }
+
+  // 解答開閉
+  function toggleAns(btn){
+    const body = btn.nextElementSibling;
+    body.classList.toggle('open');
+    btn.textContent = body.classList.contains('open') ? '▲ 解答を閉じる' : '▼ 解答・解き方を見る';
+  }
+
+  // 自己採点マーク
+  function setMark(btn, type){
+    const row = btn.parentElement;
+    row.querySelectorAll('.mark-btn').forEach(b => {
+      b.classList.remove('on-ok','on-ng');
+    });
+    btn.classList.add(type==='ok' ? 'on-ok' : 'on-ng');
+  }
+</script>
+
+</body>
+</html>
