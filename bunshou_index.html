@@ -120,7 +120,7 @@ canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;display:none
     <div class="sum-item"><span class="sum-dot sum-dot-a"></span>A わかった <span class="sum-count" id="cnt-a">0</span> 単元</div>
     <div class="sum-item"><span class="sum-dot sum-dot-b"></span>B 要復習 <span class="sum-count" id="cnt-b">0</span> 単元</div>
     <div class="sum-item"><span class="sum-dot sum-dot-c"></span>C 何度も復習 <span class="sum-count" id="cnt-c">0</span> 単元</div>
-    <div class="sum-item"><span class="sum-dot sum-dot-n"></span>未実施 <span class="sum-count" id="cnt-n">26</span> 単元</div>
+    <div class="sum-item"><span class="sum-dot sum-dot-n"></span>未実施 <span class="sum-count" id="cnt-n">27</span> 単元</div>
   </div>
 </div>
 
@@ -343,10 +343,11 @@ canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;display:none
           <div class="sc-body" style="padding-top:0"><div class="sc-btn-row"><a class="sc-btn sc-btn-learn" href="MR6.html">学習を始める</a></div></div>
           <div class="abc-row"><button class="abc-btn abc-btn-a" onclick="setABC('MR6','a',this)">A OK</button><button class="abc-btn abc-btn-b" onclick="setABC('MR6','b',this)">B 要復習</button><button class="abc-btn abc-btn-c" onclick="setABC('MR6','c',this)">C 何度も</button></div>
         </div>
-        <div class="sec-card grade-2 coming-soon">
-          <div class="sc-hd"><span class="sc-num">MR-7</span><span class="sc-title">生徒数（割合）</span><span class="sc-stars">★★★★</span></div>
-          <div class="sc-body"><ul class="sc-topics"><li>％増減の問題</li><li>男女別の人数</li><li>準備中</li></ul></div>
-          <div class="sc-body" style="padding-top:0"><div class="sc-btn-row"><span class="sc-btn sc-btn-soon">準備中</span></div></div>
+        <div class="sec-card grade-2" data-id="MR7">
+          <a href="MR7.html"><div class="sc-hd"><span class="sc-num">MR-7</span><span class="sc-title">生徒数の増減</span><span class="sc-stars">★★★★</span></div>
+          <div class="sc-body"><ul class="sc-topics"><li>増加率・減少率</li><li>パーセントの計算</li><li>複数年の変化</li></ul></div></a>
+          <div class="sc-body" style="padding-top:0"><div class="sc-btn-row"><a class="sc-btn sc-btn-learn" href="MR7.html">学習を始める</a></div></div>
+          <div class="abc-row"><button class="abc-btn abc-btn-a" onclick="setABC('MR7','a',this)">A OK</button><button class="abc-btn abc-btn-b" onclick="setABC('MR7','b',this)">B 要復習</button><button class="abc-btn abc-btn-c" onclick="setABC('MR7','c',this)">C 何度も</button></div>
         </div>
         <div class="sec-card grade-2" data-id="MR8">
           <a href="MR8.html"><div class="sc-hd"><span class="sc-num">MR-8</span><span class="sc-title">整数問題</span><span class="sc-stars">★★★★</span></div>
@@ -407,7 +408,7 @@ canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;display:none
 <script>
 var STORAGE_KEY = 'gamba_bunshou_status_v1';
 var status = {};
-var activeIds = ['ME1','ME2','ME2-0','ME2-1','ME2-2','ME2-3','ME3','ME4','ME5','ME6','ME6-1','ME6-2','ME7','ME8','ME9-1','ME9-2','ME9-3','ME9-4','ME10','MR1','MR2','MR3','MR4','MR5','MR6','MR8'];
+var activeIds = ['ME1','ME2','ME2-0','ME2-1','ME2-2','ME2-3','ME3','ME4','ME5','ME6','ME6-1','ME6-2','ME7','ME8','ME9-1','ME9-2','ME9-3','ME9-4','ME10','MR1','MR2','MR3','MR4','MR5','MR6','MR7','MR8'];
 
 try {
   var saved = localStorage.getItem(STORAGE_KEY);
